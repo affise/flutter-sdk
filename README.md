@@ -93,7 +93,6 @@ android {
 }
 ```
 
-
 For a minimal working functionality your app needs to declare internet permission:
 
 ```xml
@@ -101,6 +100,10 @@ For a minimal working functionality your app needs to declare internet permissio
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
 ```
+
+OAID certificate in your project
+`example/android/app/src/assets/oaid.cert.pem`
+
 
 # Features
 
