@@ -1,6 +1,6 @@
 name: affise_attribution_lib
 description: Affise Attribution Flutter plugin.
-version: 0.5.0
+version: 1.0.0
 homepage: https://affise.com/
 
 environment:
@@ -36,6 +36,8 @@ flutter:
     platforms:
       android:
         package: com.affise.attribution.affise_attribution_lib
+        pluginClass: AffiseAttributionLibPlugin
+      ios:
         pluginClass: AffiseAttributionLibPlugin
 
   # To add assets to your plugin package, add an assets section, like this:

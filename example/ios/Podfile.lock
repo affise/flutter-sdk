@@ -1,0 +1,28 @@
+PODS:
+  - affise_attribution_lib (1.0.0):
+    - AffiseAttributionLib (~> 1.0.3)
+    - Flutter
+  - AffiseAttributionLib (1.0.3)
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - affise_attribution_lib (from `.symlinks/plugins/affise_attribution_lib/ios`)
+  - AffiseAttributionLib (from `/Users/admin/Desktop/dev/ios-sdk`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  affise_attribution_lib:
+    :path: ".symlinks/plugins/affise_attribution_lib/ios"
+  AffiseAttributionLib:
+    :path: "/Users/admin/Desktop/dev/ios-sdk"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  affise_attribution_lib: 96729a139c7146150b5d3f8e4fb4887566e5184c
+  AffiseAttributionLib: 1284588d83f8e97425598d70d9635625205337bf
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+
+PODFILE CHECKSUM: 10c44b4d71e0ce4343bc2197694eb71b59ce6c17
+
+COCOAPODS: 1.11.3

@@ -7,6 +7,7 @@
     - [Initialize](#initialize)
     - [Requirements](#requirements)
       - [Android](#android)
+      - [iOS](#ios)
 - [Features](#features)
     - [Device identifiers collection](#device-identifiers-collection)
     - [Events tracking](#events-tracking)
@@ -20,6 +21,8 @@
     - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
     - [APK preinstall tracking](#apk-preinstall-tracking)
     - [Deeplinks](#deeplinks)
+      - [Android](#android)
+      - [iOS](#ios)
     - [Offline mode](#offline-mode)
     - [Disable tracking](#disable-tracking)
     - [Disable background tracking](#disable-background-tracking)
@@ -103,6 +106,15 @@ For a minimal working functionality your app needs to declare internet permissio
 
 OAID certificate in your project
 `example/android/app/src/assets/oaid.cert.pem`
+
+#### iOS
+
+Add key `NSUserTrackingUsageDescription` to `Info.plist` as in `example/ios/Runner/Info.plist`
+
+```html
+<key>NSUserTrackingUsageDescription</key>
+<string>This identifier will be used for tracking.</string>
+```
 
 
 # Features
@@ -402,13 +414,35 @@ After you have done with firebase inegration, add to your cloud messaging servic
 ```dart
 import 'package:affise_attribution_lib/affise.dart';
 
-class FirebaseCloudMessagingService extends FirebaseMessagingService {
-    @override
-    void onNewToken(String token) {
-        Affise.addPushToken(token);
-    }
+void saveToken(String token) {
+  Affise.addPushToken(token);
+}
+
+class _Application extends State<Application> {
+  String _token;
+
+  Future<void> setupToken() async {
+    // Get the token each time the application loads
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    // Any time the token refreshes, store this in the database too.
+    FirebaseMessaging.instance.onTokenRefresh.listen(saveToken);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setupToken();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text("...");
+  }
 }
 ```
+
 ### Reinstall Uninstall tracking
 
 Affise automaticly track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
@@ -423,6 +457,28 @@ To use this feature, create file with name `partner_key` in your app assets dire
 
 ### Deeplinks
 
+- register applink callback right after Affise.init(..)
+
+```dart
+bool deeplinkCallback(Uri uri) {
+  String? screen = uri.queryParameters["screen"];
+  if(screen == "special_offer") {
+    // open special offer
+  } else {
+    // open another
+  }
+  // return true if deeplink is handled successfully
+  return true;
+}
+
+void init() {
+  Affise.init(..);
+  Affise.registerDeeplinkCallback((uri) => deeplinkCallback(uri));
+}
+```
+
+#### Android
+
 To integrate applink support in android you need:
 
 - add intent filter to one of your activities, replacing YOUR_AFFISE_APP_ID with id from your affise personal cabinet
@@ -436,23 +492,29 @@ To integrate applink support in android you need:
   <data android:host="YOUR_AFFISE_APP_ID.affattr.com" />
 </intent-filter>
 ```
-- register applink callback right after Affise.init(..)
 
-```dart
-bool deeplinkCallback(Uri uri) {
-  String screen = uri.getQueryParameter("screen");
-  if(screen == "special_offer") {
-    // open special offer activity
-  } else {
-    // open another activity
+#### iOS
+
+To integrate applink support You can find out how to set up deeplinks in the official documentation.
+
+- pass `launchOptions` to flutter plugin
+```swift
+AffiseAttributionLibPlugin.setLaunchOptions(launchOptions)
+```
+
+```swift
+import affise_attribution_lib
+
+@UIApplicationMain
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    AffiseAttributionLibPlugin.setLaunchOptions(launchOptions)
+    GeneratedPluginRegistrant.register(with: self)
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-  // return true if deeplink is handled successfully
-  return true;
-}
-
-void init() {
-  Affise.init(..);
-  Affise.registerDeeplinkCallback((uri) => deeplinkCallback(uri));
 }
 ```
 

@@ -85,7 +85,7 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   @override
   void registerDeeplinkCallback(OnDeeplinkCallback callback) {
     _onDeeplinkCallback = callback;
-    methodChannel.invokeMethod(AFFISE_REGISTER_DEEPLINK_CALLBACK, callback);
+    methodChannel.invokeMethod(AFFISE_REGISTER_DEEPLINK_CALLBACK);
   }
 
   /// Set new [secretId]

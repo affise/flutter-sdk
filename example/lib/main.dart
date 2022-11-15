@@ -38,20 +38,23 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Affise example app'),
         ),
         body: Center(
           child: ElevatedButton(
             onPressed: () {
               Map<String, dynamic> items = {
-                "items": "cookies, potato, milk",
+                "items": "cookies",
               };
 
               AddToCartEvent event = AddToCartEvent(
                 addToCartObject: items,
                 timeStampMillis: DateTime.now().millisecondsSinceEpoch,
               );
-
+              event.addPredefinedParameter(
+                PredefinedParameters.DESCRIPTION,
+                "best before 2029",
+              );
               Affise.sendEvent(event);
             },
             child: const Text("AddToCart"),
