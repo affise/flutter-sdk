@@ -1,8 +1,9 @@
 # Affise Attribution Flutter library
 
+- [Affise Attribution Flutter library](#affise-attribution-flutter-library)
 - [Description](#description)
-- [Quick start](#quick-start)
-- [Integration](#integration)
+  - [Quick start](#quick-start)
+  - [Integration](#integration)
     - [Integrate as dependency](#integrate-as-dependency)
     - [Initialize](#initialize)
     - [Requirements](#requirements)
@@ -14,22 +15,21 @@
     - [Custom events tracking](#custom-events-tracking)
     - [Predefined event parameters](#predefined-event-parameters)
     - [Events buffering](#events-buffering)
-    - [Install referrer tracking](#install-referrer-tracking)
     - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
     - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
+    - [Install referrer tracking](#install-referrer-tracking)
     - [Push token tracking](#push-token-tracking)
     - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
     - [APK preinstall tracking](#apk-preinstall-tracking)
     - [Deeplinks](#deeplinks)
-      - [Android](#android)
-      - [iOS](#ios)
+      - [Android](#android-1)
+      - [iOS](#ios-1)
     - [Offline mode](#offline-mode)
     - [Disable tracking](#disable-tracking)
     - [Disable background tracking](#disable-background-tracking)
     - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
     - [Get referrer](#get-referrer)
-- [Requirements](#requirements)
-- [Licence](#licence)
+  - [Licence](#licence)
 
 # Description
 
@@ -48,7 +48,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  affise_attribution:
+  affise_attribution_lib:
     git:
       url: git://github.com/affise/flutter-sdk.git
 ```
@@ -70,11 +70,11 @@ class _MyAppState extends State<MyApp> {
 
     AffiseInitProperties properties = AffiseInitProperties(
       affiseAppId: "Your appId", //Change to your app id
-      partParamName: "Your partParamName", //Change to your partParamName
-      partParamNameToken: "Your partParamNameToken", //Change to your partParamNameToken
-      appToken: "Your appToken", //Change to your appToken
       isProduction: kReleaseMode, //Add your custom rule to determine if this is a production build
       secretId: "Your secretId", //Change to your appToken
+      partParamName: null, //Change to your partParamName
+      partParamNameToken: null, //Change to your partParamNameToken
+      appToken: null, //Change to your appToken
     );
     
     Affise.init(properties);
@@ -253,6 +253,7 @@ With above example you can implement other events:
 - `RateEvent`
 - `ReEngageEvent`
 - `ReserveEvent`
+- `SalesEvent`
 - `SearchEvent`
 - `ShareEvent`
 - `SpendCreditsEvent`

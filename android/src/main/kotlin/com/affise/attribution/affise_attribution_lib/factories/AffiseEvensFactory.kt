@@ -44,6 +44,7 @@ class AffiseEvensFactory : AffiseBaseEvensFactory() {
             "Rate" -> eventRateEvent(map)
             "ReEngage" -> eventReEngageEvent(map)
             "Reserve" -> eventReserveEvent(map)
+            "Sales" -> eventSalesEvent(map)
             "Search" -> eventSearchEvent(map)
             "Share" -> eventShareEvent(map)
             "SpendCredits" -> eventSpendCreditsEvent(map)
@@ -551,6 +552,22 @@ class AffiseEvensFactory : AffiseBaseEvensFactory() {
 
         return ReserveEvent(
             reserve,
+            timeStamp,
+            userData,
+        ).apply {
+            addPredefinedParameters(this, map)
+        }
+    }
+
+    private fun eventSalesEvent(map: Map<*, *>): SalesEvent {
+        val (timeStamp, userData) = getUserDataAndTimeStamp(
+            map,
+            "affise_event_sales_timestamp"
+        )
+        val salesData = getJSONObject(map, "affise_event_sales")        
+
+        return SalesEvent(
+            salesData,
             timeStamp,
             userData,
         ).apply {

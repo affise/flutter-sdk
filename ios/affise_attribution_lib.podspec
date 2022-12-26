@@ -11,7 +11,7 @@ Affise Attribution Flutter plugin.
                        DESC
   s.homepage         = 'https://affise.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'affise' => 'email@affise.com' }
+  s.author           = { 'affise' => 'support@affise.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.platform = :ios, '9.0'
@@ -21,6 +21,6 @@ Affise Attribution Flutter plugin.
   s.swift_version = '5.0'
 
   s.dependency 'Flutter'
-  s.dependency 'AffiseAttributionLib', '~> 1.0.3'
+  s.dependency 'AffiseAttributionLib', '~> 1.0.5'
 
 end

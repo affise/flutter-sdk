@@ -31,6 +31,7 @@ export 'package:affise_attribution_lib/events/predefined/purchase_event.dart';
 export 'package:affise_attribution_lib/events/predefined/rate_event.dart';
 export 'package:affise_attribution_lib/events/predefined/re_engage_event.dart';
 export 'package:affise_attribution_lib/events/predefined/reserve_event.dart';
+export 'package:affise_attribution_lib/events/predefined/sales_event.dart';
 export 'package:affise_attribution_lib/events/predefined/search_event.dart';
 export 'package:affise_attribution_lib/events/predefined/share_event.dart';
 export 'package:affise_attribution_lib/events/predefined/spend_credits_event.dart';

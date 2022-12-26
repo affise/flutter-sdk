@@ -23,11 +23,11 @@ class _MyAppState extends State<MyApp> {
   void initAffise() async {
     AffiseInitProperties properties = AffiseInitProperties(
       affiseAppId: "Your appId", //Change to your app id
-      partParamName: "Your partParamName", //Change to your partParamName
-      partParamNameToken: "Your partParamNameToken", //Change to your partParamNameToken
-      appToken: "Your appToken", //Change to your appToken
       isProduction: kReleaseMode, //Add your custom rule to determine if this is a production build
       secretId: "Your secretId", //Change to your appToken
+      partParamName: null, //Change to your partParamName
+      partParamNameToken: null, //Change to your partParamNameToken
+      appToken: null, //Change to your appToken
     );
 
     Affise.init(properties);

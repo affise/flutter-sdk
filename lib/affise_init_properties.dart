@@ -13,12 +13,12 @@ class AffiseInitProperties {
   bool enabledMetrics = false;
 
   AffiseInitProperties({
-    required this.affiseAppId,
+    this.affiseAppId,
     this.isProduction = true,
-    required this.partParamName,
-    required this.partParamNameToken,
-    required this.appToken,
-    required this.secretId,
+    this.partParamName,
+    this.partParamNameToken,
+    this.appToken,
+    this.secretId,
     this.enabledMetrics = false,
     this.autoCatchingClickEvents,
   });

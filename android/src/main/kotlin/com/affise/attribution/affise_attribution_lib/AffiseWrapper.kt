@@ -73,8 +73,6 @@ internal class AffiseWrapper {
                 map?.toAffiseInitProperties()?.let { properties ->
                     Affise.init(application, properties)
                     result.success(null)
-
-                    Affise.onInitSendEvents()
                 } ?: result.error("Error affise init", null, null)
             } catch (e: Exception) {
                 result.error(e.message ?: "Error on Affise init", e.stackTraceToString(), null)
