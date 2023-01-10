@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.affise.attribution.affise_attribution_lib_example">
+   
+   <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
         android:label="affise_attribution_lib_example"
         android:name="${applicationName}"
