@@ -458,67 +458,63 @@ To use this feature, create file with name `partner_key` in your app assets dire
 
 ### Deeplinks
 
-- register applink callback right after Affise.init(..)
+Register deeplink callback right after Affise.init(..)
 
 ```dart
-bool deeplinkCallback(Uri uri) {
-  String? screen = uri.queryParameters["screen"];
-  if(screen == "special_offer") {
-    // open special offer
-  } else {
-    // open another
-  }
-  // return true if deeplink is handled successfully
-  return true;
-}
-
 void init() {
   Affise.init(..);
-  Affise.registerDeeplinkCallback((uri) => deeplinkCallback(uri));
+  Affise.registerDeeplinkCallback((uri) {
+    String? screen = uri.queryParameters["screen"];
+    if(screen == "special_offer") {
+      // open special offer
+    } else {
+      // open another
+    }
+  });
 }
 ```
 
 #### Android
 
-To integrate applink support in android you need:
+To integrate deeplink support in android you need:
 
-- add intent filter to one of your activities, replacing YOUR_AFFISE_APP_ID with id from your affise personal cabinet
+Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/AndroidManifest.xml`, 
 
 ```xml
+<meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
 <intent-filter android:autoVerify="true">
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="https" />
-  <data android:host="YOUR_AFFISE_APP_ID.affattr.com" />
+    <action android:name="android.intent.action.VIEW" />
+    
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    
+    <data
+        android:host="YOUR_AFFISE_APP_ID.affattr.com"
+        android:scheme="flutter" />
 </intent-filter>
 ```
 
 #### iOS
 
-To integrate applink support You can find out how to set up deeplinks in the official documentation.
+To integrate deeplink support in iOS you need:
 
-- pass `launchOptions` to flutter plugin
-```swift
-AffiseAttributionLibPlugin.setLaunchOptions(launchOptions)
+Add key `CFBundleURLTypes` to `Info.plist` as in `example/ios/Runner/Info.plist`
+
+```html
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>YOUR_AFFISE_APP_ID.affattr.com</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>react</string>
+        </array>
+    </dict>
+</array>
 ```
-
-```swift
-import affise_attribution_lib
-
-@UIApplicationMain
-@objc class AppDelegate: FlutterAppDelegate {
-  override func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
-    AffiseAttributionLibPlugin.setLaunchOptions(launchOptions)
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-  }
-}
-```
-
 
 ### Offline mode
 

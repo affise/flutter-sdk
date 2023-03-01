@@ -31,6 +31,11 @@ class _MyAppState extends State<MyApp> {
     );
 
     Affise.init(properties);
+    Affise.registerDeeplinkCallback((uri) {
+      if (kDebugMode) {
+        print("deeplink $uri");
+      }
+    });
   }
 
   @override

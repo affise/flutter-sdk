@@ -23,12 +23,15 @@ internal class AffiseWrapper {
     private let AFFISE_CRASH_APPLICATION = "crash_application"
     private let AFFISE_GET_REFERRER = "get_referrer"
 
+    private let AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link"
+
     private let FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback"
     
     private let evensFactory: AffiseEvensFactory = AffiseEvensFactory()
     var channel: FlutterMethodChannel?
     var application: UIApplication?
     var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    var deepLink: String?
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
@@ -51,6 +54,7 @@ internal class AffiseWrapper {
         case AFFISE_SET_ENABLED_METRICS: nativeSetEnabledMetrics(call, result: result)
         case AFFISE_CRASH_APPLICATION: nativeCrashApplication(call, result: result)
         case AFFISE_GET_REFERRER: nativeGetReferrer(call, result: result)
+        case AFFISE_HANDLE_INITIAL_LINK: nativeHandleInitialLink(call, result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -67,6 +71,7 @@ internal class AffiseWrapper {
         }
         
         if let properties = (call.arguments as? [String: Any?])?.toAffiseInitProperties {
+            Affise._crossPlatform.flutter()
             Affise.shared.load(app: application!, initProperties: properties, launchOptions: launchOptions)
             result(nil)
         } else {
@@ -116,9 +121,7 @@ internal class AffiseWrapper {
     }
     
     private func nativeRegisterDeeplinkCallback(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        Affise.shared.registerDeeplinkCallback {url in
-            self.channel?.invokeMethod(self.FLUTTER_DEEPLINK_CALLBACK, arguments: url.absoluteString)
-        }
+        registerCallback()
         result(nil)
     }
     
@@ -176,5 +179,22 @@ internal class AffiseWrapper {
     
     private func nativeGetReferrer(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         result(FlutterMethodNotImplemented)
+    }
+
+    private func nativeHandleInitialLink(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        nativeHandleDeeplink(deepLink)
+        result(nil)
+    }
+
+    private func registerCallback() {
+        Affise.shared.registerDeeplinkCallback {url in
+        }
+    }
+
+    func nativeHandleDeeplink(_ url: String?) {
+        if let url = url, !url.isEmpty {
+            Affise._crossPlatform.handleDeeplink(uri: url)
+            channel?.invokeMethod(FLUTTER_DEEPLINK_CALLBACK, arguments: url)
+        }
     }
 }

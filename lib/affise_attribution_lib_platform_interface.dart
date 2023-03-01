@@ -119,4 +119,9 @@ abstract class AffiseAttributionLibPlatform extends PlatformInterface {
   Future<String?> getReferrer() async {
     throw UnimplementedError('getReferrer() has not been implemented.');
   }
+
+  /// Get InitialLink
+  void handleInitialLink() async {
+    throw UnimplementedError('handleInitialLink() has not been implemented.');
+  }
 }

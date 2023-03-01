@@ -32,11 +32,14 @@ internal class AffiseWrapper {
         private const val AFFISE_CRASH_APPLICATION = "crash_application"
         private const val AFFISE_GET_REFERRER = "get_referrer"
 
+        private const val AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link"
+
         private const val FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback"
     }
 
     var applicationContext: Context? = null
     var channel: MethodChannel? = null
+    var initialLink: String? = null
     private var evensFactory: AffiseEvensFactory = AffiseEvensFactory()
 
     fun handle(call: MethodCall, result: Result) {
@@ -60,6 +63,7 @@ internal class AffiseWrapper {
             AFFISE_SET_ENABLED_METRICS -> nativeSetEnabledMetrics(call, result)
             AFFISE_CRASH_APPLICATION -> nativeCrashApplication(call, result)
             AFFISE_GET_REFERRER -> nativeGetReferrer(call, result)
+            AFFISE_HANDLE_INITIAL_LINK -> nativeHandleInitialLink(call, result)
             else -> {
                 result.notImplemented()
             }
@@ -71,7 +75,9 @@ internal class AffiseWrapper {
         (applicationContext as? Application)?.let { application ->
             try {
                 map?.toAffiseInitProperties()?.let { properties ->
+                    Affise._crossPlatform.flutter()
                     Affise.init(application, properties)
+                    Affise._crossPlatform.start()
                     result.success(null)
                 } ?: result.error("Error affise init", null, null)
             } catch (e: Exception) {
@@ -109,10 +115,7 @@ internal class AffiseWrapper {
     }
 
     private fun nativeRegisterDeeplinkCallback(call: MethodCall, result: Result) {
-        Affise.registerDeeplinkCallback {
-            channel?.invokeMethod(FLUTTER_DEEPLINK_CALLBACK, it.toString())
-            return@registerDeeplinkCallback true
-        }
+        registerCallback()
         result.success(null)
     }
 
@@ -179,5 +182,23 @@ internal class AffiseWrapper {
 
     private fun nativeGetReferrer(call: MethodCall, result: Result) {
         result.success(Affise.getReferrer())
+    }
+
+    private fun nativeHandleInitialLink(call: MethodCall, result: Result) {
+        nativeHandleDeeplink(initialLink)
+        result.success(null)
+    }
+
+    private fun registerCallback() {
+        Affise.registerDeeplinkCallback {
+            return@registerDeeplinkCallback true
+        }
+    }
+
+    fun nativeHandleDeeplink(url: String?) {
+        if (!url.isNullOrBlank()) {
+            Affise._crossPlatform.handleDeeplink(url)
+            channel?.invokeMethod(FLUTTER_DEEPLINK_CALLBACK, url)
+        }
     }
 }

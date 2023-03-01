@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 import 'affise_attribution_lib_platform_interface.dart';
 import 'affise_init_properties.dart';
 import 'deeplink/on_deeplink_callback.dart';
@@ -12,7 +14,9 @@ export 'events/subscription_events.dart';
 class Affise {
   /// Init [AffiseComponent] with [app] and [initProperties]
   static void init(AffiseInitProperties initProperties) {
-    AffiseAttributionLibPlatform.instance.init(initProperties);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      AffiseAttributionLibPlatform.instance.init(initProperties);
+    });
   }
 
   /// Send events
@@ -32,7 +36,10 @@ class Affise {
 
   /// Register [callback] for deeplink
   static void registerDeeplinkCallback(OnDeeplinkCallback callback) {
-    AffiseAttributionLibPlatform.instance.registerDeeplinkCallback(callback);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+        AffiseAttributionLibPlatform.instance.registerDeeplinkCallback(callback);
+        AffiseAttributionLibPlatform.instance.handleInitialLink();
+    });
   }
 
   /// Set new [secretId]

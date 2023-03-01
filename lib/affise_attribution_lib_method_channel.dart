@@ -29,6 +29,8 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   final AFFISE_CRASH_APPLICATION = "crash_application";
   final AFFISE_GET_REFERRER = "get_referrer";
 
+  final AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link";
+
   static const FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback";
 
   OnDeeplinkCallback? _onDeeplinkCallback;
@@ -170,5 +172,11 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   @override
   Future<String?> getReferrer() async {
     return await methodChannel.invokeMethod(AFFISE_GET_REFERRER);
+  }
+
+  /// Handle Deeplink InitialLink
+  @override
+  void handleInitialLink() async {
+    methodChannel.invokeMethod(AFFISE_HANDLE_INITIAL_LINK);
   }
 }
