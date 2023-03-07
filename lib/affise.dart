@@ -7,9 +7,11 @@ import 'events/auto_catching_type.dart';
 import 'events/event.dart';
 
 export 'affise_init_properties.dart';
+export 'affise_flags.dart';
 export 'events/event.dart';
 export 'events/events.dart';
 export 'events/subscription_events.dart';
+
 
 class Affise {
   /// Init [AffiseComponent] with [app] and [initProperties]

@@ -11,6 +11,7 @@ internal object AffisePropertiesFields {
     const val FIELD_AUTO_CATCHING_CLICK_EVENTS = "autoCatchingClickEvents"
     const val FIELD_IS_PRODUCTION = "isProduction"
     const val FIELD_ENABLED_METRICS = "enabledMetrics"
+//    const val FIELD_FLAGS = "flags"
 }
 
 fun Map<*, *>.toAffiseInitProperties(): AffiseInitProperties {
@@ -22,8 +23,11 @@ fun Map<*, *>.toAffiseInitProperties(): AffiseInitProperties {
         this[AffisePropertiesFields.FIELD_APP_TOKEN]?.toString(),
         this[AffisePropertiesFields.FIELD_SECRET_ID]?.toString(),
         (this[AffisePropertiesFields.FIELD_AUTO_CATCHING_CLICK_EVENTS] as? List<*>)?.mapNotNull {
-            it.toString().toAutoCatchingType()
+            it?.toString()?.toAutoCatchingType()
         },
-        this[AffisePropertiesFields.FIELD_ENABLED_METRICS]?.toString()?.toBoolean() ?: false
+        this[AffisePropertiesFields.FIELD_ENABLED_METRICS]?.toString()?.toBoolean() ?: false,
+//        (this[AffisePropertiesFields.FIELD_FLAGS] as? List<*>)?.mapNotNull {
+//            it?.toString()?.toAffiseFlag()
+//        },
     )
 }

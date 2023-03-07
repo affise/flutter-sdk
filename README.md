@@ -8,7 +8,6 @@
     - [Initialize](#initialize)
     - [Requirements](#requirements)
       - [Android](#android)
-      - [iOS](#ios)
 - [Features](#features)
     - [Device identifiers collection](#device-identifiers-collection)
     - [Events tracking](#events-tracking)
@@ -23,7 +22,7 @@
     - [APK preinstall tracking](#apk-preinstall-tracking)
     - [Deeplinks](#deeplinks)
       - [Android](#android-1)
-      - [iOS](#ios-1)
+      - [iOS](#ios)
     - [Offline mode](#offline-mode)
     - [Disable tracking](#disable-tracking)
     - [Disable background tracking](#disable-background-tracking)
@@ -106,15 +105,6 @@ For a minimal working functionality your app needs to declare internet permissio
 
 OAID certificate in your project
 `example/android/app/src/assets/oaid.cert.pem`
-
-#### iOS
-
-Add key `NSUserTrackingUsageDescription` to `Info.plist` as in `example/ios/Runner/Info.plist`
-
-```html
-<key>NSUserTrackingUsageDescription</key>
-<string>This identifier will be used for tracking.</string>
-```
 
 
 # Features

@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'affise_flags.dart';
 import 'events/auto_catching_type.dart';
 
 class AffiseInitProperties {
@@ -11,6 +12,7 @@ class AffiseInitProperties {
   String? secretId;
   List<AutoCatchingType>? autoCatchingClickEvents;
   bool enabledMetrics = false;
+  // List<AffiseFlag>? flags;
 
   AffiseInitProperties({
     this.affiseAppId,
@@ -21,6 +23,7 @@ class AffiseInitProperties {
     this.secretId,
     this.enabledMetrics = false,
     this.autoCatchingClickEvents,
+    // this.flags,
   });
 
   Map<String, dynamic> get toMap {
@@ -33,6 +36,7 @@ class AffiseInitProperties {
       'secretId': secretId,
       'autoCatchingClickEvents': autoCatchingClickEvents?.toStringList,
       'enabledMetrics': enabledMetrics,
+      // 'flags': flags?.toStringList,
     };
   }
 }
