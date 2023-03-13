@@ -28,6 +28,7 @@ class AffiseSubtypeEventsFactory : AffiseBaseEvensFactory() {
             SubscriptionParameters.AFFISE_SUB_CONVERTED_TRIAL_FROM_RETRY -> eventConvertedTrialFromRetryEvent(map)
             SubscriptionParameters.AFFISE_SUB_CONVERTED_OFFER_FROM_RETRY -> eventConvertedOfferFromRetryEvent(map)
             SubscriptionParameters.AFFISE_SUB_RENEWED_SUBSCRIPTION_FROM_RETRY -> eventRenewedSubscriptionFromRetryEvent(map)
+            SubscriptionParameters.AFFISE_SUB_UNSUBSCRIPTION -> eventUnsubscriptionEvent(map)
             else -> null
         }
     }
@@ -257,6 +258,18 @@ class AffiseSubtypeEventsFactory : AffiseBaseEvensFactory() {
         val data = getDataJSONObject(map)
         
         return RenewedSubscriptionFromRetryEvent(
+            data,
+            userData,
+        ).apply {
+            addPredefinedParameters(this, map)
+        }
+    }
+
+    private fun eventUnsubscriptionEvent(map: Map<*, *>): UnsubscriptionEvent {
+        val userData = getUserData(map)
+        val data = getDataJSONObject(map)
+
+        return UnsubscriptionEvent(
             data,
             userData,
         ).apply {

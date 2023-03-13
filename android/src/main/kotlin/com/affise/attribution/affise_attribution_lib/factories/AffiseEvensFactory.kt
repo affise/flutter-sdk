@@ -60,6 +60,7 @@ class AffiseEvensFactory : AffiseBaseEvensFactory() {
             "ViewCart" -> eventViewCartEvent(map)
             "ViewItem" -> eventViewItemEvent(map)
             "ViewItems" -> eventViewItemsEvent(map)
+            SubscriptionParameters.AFFISE_UNSUBSCRIPTION,
             SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION,
             SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION,
             SubscriptionParameters.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY,

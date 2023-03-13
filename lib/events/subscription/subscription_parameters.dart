@@ -33,4 +33,7 @@ class SubscriptionParameters {
 
   static const AFFISE_SUBSCRIPTION_REACTIVATION = "affise_subscription_reactivation";
   static const AFFISE_SUB_REACTIVATED_SUBSCRIPTION = "affise_sub_reactivated_subscription";
+
+  static const AFFISE_UNSUBSCRIPTION = "affise_unsubscription";
+  static const AFFISE_SUB_UNSUBSCRIPTION = "affise_sub_unsubscription";
 }

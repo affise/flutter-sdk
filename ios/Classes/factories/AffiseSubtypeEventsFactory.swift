@@ -25,6 +25,7 @@ internal class AffiseSubtypeEventsFactory : AffiseBaseEvensFactory, AffiseBaseEv
         case SubscriptionParameters.AFFISE_SUB_CONVERTED_TRIAL_FROM_RETRY.rawValue: return eventConvertedTrialFromRetryEvent(map)
         case SubscriptionParameters.AFFISE_SUB_CONVERTED_OFFER_FROM_RETRY.rawValue: return eventConvertedOfferFromRetryEvent(map)
         case SubscriptionParameters.AFFISE_SUB_RENEWED_SUBSCRIPTION_FROM_RETRY.rawValue: return eventRenewedSubscriptionFromRetryEvent(map)
+        case SubscriptionParameters.AFFISE_SUB_UNSUBSCRIPTION.rawValue: return eventUnsubscriptionEvent(map)
         default:
             return nil
         }
@@ -252,6 +253,18 @@ internal class AffiseSubtypeEventsFactory : AffiseBaseEvensFactory, AffiseBaseEv
         let data = getDataArray(map)
 
         var event = RenewedSubscriptionFromRetryEvent(
+            data: data,
+            userData: userData
+        )
+        addPredefinedParameters(event: &event, map: map)
+        return event
+    }
+
+    private func eventUnsubscriptionEvent(_ map: [String: Any?]?) -> UnsubscriptionEvent {
+        let userData = getUserData(map)
+        let data = getDataArray(map)
+
+        var event = UnsubscriptionEvent(
             data: data,
             userData: userData
         )

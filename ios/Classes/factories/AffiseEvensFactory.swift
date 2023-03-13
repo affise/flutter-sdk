@@ -57,6 +57,7 @@ internal class AffiseEvensFactory: AffiseBaseEvensFactory, AffiseBaseEvens {
         case "ViewItem": return eventViewItemEvent(map)
         case "ViewItems": return eventViewItemsEvent(map)
             
+        case SubscriptionParameters.AFFISE_UNSUBSCRIPTION.rawValue: return subscriptionEventsFactory.event(map)
         case SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION.rawValue: return subscriptionEventsFactory.event(map)
         case SubscriptionParameters.AFFISE_SUBSCRIPTION_CANCELLATION.rawValue: return subscriptionEventsFactory.event(map)
         case SubscriptionParameters.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.rawValue: return subscriptionEventsFactory.event(map)
