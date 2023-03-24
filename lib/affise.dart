@@ -5,12 +5,15 @@ import 'affise_init_properties.dart';
 import 'deeplink/on_deeplink_callback.dart';
 import 'events/auto_catching_type.dart';
 import 'events/event.dart';
+import 'referrer/referrer_callback.dart';
+import 'referrer/referrer_key.dart';
 
 export 'affise_init_properties.dart';
 export 'affise_flags.dart';
 export 'events/event.dart';
 export 'events/events.dart';
 export 'events/subscription_events.dart';
+export 'referrer/referrer_key.dart';
 
 
 class Affise {
@@ -110,7 +113,28 @@ class Affise {
   }
 
   /// Get referrer
+  @Deprecated('Use Affise.android.getReferrer()')
   static Future<String?> getReferrer() async {
     return AffiseAttributionLibPlatform.instance.getReferrer();
+  }
+
+  static const AffiseAndroidApi android = _AffiseAndroid();
+}
+
+class _AffiseAndroid implements AffiseAndroidApi {
+  const _AffiseAndroid();
+
+  /// Get referrer
+  @override
+  Future<String?> getReferrer() async {
+    return AffiseAttributionLibPlatform.instance.getReferrer();
+  }
+
+  /// Get referrer Value
+  @override
+  void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      AffiseAttributionLibPlatform.instance.getReferrerValue(key, callback);
+    });
   }
 }

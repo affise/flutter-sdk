@@ -36,6 +36,18 @@ class _MyAppState extends State<MyApp> {
         print("deeplink $uri");
       }
     });
+
+    Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
+      if (kDebugMode) {
+        print("ReferrerValue: $value");
+      }
+    });
+
+    Affise.android.getReferrer().then((value) {
+      if (kDebugMode) {
+          print("Referrer: $value");
+      }
+    });
   }
 
   @override

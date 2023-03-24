@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'affise.dart';
 import 'affise_attribution_lib_platform_interface.dart';
 import 'deeplink/on_deeplink_callback.dart';
+import 'referrer/referrer_callback.dart';
 
 /// An implementation of [AffiseAttributionLibPlatform] that uses method channels.
 class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
@@ -28,12 +29,15 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   final AFFISE_SET_ENABLED_METRICS = "set_enabled_metrics";
   final AFFISE_CRASH_APPLICATION = "crash_application";
   final AFFISE_GET_REFERRER = "get_referrer";
+  final AFFISE_GET_REFERRER_VALUE = "get_referrer_value";
 
   final AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link";
 
   static const FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback";
+  static const FLUTTER_GET_REFERRER_VALUE_CALLBACK = "getReferrerCallback";
 
   OnDeeplinkCallback? _onDeeplinkCallback;
+  ReferrerCallback? _onGetReferrerCallback;
 
   /// The method channel used to interact with the native platform.
   @visibleForTesting
@@ -49,6 +53,9 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
         switch (call.method) {
           case FLUTTER_DEEPLINK_CALLBACK:
             _onDeeplinkCallback?.call(Uri.parse(call.arguments.toString()));
+            break;
+          case FLUTTER_GET_REFERRER_VALUE_CALLBACK:
+            _onGetReferrerCallback?.call(call.arguments.toString());
             break;
         }
       } catch (e) {
@@ -178,5 +185,15 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   @override
   void handleInitialLink() async {
     methodChannel.invokeMethod(AFFISE_HANDLE_INITIAL_LINK);
+  }
+
+  /// Set [key] referrer key
+  /// Set [callback] referrer callback
+  ///
+  /// Get referrer value
+  @override
+  void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+    _onGetReferrerCallback = callback;
+    methodChannel.invokeMethod(AFFISE_GET_REFERRER_VALUE, key.value);
   }
 }

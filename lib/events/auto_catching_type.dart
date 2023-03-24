@@ -1,4 +1,12 @@
-enum AutoCatchingType { BUTTON, TEXT, IMAGE_BUTTON, IMAGE, GROUP }
+enum AutoCatchingType {
+  BUTTON,
+  TEXT,
+
+  IMAGE_BUTTON,
+  IMAGE,
+
+  GROUP,
+}
 
 extension AutoCatchingTypeValue on AutoCatchingType {
   String get value {

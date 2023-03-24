@@ -31,10 +31,12 @@ internal class AffiseWrapper {
         private const val AFFISE_SET_ENABLED_METRICS = "set_enabled_metrics"
         private const val AFFISE_CRASH_APPLICATION = "crash_application"
         private const val AFFISE_GET_REFERRER = "get_referrer"
+        private const val AFFISE_GET_REFERRER_VALUE = "get_referrer_value"
 
         private const val AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link"
 
         private const val FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback"
+        private const val FLUTTER_GET_REFERRER_VALUE_CALLBACK = "getReferrerCallback"
     }
 
     var applicationContext: Context? = null
@@ -64,6 +66,7 @@ internal class AffiseWrapper {
             AFFISE_CRASH_APPLICATION -> nativeCrashApplication(call, result)
             AFFISE_GET_REFERRER -> nativeGetReferrer(call, result)
             AFFISE_HANDLE_INITIAL_LINK -> nativeHandleInitialLink(call, result)
+            AFFISE_GET_REFERRER_VALUE -> nativeGetReferrerValue(call, result)
             else -> {
                 result.notImplemented()
             }
@@ -186,6 +189,19 @@ internal class AffiseWrapper {
 
     private fun nativeHandleInitialLink(call: MethodCall, result: Result) {
         nativeHandleDeeplink(initialLink)
+        result.success(null)
+    }
+
+    private fun nativeGetReferrerValue(call: MethodCall, result: Result) {
+        call
+            .argumentString()
+            .toReferrerKey()
+            ?.let { referrerKey ->
+                Affise.getReferrerValue(referrerKey) { value ->
+                    channel?.invokeMethod(FLUTTER_GET_REFERRER_VALUE_CALLBACK, value)
+                }
+            }
+
         result.success(null)
     }
 

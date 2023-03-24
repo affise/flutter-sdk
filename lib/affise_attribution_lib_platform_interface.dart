@@ -3,6 +3,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'affise.dart';
 import 'affise_attribution_lib_method_channel.dart';
 import 'deeplink/on_deeplink_callback.dart';
+import 'referrer/referrer_callback.dart';
 
 abstract class AffiseAttributionLibPlatform extends PlatformInterface {
   /// Constructs a AffiseAttributionPlatform.
@@ -124,4 +125,20 @@ abstract class AffiseAttributionLibPlatform extends PlatformInterface {
   void handleInitialLink() async {
     throw UnimplementedError('handleInitialLink() has not been implemented.');
   }
+
+  /// Set [key] referrer key
+  /// Set [callback] referrer callback
+  ///
+  /// Get referrer value
+  void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+    throw UnimplementedError('getReferrerValue() has not been implemented.');
+  }
+}
+
+abstract class AffiseAndroidApi {
+  const AffiseAndroidApi();
+
+  Future<String?> getReferrer();
+
+  void getReferrerValue(ReferrerKey key, ReferrerCallback callback);
 }
