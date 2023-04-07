@@ -54,6 +54,23 @@ dependencies:
       url: git://github.com/affise/flutter-sdk.git
 ```
 
+#### Add platform modules
+
+##### Android
+
+Add modules to android project
+
+Example `example/android/app/build.gradle`
+
+```gradle
+dependencies {
+    // Affise modules
+    implementation 'com.affise:module-advertising:1.5.4'
+    implementation 'com.affise:module-network:1.5.4'
+    implementation 'com.affise:module-phone:1.5.4'
+}
+```
+
 
 ### Initialize
 
