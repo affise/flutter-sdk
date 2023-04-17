@@ -1,28 +1,33 @@
 PODS:
   - affise_attribution_lib (1.0.0):
-    - AffiseAttributionLib (~> 1.0.3)
+    - AffiseAttributionLib (~> 1.1.3)
+    - AffiseSKAdNetwork (~> 1.1.4)
     - Flutter
-  - AffiseAttributionLib (1.0.3)
+  - AffiseAttributionLib (1.1.4)
+  - AffiseSKAdNetwork (1.1.4)
   - Flutter (1.0.0)
 
 DEPENDENCIES:
   - affise_attribution_lib (from `.symlinks/plugins/affise_attribution_lib/ios`)
-  - AffiseAttributionLib (from `/Users/admin/Desktop/dev/ios-sdk`)
   - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - AffiseAttributionLib
+    - AffiseSKAdNetwork
 
 EXTERNAL SOURCES:
   affise_attribution_lib:
     :path: ".symlinks/plugins/affise_attribution_lib/ios"
-  AffiseAttributionLib:
-    :path: "/Users/admin/Desktop/dev/ios-sdk"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  affise_attribution_lib: 96729a139c7146150b5d3f8e4fb4887566e5184c
-  AffiseAttributionLib: 1284588d83f8e97425598d70d9635625205337bf
+  affise_attribution_lib: 1b07b5ef06802ad8e438f0eaf672294b7b1ab644
+  AffiseAttributionLib: e647b47cecda7b56e5904a6bd0e107800864955a
+  AffiseSKAdNetwork: 4deb365b7b9937d1ce034acae4bc2200d527713a
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
 
-PODFILE CHECKSUM: 10c44b4d71e0ce4343bc2197694eb71b59ce6c17
+PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

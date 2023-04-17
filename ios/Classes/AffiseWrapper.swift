@@ -1,4 +1,5 @@
 import AffiseAttributionLib
+import AffiseSKAdNetwork
 import Flutter
 
 internal class AffiseWrapper {
@@ -22,10 +23,14 @@ internal class AffiseWrapper {
     private let AFFISE_SET_ENABLED_METRICS = "set_enabled_metrics"
     private let AFFISE_CRASH_APPLICATION = "crash_application"
     private let AFFISE_GET_REFERRER = "get_referrer"
+    private let AFFISE_SKAD_REGISTER = "skad_register"
+    private let AFFISE_SKAD_POSTBACK = "skad_postback"
 
     private let AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link"
 
     private let FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback"
+    private let FLUTTER_SKAD_REGISTER_ERROR = "skadRegisterError"
+    private let FLUTTER_SKAD_POSTBACK_ERROR = "skadPostbackError"
     
     private let evensFactory: AffiseEvensFactory = AffiseEvensFactory()
     var channel: FlutterMethodChannel?
@@ -55,6 +60,8 @@ internal class AffiseWrapper {
         case AFFISE_CRASH_APPLICATION: nativeCrashApplication(call, result: result)
         case AFFISE_GET_REFERRER: nativeGetReferrer(call, result: result)
         case AFFISE_HANDLE_INITIAL_LINK: nativeHandleInitialLink(call, result: result)
+        case AFFISE_SKAD_REGISTER: nativeSkadRegister(call, result: result)
+        case AFFISE_SKAD_POSTBACK: nativeSkadPostback(call, result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -183,6 +190,52 @@ internal class AffiseWrapper {
 
     private func nativeHandleInitialLink(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         nativeHandleDeeplink(deepLink)
+        result(nil)
+    }
+
+    private func nativeSkadRegister(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        if #available(iOS 16.1, *) {
+            AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(0, coarseValue: "medium", completionHandler: { error in
+                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+            })
+        } else if #available(iOS 15.4, *) {
+            AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(0, completionHandler: { error in
+                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+            })
+        } else if #available(iOS 14.0, *) {
+            AffiseSKAdNetwork.shared()?.registerAppForAdNetworkAttribution(completionHandler: { error in
+                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+            })
+        } else {
+            result(FlutterMethodNotImplemented)
+            return
+        }
+        
+        result(nil)
+    }
+
+    private func nativeSkadPostback(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let map = call.arguments as? [String: Any?]
+        let coarseValue = map?["coarseValue"] as? String
+        
+        if let fineValue = map?["fineValue"] as? Int {
+            if #available(iOS 16.1, *) {
+                AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(fineValue, coarseValue: coarseValue ?? "medium", completionHandler: { error in
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                })
+            } else if #available(iOS 15.4, *) {
+                AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(fineValue, completionHandler: { error in
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                })
+            } else if #available(iOS 14.0, *) {
+                AffiseSKAdNetwork.shared()?.updateConversionValue(fineValue, completionHandler: { error in
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                })
+            } else {
+                result(FlutterMethodNotImplemented)
+                return
+            }
+        }
         result(nil)
     }
 

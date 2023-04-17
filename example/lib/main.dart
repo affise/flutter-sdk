@@ -48,6 +48,18 @@ class _MyAppState extends State<MyApp> {
           print("Referrer: $value");
       }
     });
+
+    Affise.ios.registerAppForAdNetworkAttribution((error) { 
+      if (kDebugMode) {
+          print("SKAd registerAppForAdNetworkAttribution: $error");
+      }
+    });
+    
+    Affise.ios.updatePostbackConversionValue(1, "medium", (error) { 
+      if (kDebugMode) {
+          print("SKAd updatePostbackConversionValue: $error");
+      }
+    });
   }
 
   @override

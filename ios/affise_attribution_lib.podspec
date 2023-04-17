@@ -22,5 +22,6 @@ Affise Attribution Flutter plugin.
 
   s.dependency 'Flutter'
   s.dependency 'AffiseAttributionLib', '~> 1.1.3'
+  s.dependency 'AffiseSKAdNetwork', '~> 1.1.4'
 
 end

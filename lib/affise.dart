@@ -14,6 +14,7 @@ export 'events/event.dart';
 export 'events/events.dart';
 export 'events/subscription_events.dart';
 export 'referrer/referrer_key.dart';
+import 'callback/error_callback.dart';
 
 
 class Affise {
@@ -119,6 +120,7 @@ class Affise {
   }
 
   static const AffiseAndroidApi android = _AffiseAndroid();
+  static const AffiseIOSApi ios = _AffiseIOS();
 }
 
 class _AffiseAndroid implements AffiseAndroidApi {
@@ -135,6 +137,26 @@ class _AffiseAndroid implements AffiseAndroidApi {
   void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       AffiseAttributionLibPlatform.instance.getReferrerValue(key, callback);
+    });
+  }
+}
+
+class _AffiseIOS implements AffiseIOSApi {
+  const _AffiseIOS();
+  
+  /// SKAd registerAppForAdNetworkAttribution
+  @override
+  void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      AffiseAttributionLibPlatform.instance.registerAppForAdNetworkAttribution(completionHandler);
+    });
+  }
+  
+  /// SKAd updatePostbackConversionValue
+  @override
+  void updatePostbackConversionValue(int fineValue, String coarseValue, ErrorCallback completionHandler) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      AffiseAttributionLibPlatform.instance.updatePostbackConversionValue(fineValue, coarseValue, completionHandler);
     });
   }
 }

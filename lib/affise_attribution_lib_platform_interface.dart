@@ -4,6 +4,7 @@ import 'affise.dart';
 import 'affise_attribution_lib_method_channel.dart';
 import 'deeplink/on_deeplink_callback.dart';
 import 'referrer/referrer_callback.dart';
+import 'callback/error_callback.dart';
 
 abstract class AffiseAttributionLibPlatform extends PlatformInterface {
   /// Constructs a AffiseAttributionPlatform.
@@ -133,6 +134,16 @@ abstract class AffiseAttributionLibPlatform extends PlatformInterface {
   void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
     throw UnimplementedError('getReferrerValue() has not been implemented.');
   }
+
+  /// RegisterAppForAdNetworkAttribution
+  void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
+    throw UnimplementedError('registerAppForAdNetworkAttribution() has not been implemented.');
+  }
+
+  /// UpdatePostbackConversionValue
+  void updatePostbackConversionValue(int fineValue, String coarseValue, ErrorCallback completionHandler) {
+    throw UnimplementedError('updatePostbackConversionValue() has not been implemented.');
+  }
 }
 
 abstract class AffiseAndroidApi {
@@ -141,4 +152,12 @@ abstract class AffiseAndroidApi {
   Future<String?> getReferrer();
 
   void getReferrerValue(ReferrerKey key, ReferrerCallback callback);
+}
+
+abstract class AffiseIOSApi {
+  const AffiseIOSApi();
+
+  void registerAppForAdNetworkAttribution(ErrorCallback completionHandler);
+
+  void updatePostbackConversionValue(int fineValue, String coarseValue, ErrorCallback completionHandler);
 }

@@ -30,6 +30,7 @@
     - [Platform specific](#platform-specific)
       - [Get referrer](#get-referrer)
       - [Get referrer value](#get-referrer-value)
+      - [SKAd](#skad)
   - [Licence](#licence)
 
 # Description
@@ -679,6 +680,24 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `SUB_3`
 - `SUB_4`
 - `SUB_5`
+
+#### SKAd
+> `iOS Only`
+
+For ios prior `16.1` first call
+```dart
+Affise.ios.registerAppForAdNetworkAttribution((error) { 
+  
+});
+```
+
+Updates the fine and coarse conversion values, and calls a completion handler if the update fails.
+Second argument coarseValue is available in iOS 16.1+
+```dart
+Affise.ios.updatePostbackConversionValue(1, "medium", (error) { 
+  
+});
+```
 
 ## Licence
 The Affise SDK is licensed under the MIT License.

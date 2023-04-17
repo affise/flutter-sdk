@@ -5,6 +5,7 @@ import 'affise.dart';
 import 'affise_attribution_lib_platform_interface.dart';
 import 'deeplink/on_deeplink_callback.dart';
 import 'referrer/referrer_callback.dart';
+import 'callback/error_callback.dart';
 
 /// An implementation of [AffiseAttributionLibPlatform] that uses method channels.
 class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
@@ -30,14 +31,20 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   final AFFISE_CRASH_APPLICATION = "crash_application";
   final AFFISE_GET_REFERRER = "get_referrer";
   final AFFISE_GET_REFERRER_VALUE = "get_referrer_value";
+  final AFFISE_SKAD_REGISTER = "skad_register";
+  final AFFISE_SKAD_POSTBACK = "skad_postback";
 
   final AFFISE_HANDLE_INITIAL_LINK = "handle_initial_link";
 
   static const FLUTTER_DEEPLINK_CALLBACK = "registerDeeplinkCallback";
   static const FLUTTER_GET_REFERRER_VALUE_CALLBACK = "getReferrerCallback";
+  static const FLUTTER_SKAD_REGISTER_ERROR = "skadRegisterError";
+  static const FLUTTER_SKAD_POSTBACK_ERROR = "skadPostbackError";
 
   OnDeeplinkCallback? _onDeeplinkCallback;
   ReferrerCallback? _onGetReferrerCallback;
+  ErrorCallback? _onSkadRegisterErrorCallback;
+  ErrorCallback? _onSkadPostbackErrorCallback;
 
   /// The method channel used to interact with the native platform.
   @visibleForTesting
@@ -56,6 +63,12 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
             break;
           case FLUTTER_GET_REFERRER_VALUE_CALLBACK:
             _onGetReferrerCallback?.call(call.arguments.toString());
+            break;
+          case FLUTTER_SKAD_REGISTER_ERROR:
+            _onSkadRegisterErrorCallback?.call(call.arguments.toString());
+            break;
+          case FLUTTER_SKAD_POSTBACK_ERROR:
+            _onSkadPostbackErrorCallback?.call(call.arguments.toString());
             break;
         }
       } catch (e) {
@@ -195,5 +208,23 @@ class MethodChannelAffiseAttributionLib extends AffiseAttributionLibPlatform {
   void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
     _onGetReferrerCallback = callback;
     methodChannel.invokeMethod(AFFISE_GET_REFERRER_VALUE, key.value);
+  }
+
+  /// RegisterAppForAdNetworkAttribution
+  @override
+  void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
+    _onSkadRegisterErrorCallback = completionHandler;
+    methodChannel.invokeMethod(AFFISE_SKAD_REGISTER);
+  }
+
+  /// UpdatePostbackConversionValue
+  @override
+  void updatePostbackConversionValue(int fineValue, String coarseValue,  ErrorCallback completionHandler) {
+    _onSkadPostbackErrorCallback = completionHandler;
+    Map<String, dynamic> value = {
+      'fineValue': fineValue,
+      'coarseValue': coarseValue,
+    };
+    methodChannel.invokeMethod(AFFISE_SKAD_POSTBACK, value);
   }
 }
