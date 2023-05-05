@@ -21,7 +21,7 @@ Affise Attribution Flutter plugin.
   s.swift_version = '5.0'
 
   s.dependency 'Flutter'
-  s.dependency 'AffiseAttributionLib', '~> 1.1.3'
-  s.dependency 'AffiseSKAdNetwork', '~> 1.1.4'
+  s.dependency 'AffiseAttributionLib', '~> 1.1.5'
+  s.dependency 'AffiseSKAdNetwork', '~> 1.1.5'
 
 end

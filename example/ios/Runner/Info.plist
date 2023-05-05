@@ -60,5 +60,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- <key>NSAdvertisingAttributionReportEndpoint</key> -->
+	<!-- <string>StoreKit Ad Network Endpoint url</string> -->
 </dict>
 </plist>

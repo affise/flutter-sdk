@@ -196,15 +196,21 @@ internal class AffiseWrapper {
     private func nativeSkadRegister(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if #available(iOS 16.1, *) {
             AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(0, coarseValue: "medium", completionHandler: { error in
-                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+                if let errorMessage = error?.localizedDescription {
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: errorMessage)
+                }
             })
         } else if #available(iOS 15.4, *) {
             AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(0, completionHandler: { error in
-                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+                if let errorMessage = error?.localizedDescription {
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: errorMessage)
+                }
             })
         } else if #available(iOS 14.0, *) {
-            AffiseSKAdNetwork.shared()?.registerAppForAdNetworkAttribution(completionHandler: { error in
-                self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: error?.localizedDescription)
+            AffiseSKAdNetwork.shared()?.registerAppForAdNetworkAttribution(completionHandler: { error in                
+                if let errorMessage = error?.localizedDescription {
+                    self.channel?.invokeMethod(self.FLUTTER_SKAD_REGISTER_ERROR, arguments: errorMessage)
+                }
             })
         } else {
             result(FlutterMethodNotImplemented)
@@ -221,15 +227,21 @@ internal class AffiseWrapper {
         if let fineValue = map?["fineValue"] as? Int {
             if #available(iOS 16.1, *) {
                 AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(fineValue, coarseValue: coarseValue ?? "medium", completionHandler: { error in
-                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                    if let errorMessage = error?.localizedDescription {
+                        self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: errorMessage)
+                    }
                 })
             } else if #available(iOS 15.4, *) {
                 AffiseSKAdNetwork.shared()?.updatePostbackConversionValue(fineValue, completionHandler: { error in
-                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                    if let errorMessage = error?.localizedDescription {
+                        self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: errorMessage)
+                    }
                 })
             } else if #available(iOS 14.0, *) {
                 AffiseSKAdNetwork.shared()?.updateConversionValue(fineValue, completionHandler: { error in
-                    self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: error?.localizedDescription)
+                    if let errorMessage = error?.localizedDescription {
+                        self.channel?.invokeMethod(self.FLUTTER_SKAD_POSTBACK_ERROR, arguments: errorMessage)
+                    }
                 })
             } else {
                 result(FlutterMethodNotImplemented)
