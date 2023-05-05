@@ -52,7 +52,7 @@ dependencies:
 
   affise_attribution_lib:
     git:
-      url: git://github.com/affise/flutter-sdk.git
+      url: https://github.com/affise/flutter-sdk.git
 ```
 
 #### Add platform modules
