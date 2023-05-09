@@ -5,33 +5,35 @@
   - [Quick start](#quick-start)
   - [Integration](#integration)
     - [Integrate as dependency](#integrate-as-dependency)
+    - [Add platform modules](#add-platform-modules)
+      - [Android](#android)
     - [Initialize](#initialize)
     - [Requirements](#requirements)
-      - [Android](#android)
-- [Features](#features)
-    - [Device identifiers collection](#device-identifiers-collection)
-    - [Events tracking](#events-tracking)
-    - [Custom events tracking](#custom-events-tracking)
-    - [Predefined event parameters](#predefined-event-parameters)
-    - [Events buffering](#events-buffering)
-    - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
-    - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
-    - [Install referrer tracking](#install-referrer-tracking)
-    - [Push token tracking](#push-token-tracking)
-    - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
-    - [APK preinstall tracking](#apk-preinstall-tracking)
-    - [Deeplinks](#deeplinks)
       - [Android](#android-1)
-      - [iOS](#ios)
-    - [Offline mode](#offline-mode)
-    - [Disable tracking](#disable-tracking)
-    - [Disable background tracking](#disable-background-tracking)
-    - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
-    - [Platform specific](#platform-specific)
-      - [Get referrer](#get-referrer)
-      - [Get referrer value](#get-referrer-value)
-      - [SKAd](#skad)
-  - [Licence](#licence)
+- [Features](#features)
+  - [Device identifiers collection](#device-identifiers-collection)
+  - [Events tracking](#events-tracking)
+  - [Custom events tracking](#custom-events-tracking)
+  - [Predefined event parameters](#predefined-event-parameters)
+  - [Events buffering](#events-buffering)
+  - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
+  - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
+  - [Install referrer tracking](#install-referrer-tracking)
+  - [Push token tracking](#push-token-tracking)
+  - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
+  - [APK preinstall tracking](#apk-preinstall-tracking)
+  - [Deeplinks](#deeplinks)
+    - [Android](#android-2)
+    - [iOS](#ios)
+  - [Offline mode](#offline-mode)
+  - [Disable tracking](#disable-tracking)
+  - [Disable background tracking](#disable-background-tracking)
+  - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
+  - [Platform specific](#platform-specific)
+    - [Get referrer](#get-referrer)
+    - [Get referrer value](#get-referrer-value)
+      - [Referrer keys](#referrer-keys)
+    - [StoreKit Ad Network](#storekit-ad-network)
 
 # Description
 
@@ -45,6 +47,7 @@ referrer.
 ### Integrate as dependency
 
 Add [git](https://github.com/affise/flutter-sdk) dependency to `pubspec.yaml` in your flutter application
+
 ```yaml
 dependencies:
   flutter:
@@ -55,9 +58,9 @@ dependencies:
       url: https://github.com/affise/flutter-sdk.git
 ```
 
-#### Add platform modules
+### Add platform modules
 
-##### Android
+#### Android
 
 Add modules to android project
 
@@ -72,11 +75,9 @@ dependencies {
 }
 ```
 
-
 ### Initialize
 
 After dependency is added, sync project with `flutter pub get` and initialize.
-
 
 ```dart
 import 'package:flutter/foundation.dart';
@@ -101,12 +102,13 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-
 ### Requirements
 
 #### Android
-Minimal Android SDK version is 21 
+
+Minimal Android SDK version is 21
 Example `example/android/app/build.gradle`
+
 ```groovy
 android {
   defaultConfig {
@@ -123,13 +125,11 @@ For a minimal working functionality your app needs to declare internet permissio
 </manifest>
 ```
 
-OAID certificate in your project
-`example/android/app/src/assets/oaid.cert.pem`
-
+OAID certificate in your project `example/android/app/src/assets/oaid.cert.pem`
 
 # Features
 
-### Device identifiers collection
+## Device identifiers collection
 
 To match users with events and data library is sending, these identifiers are collected:
 
@@ -214,7 +214,7 @@ To match users with events and data library is sending, these identifiers are co
 - `EVENTS`
 - `AFFISE_EVENTS_COUNT`
 
-### Events tracking
+## Events tracking
 
 For example, we want to track what items usually user adds to shopping cart. To send event first create it with
 following code
@@ -301,7 +301,7 @@ With above example you can implement other events:
 - `ViewItemEvent`
 - `ViewItemsEvent`
 
-### Custom events tracking
+## Custom events tracking
 
 Use any of custom events if default doesn't fit your scenario:
 
@@ -316,7 +316,7 @@ Use any of custom events if default doesn't fit your scenario:
 - `CustomId09Event`
 - `CustomId10Event`
 
-### Predefined event parameters
+## Predefined event parameters
 
 To enrich your event with another dimension, you can use predefined parameters for most common cases.
 Add it to any event:
@@ -342,8 +342,8 @@ class Presenter {
 }
 ```
 
-
 In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is available:
+
 - `ADREV_AD_TYPE`
 - `CITY`
 - `COUNTRY`
@@ -417,29 +417,27 @@ In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is
 - `PARAM_08`
 - `PARAM_09`
 
-
-### Events buffering
+## Events buffering
 
 Affise library will send any pending events with first opportunity,
 but if there is no network connection or device is disabled, events are kept locally for 7 days before deletion.
 
-
-### Advertising Identifier (google) tracking
+## Advertising Identifier (google) tracking
 
 Advertising Identifier (google) tracking is supported automatically, no actions needed
 
-### Open Advertising Identifier (huawei) tracking
+## Open Advertising Identifier (huawei) tracking
 
 Open Advertising Identifier is supported automatically, no actions needed
 
-### Install referrer tracking
+## Install referrer tracking
 
 Install referrer tracking is supported automatically, no actions needed
 
-### Push token tracking
+## Push token tracking
 
 To let affise track push token you need to receive it from your push service provider, and pass to Affise library.
-First add firebase integration to your app completing theese steps: https://firebase.google.com/docs/cloud-messaging/android/client
+First add firebase integration to your app completing theese steps: [Firebase Docs](https://firebase.google.com/docs/cloud-messaging/android/client)
 
 After you have done with firebase inegration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
 
@@ -475,19 +473,20 @@ class _Application extends State<Application> {
 }
 ```
 
-### Reinstall Uninstall tracking
+## Reinstall Uninstall tracking
 
 Affise automaticly track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+
 ```dart
 Affise.addPushToken(token);
 ```
 
-### APK preinstall tracking
+## APK preinstall tracking
 
 SDK is also supports scenario when APK is installed not from one of application markets, such as google play, huawei appgallery or amazon appstore
 To use this feature, create file with name `partner_key` in your app assets directory, and write unique identifier inside, this key will be passed to our backend so you can track events by partner later in your Affise console.
 
-### Deeplinks
+## Deeplinks
 
 Register deeplink callback right after Affise.init(..)
 
@@ -505,7 +504,7 @@ void init() {
 }
 ```
 
-#### Android
+### Android
 
 To integrate deeplink support in android you need:
 
@@ -525,13 +524,15 @@ Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/A
 </intent-filter>
 ```
 
-#### iOS
+### iOS
 
 To integrate deeplink support in iOS you need:
 
-Add key `CFBundleURLTypes` to `Info.plist` as in `example/ios/Runner/Info.plist`
+Add key `CFBundleURLTypes` to `Info.plist`
 
-```html
+Example: `example/ios/Runner/Info.plist`
+
+```xml
 <key>CFBundleURLTypes</key>
 <array>
     <dict>
@@ -547,7 +548,7 @@ Add key `CFBundleURLTypes` to `Info.plist` as in `example/ios/Runner/Info.plist`
 </array>
 ```
 
-### Offline mode
+## Offline mode
 
 In some scenarious you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
 
@@ -556,6 +557,7 @@ Affise.init(..);
 Affise.setOfflineModeEnabled(true); // to enable offline mode
 Affise.setOfflineModeEnabled(false); // to disable offline mode
 ```
+
 While offline mode is enabled, your metrics and other events are kept locally, and will be delivered once offline mode is disabled.
 Offline mode is persistent as Application lifecycle, and will be disabled with process termination automaticly.
 To check current offline mode status call:
@@ -564,7 +566,7 @@ To check current offline mode status call:
 Affise.isOfflineModeEnabled(); // returns true or false describing current tracking state
 ```
 
-### Disable tracking
+## Disable tracking
 
 To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
@@ -584,7 +586,7 @@ To check current status of tracking call:
 Affise.isTrackingEnabled(); // returns true or false describing current tracking state
 ```
 
-### Disable background tracking
+## Disable background tracking
 
 To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
@@ -604,7 +606,7 @@ To check current status of background tracking call:
 Affise.isBackgroundTrackingEnabled(); // returns true or false describing current background tracking state
 ```
 
-### GDPR right to be forgotten
+## GDPR right to be forgotten
 
 Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
 To provide this functionality to user, as the app developer, you can call
@@ -613,6 +615,7 @@ To provide this functionality to user, as the app developer, you can call
 Affise.init(..);
 Affise.forget(); // to forget users data
 ```
+
 After processing such request our backend servers will delete all users data.
 To prevent library from generating new events, disable tracking just before calling Affise.forget:
 
@@ -622,9 +625,10 @@ Affise.setTrackingEnabled(false);
 Affise.forget(); // to forget users data
 ```
 
-### Platform specific
+## Platform specific
 
-#### Get referrer
+### Get referrer
+
 > `Android Only`
 
 Use the next public method of SDK
@@ -635,7 +639,8 @@ Affise.android.getReferrer().then((value) {
 });
 ```
 
-#### Get referrer value
+### Get referrer value
+
 > `Android Only`
 
 Use the next public method of SDK to get referrer value by
@@ -681,31 +686,40 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `SUB_4`
 - `SUB_5`
 
-#### SKAd
+### StoreKit Ad Network
+
 > `iOS Only`
 
 For ios prior `16.1` first call
+
 ```dart
 Affise.ios.registerAppForAdNetworkAttribution((error) { 
-  
+  // Handle error
 });
 ```
 
 Updates the fine and coarse conversion values, and calls a completion handler if the update fails.
 Second argument coarseValue is available in iOS 16.1+
+
 ```dart
 Affise.ios.updatePostbackConversionValue(1, "medium", (error) { 
-  
+  // Handle error
 });
 ```
 
-## Licence
-The Affise SDK is licensed under the MIT License.
+Configure your app to send postback copies to Affise:
 
-Copyright (c) 2022 Affise, Inc. | https://affise.com
+Add key `NSAdvertisingAttributionReportEndpoint` to `Info.plist`
+Set key value to `https://affise-skadnetwork.com/`
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Example: `example/ios/Runner/Info.plist`
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+      <key>NSAdvertisingAttributionReportEndpoint</key>
+      <string>https://affise-skadnetwork.com/</string>
+    </dict>
+</array>
+```
