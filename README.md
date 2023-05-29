@@ -1,6 +1,6 @@
-# Affise Attribution Flutter library
+# Affise Attribution Flutter Library
 
-- [Affise Attribution Flutter library](#affise-attribution-flutter-library)
+- [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
   - [Quick start](#quick-start)
   - [Integration](#integration)
