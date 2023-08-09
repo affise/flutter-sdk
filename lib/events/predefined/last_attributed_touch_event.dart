@@ -1,47 +1,23 @@
 import 'package:affise_attribution_lib/events/native_event.dart';
 
+import '../event_name.dart';
+
 import 'touch_type.dart';
 
 /// Event LastAttributedTouch
 ///
-/// @property touchType type in CLICK, WEB_TO_APP_AUTO_REDIRECT, IMPRESSION
-/// @property timeStampMillis the timestamp event in milliseconds.
-/// @property touchData the JSON Object describing the meaning of the event.
 /// @property userData any custom string data.
+/// @property timeStampMillis the timestamp event in milliseconds.
 class LastAttributedTouchEvent extends NativeEvent {
-  TouchType touchType;
-  int timeStampMillis;
-  Map<String, dynamic> touchData;
-  String? userData;
 
   LastAttributedTouchEvent({
-    required this.touchType,
-    required this.timeStampMillis,
-    required this.touchData,
-    this.userData,
+    super.userData,
+    super.timeStampMillis,
   });
-
-  /// Serialize LastAttributedTouchEvent to Map
-  ///
-  /// @return Map of LastAttributedTouchEvent
-  @override
-  dynamic serialize() {
-    return <String, dynamic>{
-      "affise_event_last_attributed_touch_type": touchType.value,
-      "affise_event_last_attributed_touch_timestamp": timeStampMillis,
-      "affise_event_last_attributed_touch_data": touchData,
-    };
-  }
 
   /// Name of event
   ///
   /// @return name
   @override
-  String getName() => "LastAttributedTouch";
-
-  /// User data
-  ///
-  /// @return userData
-  @override
-  String? getUserData() => userData;
+  String getName() => EventName.LAST_ATTRIBUTED_TOUCH.eventName;
 }

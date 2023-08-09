@@ -1,8 +1,13 @@
 package com.affise.attribution.affise_attribution_lib
 
 
-import android.content.Context
+import android.app.Application
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import com.affise.attribution.internal.AffiseApiMethod
+import com.affise.attribution.internal.AffiseApiWrapper
+import com.affise.attribution.internal.utils.JSONObjectExtKt
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -11,27 +16,50 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
+import org.json.JSONObject
 
 
 /** AffiseAttributionPlugin */
-class AffiseAttributionLibPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.NewIntentListener {
+class AffiseAttributionLibPlugin :
+    FlutterPlugin,
+    MethodCallHandler,
+    ActivityAware,
+    PluginRegistry.NewIntentListener {
 
     companion object {
         private const val CHANNEL = "affise_sdk/api"
     }
 
     private var channel: MethodChannel? = null
-    private var wrapper: AffiseWrapper = AffiseWrapper()
+    private var apiWrapper: AffiseApiWrapper? = null
+    private val handler: Handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        wrapper.applicationContext = flutterPluginBinding.applicationContext
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL)
         channel?.setMethodCallHandler(this)
-        wrapper.channel = channel
+
+        apiWrapper = AffiseApiWrapper(flutterPluginBinding.applicationContext as? Application)
+        apiWrapper?.flutter()
+        apiWrapper?.setCallback { name, data ->
+            val map = JSONObjectExtKt.toMap(JSONObject(data ?: "{}"))
+            handler.post {
+                channel?.invokeMethod(name, map)
+            }
+        }
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        wrapper.handle(call = call, result = result)
+        val data = call.arguments as? Map<String, *>
+        if (data == null) {
+            result.error("no data", null, null)
+            return
+        }
+        apiWrapper?.call(AffiseApiMethod.from(call.method), data, ResultWrapper(result))
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action != Intent.ACTION_VIEW) return
+        apiWrapper?.handleDeeplink(intent.dataString)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -40,9 +68,12 @@ class AffiseAttributionLibPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
-        wrapper.applicationContext?.let {
-            this.handleIntent(it, binding.activity.intent)
-        }
+        handleIntent(binding.activity.intent)
+    }
+
+    override fun onNewIntent(intent: Intent): Boolean {
+        handleIntent(intent)
+        return false
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -52,20 +83,4 @@ class AffiseAttributionLibPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
     override fun onDetachedFromActivityForConfigChanges() = Unit
 
     override fun onDetachedFromActivity() = Unit
-
-    private fun handleIntent(context: Context, intent: Intent) {
-        if (intent.action == Intent.ACTION_VIEW) {
-            if (wrapper.initialLink == null) {
-                wrapper.initialLink = intent.dataString
-            }
-            wrapper.nativeHandleDeeplink(intent.dataString)
-        }
-    }
-
-    override fun onNewIntent(intent: Intent): Boolean {
-        wrapper.applicationContext?.let {
-            this.handleIntent(it, intent)
-        }
-        return false
-    }
 }

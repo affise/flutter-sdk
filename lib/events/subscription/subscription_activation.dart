@@ -1,5 +1,6 @@
 import 'base_subscription_event.dart';
-import 'subscription_parameters.dart';
+import 'subscription_event_name.dart';
+import 'subscription_sub_type.dart';
 
 /// Event InitialSubscription use [data] of event and [userData]
 class InitialSubscriptionEvent extends BaseSubscriptionEvent {
@@ -11,11 +12,11 @@ class InitialSubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_INITIAL_SUBSCRIPTION;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_SUBSCRIPTION;
 }
 
 /// Event InitialTrial use [data] of event and [userData]
@@ -28,11 +29,11 @@ class InitialTrialEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_INITIAL_TRIAL;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_TRIAL;
 }
 
 
@@ -46,9 +47,9 @@ class InitialOfferEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_ACTIVATION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_INITIAL_OFFER;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_OFFER;
 }

@@ -1,5 +1,6 @@
 import 'base_subscription_event.dart';
-import 'subscription_parameters.dart';
+import 'subscription_event_name.dart';
+import 'subscription_sub_type.dart';
 
 /// Event ConvertedTrial use [data] of event and [userData]
 class ConvertedTrialEvent extends BaseSubscriptionEvent {
@@ -10,11 +11,11 @@ class ConvertedTrialEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_CONVERTED_TRIAL;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL;
 }
 
 /// Event ConvertedOffer use [data] of event and [userData]
@@ -26,9 +27,9 @@ class ConvertedOfferEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_CONVERTED_OFFER;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER;
 }

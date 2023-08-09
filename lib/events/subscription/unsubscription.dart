@@ -1,5 +1,6 @@
 import 'base_subscription_event.dart';
-import 'subscription_parameters.dart';
+import 'subscription_event_name.dart';
+import 'subscription_sub_type.dart';
 
 /// Event Unsubscription use [data] of event and [userData]
 class UnsubscriptionEvent extends BaseSubscriptionEvent {
@@ -10,9 +11,9 @@ class UnsubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_UNSUBSCRIPTION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_UNSUBSCRIPTION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_UNSUBSCRIPTION;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_UNSUBSCRIPTION;
 }

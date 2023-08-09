@@ -1,37 +1,21 @@
 import 'package:affise_attribution_lib/events/native_event.dart';
 
+import '../event_name.dart';
+
 /// Event Rate use
 ///
-/// @property reEngage the describing the meaning of the event.
 /// @property userData any custom string data.
+/// @property timeStampMillis the timestamp event in milliseconds.
 class ReEngageEvent extends NativeEvent {
-  String reEngage;
-  String? userData;
 
   ReEngageEvent({
-    required this.reEngage,
-    this.userData,
+    super.userData,
+    super.timeStampMillis,
   });
-
-  /// Serialize ReEngageEvent to Map
-  ///
-  /// @return Map of ReEngageEvent
-  @override
-  dynamic serialize() {
-    return <String, dynamic>{
-      "affise_event_re_engage": reEngage,
-    };
-  }
 
   /// Name of event
   ///
   /// @return name
   @override
-  String getName() => "ReEngage";
-
-  /// User data
-  ///
-  /// @return userData
-  @override
-  String? getUserData() => userData;
+  String getName() => EventName.RE_ENGAGE.eventName;
 }

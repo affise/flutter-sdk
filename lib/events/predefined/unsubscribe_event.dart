@@ -1,41 +1,21 @@
 import 'package:affise_attribution_lib/events/native_event.dart';
 
+import '../event_name.dart';
+
 /// Event Unsubscribe
 ///
-/// @property unsubscribe the JSON Object describing the meaning of the event.
-/// @property timeStampMillis the timestamp event in milliseconds.
 /// @property userData any custom string data.
+/// @property timeStampMillis the timestamp event in milliseconds.
 class UnsubscribeEvent extends NativeEvent {
-  Map<String, dynamic> unsubscribe;
-  int timeStampMillis;
-  String? userData;
 
   UnsubscribeEvent({
-    required this.unsubscribe,
-    required this.timeStampMillis,
-    this.userData,
+    super.userData,
+    super.timeStampMillis,
   });
-
-  /// Serialize UnsubscribeEvent to Map
-  ///
-  /// @return Map of UnsubscribeEvent
-  @override
-  dynamic serialize() {
-    return <String, dynamic>{
-      "affise_event_unsubscribe": unsubscribe,
-      "affise_event_unsubscribe_timestamp": timeStampMillis,
-    };
-  }
 
   /// Name of event
   ///
   /// @return name
   @override
-  String getName() => "Unsubscribe";
-
-  /// User data
-  ///
-  /// @return userData
-  @override
-  String? getUserData() => userData;
+  String getName() => EventName.UNSUBSCRIBE.eventName;
 }

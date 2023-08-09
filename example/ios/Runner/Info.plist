@@ -62,5 +62,7 @@
 	<false/>
 	<key>NSAdvertisingAttributionReportEndpoint</key>
 	<string>https://affise-skadnetwork.com/</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Affise Tracking</string>
 </dict>
 </plist>

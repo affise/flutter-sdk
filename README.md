@@ -15,6 +15,12 @@
   - [Events tracking](#events-tracking)
   - [Custom events tracking](#custom-events-tracking)
   - [Predefined event parameters](#predefined-event-parameters)
+    - [PredefinedString](#predefinedstring)
+    - [PredefinedLong](#predefinedlong)
+    - [PredefinedFloat](#predefinedfloat)
+    - [PredefinedObject](#predefinedobject)
+    - [PredefinedListObject](#predefinedlistobject)
+    - [PredefinedListString](#predefinedliststring)
   - [Events buffering](#events-buffering)
   - [Advertising Identifier (google) tracking](#advertising-identifier-google-tracking)
   - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
@@ -29,6 +35,9 @@
   - [Disable tracking](#disable-tracking)
   - [Disable background tracking](#disable-background-tracking)
   - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
+  - [Get random user Id](#get-random-user-id)
+  - [Get random device Id](#get-random-device-id)
+  - [Get module state](#get-module-state)
   - [Platform specific](#platform-specific)
     - [Get referrer](#get-referrer)
     - [Get referrer value](#get-referrer-value)
@@ -55,7 +64,7 @@ dependencies:
 
   affise_attribution_lib:
     git:
-      url: https://github.com/affise/flutter-sdk.git
+      url: https://github.com/affise/flutter-sdk
 ```
 
 ### Add platform modules
@@ -64,20 +73,23 @@ dependencies:
 
 Add modules to android project
 
-Example `example/android/app/build.gradle`
+Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.5.4'
-    implementation 'com.affise:module-network:1.5.4'
-    implementation 'com.affise:module-phone:1.5.4'
+    implementation 'com.affise:module-advertising:1.6.7'
+    implementation 'com.affise:module-network:1.6.7'
+    implementation 'com.affise:module-phone:1.6.7'
+    implementation 'com.affise:module-status:1.6.7'
 }
 ```
 
 ### Initialize
 
 After dependency is added, sync project with `flutter pub get` and initialize.
+
+> Demo app [main.dart](example/lib/main.dart)
 
 ```dart
 import 'package:flutter/foundation.dart';
@@ -90,11 +102,7 @@ class _MyAppState extends State<MyApp> {
 
     AffiseInitProperties properties = AffiseInitProperties(
       affiseAppId: "Your appId", //Change to your app id
-      isProduction: kReleaseMode, //Add your custom rule to determine if this is a production build
-      secretId: "Your secretId", //Change to your appToken
-      partParamName: null, //Change to your partParamName
-      partParamNameToken: null, //Change to your partParamNameToken
-      appToken: null, //Change to your appToken
+      secretKey: "Your SDK secretKey", //Change to your SDK secretKey
     );
     
     Affise.init(properties);
@@ -107,7 +115,7 @@ class _MyAppState extends State<MyApp> {
 #### Android
 
 Minimal Android SDK version is 21
-Example `example/android/app/build.gradle`
+Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```groovy
 android {
@@ -227,79 +235,87 @@ class Presenter {
     Map<String, dynamic> items = {
       "items": "cookies, potato, milk",
     };
-    
-    Affise.sendEvent(
-      AddToCartEvent(
-        addToCartObject: items,
-        timeStampMillis: DateTime.now().millisecondsSinceEpoch,
-        userData: "groceries",
-      )
+
+    Event event = AddToCartEvent(
+      userData: "groceries"
     );
+        
+    event.addPredefinedObject(PredefinedObject.CONTENT, items);
+    
+    Affise.sendEvent(event);
   }
 }
 ```
 
 With above example you can implement other events:
 
-- `AchieveLevelEvent`
-- `AddPaymentInfoEvent`
-- `AddToCartEvent`
-- `AddToWishlistEvent`
-- `ClickAdvEvent`
-- `CompleteRegistrationEvent`
-- `CompleteStreamEvent`
-- `CompleteTrialEvent`
-- `CompleteTutorialEvent`
-- `ContentItemsViewEvent`
-- `ConvertedOfferEvent`
-- `ConvertedOfferFromRetryEvent`
-- `ConvertedTrialEvent`
-- `ConvertedTrialFromRetryEvent`
-- `DeepLinkedEvent`
-- `FailedOfferFromRetryEvent`
-- `FailedOfferiseEvent`
-- `FailedSubscriptionEvent`
-- `FailedSubscriptionFromRetryEvent`
-- `FailedTrialEvent`
-- `FailedTrialFromRetryEvent`
-- `InitialOfferEvent`
-- `InitialSubscriptionEvent`
-- `InitialTrialEvent`
-- `InitiatePurchaseEvent`
-- `InitiateStreamEvent`
-- `InviteEvent`
-- `LastAttributedTouchEvent`
-- `ListViewEvent`
-- `LoginEvent`
-- `OfferInRetryEvent`
-- `OpenedFromPushNotificationEvent`
-- `PurchaseEvent`
-- `RateEvent`
-- `ReEngageEvent`
-- `ReactivatedSubscriptionEvent`
-- `RenewedSubscriptionEvent`
-- `RenewedSubscriptionFromRetryEvent`
-- `ReserveEvent`
-- `SalesEvent`
-- `SearchEvent`
-- `ShareEvent`
-- `SpendCreditsEvent`
-- `StartRegistrationEvent`
-- `StartTrialEvent`
-- `StartTutorialEvent`
-- `SubscribeEvent`
-- `SubscriptionEvent`
-- `SubscriptionInRetryEvent`
-- `TravelBookingEvent`
-- `TrialInRetryEvent`
-- `UnlockAchievementEvent`
-- `UnsubscribeEvent`
-- `UnsubscriptionEvent`
-- `UpdateEvent`
-- `ViewAdvEvent`
-- `ViewCartEvent`
-- `ViewItemEvent`
-- `ViewItemsEvent`
+- `AchieveLevel`
+- `AddPaymentInfo`
+- `AddToCart`
+- `AddToWishlist`
+- `ClickAdv`
+- `CompleteRegistration`
+- `CompleteStream`
+- `CompleteTrial`
+- `CompleteTutorial`
+- `Contact`
+- `ContentItemsView`
+- `CustomizeProduct`
+- `DeepLinked`
+- `Donate`
+- `FindLocation`
+- `InitiateCheckout`
+- `InitiatePurchase`
+- `InitiateStream`
+- `Invite`
+- `LastAttributedTouch`
+- `Lead`
+- `ListView`
+- `Login`
+- `OpenedFromPushNotification`
+- `Purchase`
+- `Rate`
+- `ReEngage`
+- `Reserve`
+- `Sales`
+- `Schedule`
+- `Search`
+- `Share`
+- `SpendCredits`
+- `StartRegistration`
+- `StartTrial`
+- `StartTutorial`
+- `SubmitApplication`
+- `Subscribe`
+- `TravelBooking`
+- `UnlockAchievement`
+- `Unsubscribe`
+- `Update`
+- `ViewAdv`
+- `ViewCart`
+- `ViewContent`
+- `ViewItem`
+- `ViewItems`
+- `InitialSubscription`
+- `InitialTrial`
+- `InitialOffer`
+- `ConvertedTrial`
+- `ConvertedOffer`
+- `TrialInRetry`
+- `OfferInRetry`
+- `SubscriptionInRetry`
+- `RenewedSubscription`
+- `FailedSubscriptionFromRetry`
+- `FailedOfferFromRetry`
+- `FailedTrialFromRetry`
+- `FailedSubscription`
+- `FailedOfferise`
+- `FailedTrial`
+- `ReactivatedSubscription`
+- `RenewedSubscriptionFromRetry`
+- `ConvertedOfferFromRetry`
+- `ConvertedTrialFromRetry`
+- `Unsubscription`
 
 ## Custom events tracking
 
@@ -331,82 +347,54 @@ class Presenter {
     };
 
     AddToCartEvent event = AddToCartEvent(
-      addToCartObject: items,
       timeStampMillis: DateTime.now().millisecondsSinceEpoch,
     );
 
-    event.addPredefinedParameter(PredefinedParameters.DESCRIPTION, "best before 2029");
+    event.addPredefinedString(PredefinedString.DESCRIPTION, "best before 2029");
+    event.addPredefinedObject(PredefinedObject.CONTENT, items);
 
     Affise.sendEvent(event);
   }
 }
 ```
 
-In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is available:
+In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTENT` is used, but many others is available:
 
+| PredefinedParameter                           | Type                                   | Event Method            |
+|-----------------------------------------------|----------------------------------------|-------------------------|
+| [PredefinedString](#predefinedstring)         | String                                 | addPredefinedString()   |
+| [PredefinedLong](#predefinedlong)             | int                                    | addPredefinedLong()     |
+| [PredefinedFloat](#predefinedfloat)           | double                                 | addPredefinedFloat()    |
+| [PredefinedObject](#predefinedobject)         | Map&lt;String, dynamic&gt;             | addPredefinedObject()   |
+| [PredefinedListObject](#predefinedlistobject) | List&lt;Map&lt;String, dynamic&gt;&gt; | addPredefinedListObject() |
+| [PredefinedListString](#predefinedliststring) | List&lt;String&gt;                     | addPredefinedListString() |
+
+### PredefinedString
+
+- `ACHIEVEMENT_ID`
 - `ADREV_AD_TYPE`
+- `BRAND`
+- `BRICK`
+- `CATALOGUE_ID`
+- `CHANNEL_TYPE`
 - `CITY`
-- `COUNTRY`
-- `REGION`
 - `CLASS`
-- `CONTENT`
 - `CONTENT_ID`
-- `CONTENT_LIST`
 - `CONTENT_TYPE`
+- `COUNTRY`
+- `COUPON_CODE`
 - `CURRENCY`
+- `CUSTOMER_SEGMENT`
+- `CUSTOMER_TYPE`
 - `CUSTOMER_USER_ID`
-- `DATE_A`
-- `DATE_B`
-- `DEPARTING_ARRIVAL_DATE`
-- `DEPARTING_DEPARTURE_DATE`
+- `DEEP_LINK`
 - `DESCRIPTION`
 - `DESTINATION_A`
 - `DESTINATION_B`
 - `DESTINATION_LIST`
-- `HOTEL_SCORE`
-- `LEVEL`
-- `MAX_RATING_VALUE`
-- `NUM_ADULTS`
-- `NUM_CHILDREN`
-- `NUM_INFANTS`
-- `ORDER_ID`
-- `PAYMENT_INFO_AVAILABLE`
-- `PREFERRED_NEIGHBORHOODS`
-- `PREFERRED_NUM_STOPS`
-- `PREFERRED_PRICE_RANGE`
-- `PREFERRED_STAR_RATINGS`
-- `PRICE`
-- `PURCHASE_CURRENCY`
-- `QUANTITY`
-- `RATING_VALUE`
-- `RECEIPT_ID`
-- `REGISTRATION_METHOD`
-- `RETURNING_ARRIVAL_DATE`
-- `RETURNING_DEPARTURE_DATE`
-- `REVENUE`
-- `SCORE`
-- `SEARCH_STRING`
-- `SUBSCRIPTION_ID`
-- `SUCCESS`
-- `SUGGESTED_DESTINATIONS`
-- `SUGGESTED_HOTELS`
-- `TRAVEL_START`
-- `TRAVEL_END`
-- `USER_SCORE`
-- `VALIDATED`
-- `ACHIEVEMENT_ID`
-- `COUPON_CODE`
-- `CUSTOMER_SEGMENT`
-- `DEEP_LINK`
-- `EVENT_START`
-- `EVENT_END`
-- `LAT`
-- `LONG`
 - `NEW_VERSION`
 - `OLD_VERSION`
-- `REVIEW_TEXT`
-- `TUTORIAL_ID`
-- `VIRTUAL_CURRENCY_NAME`
+- `ORDER_ID`
 - `PARAM_01`
 - `PARAM_02`
 - `PARAM_03`
@@ -416,6 +404,75 @@ In examples above `PredefinedParameters.DESCRIPTION` is used, but many others is
 - `PARAM_07`
 - `PARAM_08`
 - `PARAM_09`
+- `PARAM_10`
+- `PAYMENT_INFO_AVAILABLE`
+- `PREFERRED_NEIGHBORHOODS`
+- `PURCHASE_CURRENCY`
+- `RECEIPT_ID`
+- `REGION`
+- `REGISTRATION_METHOD`
+- `REVIEW_TEXT`
+- `SEARCH_STRING`
+- `SEGMENT`
+- `STATUS`
+- `SUBSCRIPTION_ID`
+- `SUCCESS`
+- `SUGGESTED_DESTINATIONS`
+- `SUGGESTED_HOTELS`
+- `TUTORIAL_ID`
+- `UTM_CAMPAIGN`
+- `UTM_MEDIUM`
+- `UTM_SOURCE`
+- `VALIDATED`
+- `VERTICAL`
+- `VIRTUAL_CURRENCY_NAME`
+- `VOUCHER_CODE`
+
+### PredefinedLong
+
+- `AMOUNT`
+- `DATE_A`
+- `DATE_B`
+- `DEPARTING_ARRIVAL_DATE`
+- `DEPARTING_DEPARTURE_DATE`
+- `HOTEL_SCORE`
+- `LEVEL`
+- `MAX_RATING_VALUE`
+- `NUM_ADULTS`
+- `NUM_CHILDREN`
+- `NUM_INFANTS`
+- `PREFERRED_NUM_STOPS`
+- `PREFERRED_STAR_RATINGS`
+- `QUANTITY`
+- `RATING_VALUE`
+- `RETURNING_ARRIVAL_DATE`
+- `RETURNING_DEPARTURE_DATE`
+- `SCORE`
+- `TRAVEL_START`
+- `TRAVEL_END`
+- `USER_SCORE`
+- `EVENT_START`
+- `EVENT_END`
+
+### PredefinedFloat
+
+- `PREFERRED_PRICE_RANGE`
+- `PRICE`
+- `REVENUE`
+- `LAT`
+- `LONG`
+
+### PredefinedObject
+
+- `CONTENT`
+
+### PredefinedListObject
+
+- `CONTENT_LIST`
+
+### PredefinedListString
+
+- `CONTENT_IDS`
 
 ## Events buffering
 
@@ -437,9 +494,9 @@ Install referrer tracking is supported automatically, no actions needed
 ## Push token tracking
 
 To let affise track push token you need to receive it from your push service provider, and pass to Affise library.
-First add firebase integration to your app completing theese steps: [Firebase Docs](https://firebase.google.com/docs/cloud-messaging/android/client)
+First add firebase integration to your app completing these steps: Firebase [iOS](https://firebase.google.com/docs/cloud-messaging/ios/client) or [Android](https://firebase.google.com/docs/cloud-messaging/android/client) Docs
 
-After you have done with firebase inegration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
+After you have done with firebase integration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
 
 ```dart
 import 'package:affise_attribution_lib/affise.dart';
@@ -475,10 +532,10 @@ class _Application extends State<Application> {
 
 ## Reinstall Uninstall tracking
 
-Affise automaticly track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+Affise automatically track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
 
 ```dart
-Affise.addPushToken(token);
+Affise.addPushToken("token");
 ```
 
 ## APK preinstall tracking
@@ -550,7 +607,7 @@ Example: `example/ios/Runner/Info.plist`
 
 ## Offline mode
 
-In some scenarious you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
+In some scenarios you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
 
 ```dart
 Affise.init(..);
@@ -559,7 +616,7 @@ Affise.setOfflineModeEnabled(false); // to disable offline mode
 ```
 
 While offline mode is enabled, your metrics and other events are kept locally, and will be delivered once offline mode is disabled.
-Offline mode is persistent as Application lifecycle, and will be disabled with process termination automaticly.
+Offline mode is persistent as Application lifecycle, and will be disabled with process termination automatically.
 To check current offline mode status call:
 
 ```dart
@@ -625,6 +682,32 @@ Affise.setTrackingEnabled(false);
 Affise.forget(); // to forget users data
 ```
 
+## Get random user Id
+
+Use the next public method of SDK
+
+```dart
+Affise.GetRandomUserId();
+```
+
+## Get random device Id
+
+Use the next public method of SDK
+
+```dart
+Affise.GetRandomDeviceId();
+```
+
+## Get module state
+
+> Implemented for `Android`
+
+```dart
+Affise.GetStatus(AffiseModules.STATUS, (response) {
+    // handle response
+});
+```
+
 ## Platform specific
 
 ### Get referrer
@@ -634,8 +717,8 @@ Affise.forget(); // to forget users data
 Use the next public method of SDK
 
 ```dart
-Affise.android.getReferrer().then((value) {
-
+Affise.android.getReferrer((value) {
+  // handle referrer
 });
 ```
 
@@ -647,7 +730,7 @@ Use the next public method of SDK to get referrer value by
 
 ```dart
 Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
-
+  // handle referrer
 });
 ```
 
@@ -702,7 +785,7 @@ Updates the fine and coarse conversion values, and calls a completion handler if
 Second argument coarseValue is available in iOS 16.1+
 
 ```dart
-Affise.ios.updatePostbackConversionValue(1, "medium", (error) { 
+Affise.ios.updatePostbackConversionValue(1, SKAdNetwork.CoarseConversionValue.medium, (error) { 
   // Handle error
 });
 ```

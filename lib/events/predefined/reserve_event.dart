@@ -1,41 +1,21 @@
 import 'package:affise_attribution_lib/events/native_event.dart';
 
+import '../event_name.dart';
+
 /// Event Reserve
 ///
-/// @property reserve the list of JSON Object describing the meaning of the event.
-/// @property timeStampMillis the timestamp event in milliseconds.
 /// @property userData any custom string data.
+/// @property timeStampMillis the timestamp event in milliseconds.
 class ReserveEvent extends NativeEvent {
-  List<dynamic> reserve;
-  int timeStampMillis;
-  String? userData;
 
   ReserveEvent({
-    required this.reserve,
-    required this.timeStampMillis,
-    this.userData,
+    super.userData,
+    super.timeStampMillis,
   });
-
-  /// Serialize ReserveEvent to Map
-  ///
-  /// @return Map of ReserveEvent
-  @override
-  dynamic serialize() {
-    return <String, dynamic>{
-      "affise_event_reserve": reserve,
-      "affise_event_reserve_timestamp": timeStampMillis,
-    };
-  }
 
   /// Name of event
   ///
   /// @return name
   @override
-  String getName() => "Reserve";
-
-  /// User data
-  ///
-  /// @return userData
-  @override
-  String? getUserData() => userData;
+  String getName() => EventName.RESERVE.eventName;
 }

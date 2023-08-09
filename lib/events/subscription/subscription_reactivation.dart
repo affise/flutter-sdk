@@ -1,5 +1,6 @@
 import 'base_subscription_event.dart';
-import 'subscription_parameters.dart';
+import 'subscription_event_name.dart';
+import 'subscription_sub_type.dart';
 
 /// Event ReactivatedSubscription use [data] of event and [userData]
 class ReactivatedSubscriptionEvent extends BaseSubscriptionEvent {
@@ -10,9 +11,9 @@ class ReactivatedSubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  String get type => SubscriptionParameters.AFFISE_SUBSCRIPTION_REACTIVATION;
+  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_REACTIVATION;
 
   /// Subtype of event
   @override
-  String get subtype => SubscriptionParameters.AFFISE_SUB_REACTIVATED_SUBSCRIPTION;
+  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_REACTIVATED_SUBSCRIPTION;
 }

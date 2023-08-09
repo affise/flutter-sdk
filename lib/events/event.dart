@@ -1,11 +1,18 @@
 import 'dart:core';
+import 'dart:ffi';
 
-import 'package:affise_attribution_lib/events/predefined/predefined_parameters.dart';
+import 'package:affise_attribution_lib/events/parameters/predefined_object.dart';
+
+import 'parameters/predefined_float.dart';
+import 'parameters/predefined_list_object.dart';
+import 'parameters/predefined_list_string.dart';
+import 'parameters/predefined_long.dart';
+import 'parameters/predefined_string.dart';
 
 /// Base event
 abstract class Event {
   /// Event predefined parameters
-  Map<PredefinedParameters, String> predefinedParameters = {};
+  Map<String, dynamic> predefinedParameters = {};
 
   /// Serialize event to dynamic
   ///
@@ -32,27 +39,40 @@ abstract class Event {
   /// @return is first for user or not
   bool isFirstForUser() => false;
 
-  /// Add predefined [parameter] with [value] to event
-  void addPredefinedParameter(PredefinedParameters parameter, String value) {
-    predefinedParameters[parameter] = value;
+  /// Add predefined [parameter] with [value] of double to event
+  void addPredefinedFloat(PredefinedFloat parameter, double value) {
+    predefinedParameters[parameter.value] = value;
+  }
+
+  /// Add predefined [parameter] with [value] of List<Map<String, dynamic>> to event
+  void addPredefinedListObject(PredefinedListObject parameter, List<Map<String, dynamic>> value) {
+    predefinedParameters[parameter.value] = value;
+  }
+
+  /// Add predefined [parameter] with [value] of List<String> to event
+  void addPredefinedListString(PredefinedListString parameter, List<String> value) {
+    predefinedParameters[parameter.value] = value;
+  }
+
+  /// Add predefined [parameter] with [value] of int to event
+  void addPredefinedLong(PredefinedLong parameter, int value) {
+    predefinedParameters[parameter.value] = value;
+  }
+
+  /// Add predefined [parameter] with [value] of Map<String, dynamic> to event
+  void addPredefinedObject(PredefinedObject parameter, Map<String, dynamic> value) {
+    predefinedParameters[parameter.value] = value;
+  }
+
+  /// Add predefined [parameter] with [value] of String to event
+  void addPredefinedString(PredefinedString parameter, String value) {
+    predefinedParameters[parameter.value] = value;
   }
 
   /// Get map of predefined parameter
   ///
   /// @return map of predefined parameter
-  Map<PredefinedParameters, String> getPredefinedParameters() {
+  Map<String, dynamic> getPredefinedParameters() {
     return predefinedParameters;
-  }
-
-  Map<String, dynamic> get toMap {
-    return <String, dynamic>{
-      'name': getName(),
-      'category': getCategory(),
-      'userData': getUserData(),
-      'firstForUser': isFirstForUser(),
-      'serialize': serialize(),
-      'predefinedParameters':
-          predefinedParameters.map((key, value) => MapEntry(key.value, value)),
-    };
   }
 }

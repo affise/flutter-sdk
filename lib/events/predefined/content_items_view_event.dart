@@ -1,37 +1,21 @@
 import 'package:affise_attribution_lib/events/native_event.dart';
 
+import '../event_name.dart';
+
 /// Event ContentItemsView
 ///
-/// @property objects the list of JSON Object describing the meaning of the event.
 /// @property userData any custom string data.
+/// @property timeStampMillis the timestamp event in milliseconds.
 class ContentItemsViewEvent extends NativeEvent {
-  List<dynamic> objects;
-  String? userData;
 
   ContentItemsViewEvent({
-    required this.objects,
-    this.userData,
+    super.userData,
+    super.timeStampMillis,
   });
-
-  /// Serialize ContentItemsViewEvent to Map
-  ///
-  /// @return Map of ContentItemsViewEvent
-  @override
-  dynamic serialize() {
-    return <String, dynamic>{
-      "affise_event_content_items_view": objects,
-    };
-  }
 
   /// Name of event
   ///
   /// @return name
   @override
-  String getName() => "ContentItemsView";
-
-  /// User data
-  ///
-  /// @return userData
-  @override
-  String? getUserData() => userData;
+  String getName() => EventName.CONTENT_ITEMS_VIEW.eventName;
 }
