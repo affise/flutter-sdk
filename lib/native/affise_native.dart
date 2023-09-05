@@ -1,4 +1,3 @@
-import 'dart:collection';
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
 import '../deeplink/on_deeplink_callback.dart';
@@ -20,6 +19,10 @@ class AffiseNative extends NativeBase {
 
   void init(AffiseInitProperties initProperties) {
     native(AffiseApiMethod.INIT, initProperties.toMap);
+  }
+
+  Future<bool> isInitialized() async {
+    return await native(AffiseApiMethod.IS_INITIALIZED);
   }
 
   void sendEvents() {

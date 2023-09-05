@@ -1,5 +1,9 @@
 # Affise Attribution Flutter Library
 
+| Package                  | Version |
+|--------------------------|:-------:|
+| `affise_attribution_lib` | [`1.6.1`](https://github.com/affise/sdk-react/releases) |
+
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
   - [Quick start](#quick-start)
@@ -7,6 +11,7 @@
     - [Integrate as dependency](#integrate-as-dependency)
     - [Add platform modules](#add-platform-modules)
       - [Android](#android)
+      - [iOS](#ios)
     - [Initialize](#initialize)
     - [Requirements](#requirements)
       - [Android](#android-1)
@@ -30,15 +35,15 @@
   - [APK preinstall tracking](#apk-preinstall-tracking)
   - [Deeplinks](#deeplinks)
     - [Android](#android-2)
-    - [iOS](#ios)
+    - [iOS](#ios-1)
   - [Offline mode](#offline-mode)
   - [Disable tracking](#disable-tracking)
   - [Disable background tracking](#disable-background-tracking)
-  - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
   - [Get module state](#get-module-state)
   - [Platform specific](#platform-specific)
+    - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
     - [Get referrer](#get-referrer)
     - [Get referrer value](#get-referrer-value)
       - [Referrer keys](#referrer-keys)
@@ -73,23 +78,48 @@ dependencies:
 
 Add modules to android project
 
+| Module             | Version                                      |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
+| `module-network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             |
+| `module-phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   |
+| `module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)      
+
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.7'
-    implementation 'com.affise:module-network:1.6.7'
-    implementation 'com.affise:module-phone:1.6.7'
-    implementation 'com.affise:module-status:1.6.7'
+    implementation 'com.affise:module-advertising:1.6.+'
+    implementation 'com.affise:module-network:1.6.+'
+    implementation 'com.affise:module-phone:1.6.+'
+    implementation 'com.affise:module-status:1.6.+'
 }
 ```
+
+#### iOS
+
+Add modules to iOS project
+
+| Module                | Version |
+|-----------------------|:-------:|
+| `AffiseModule/Status` | `1.6.9` |
+
+Example [example/ios/Podfile](example/ios/Podfile)
+
+```ruby
+target 'Runner' do
+  # ...
+  
+  # Affise Module
+  pod 'AffiseModule/Status', `~> 1.6.9`
+end
 
 ### Initialize
 
 After dependency is added, sync project with `flutter pub get` and initialize.
 
-> Demo app [main.dart](example/lib/main.dart)
+> Demo app [`main.dart`](example/lib/main.dart)
 
 ```dart
 import 'package:flutter/foundation.dart';
@@ -108,6 +138,12 @@ class _MyAppState extends State<MyApp> {
     Affise.init(properties);
   }
 }
+```
+
+Check if library is initialized
+
+```dart
+Affise.isInitialized();
 ```
 
 ### Requirements
@@ -350,8 +386,9 @@ class Presenter {
       timeStampMillis: DateTime.now().millisecondsSinceEpoch,
     );
 
-    event.addPredefinedString(PredefinedString.DESCRIPTION, "best before 2029");
-    event.addPredefinedObject(PredefinedObject.CONTENT, items);
+    event
+      .addPredefinedString(PredefinedString.DESCRIPTION, "best before 2029")
+      .addPredefinedObject(PredefinedObject.CONTENT, items);
 
     Affise.sendEvent(event);
   }
@@ -375,12 +412,16 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `ADREV_AD_TYPE`
 - `BRAND`
 - `BRICK`
+- `CAMPAIGN_ID`
 - `CATALOGUE_ID`
 - `CHANNEL_TYPE`
 - `CITY`
 - `CLASS`
+- `CLICK_ID`
 - `CONTENT_ID`
+- `CONTENT_NAME`
 - `CONTENT_TYPE`
+- `CONVERSION_ID`
 - `COUNTRY`
 - `COUPON_CODE`
 - `CURRENCY`
@@ -392,6 +433,7 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `DESTINATION_A`
 - `DESTINATION_B`
 - `DESTINATION_LIST`
+- `EVENT_NAME`
 - `NEW_VERSION`
 - `OLD_VERSION`
 - `ORDER_ID`
@@ -406,7 +448,10 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `PARAM_09`
 - `PARAM_10`
 - `PAYMENT_INFO_AVAILABLE`
+- `PID`
 - `PREFERRED_NEIGHBORHOODS`
+- `PRODUCT_ID`
+- `PRODUCT_NAME`
 - `PURCHASE_CURRENCY`
 - `RECEIPT_ID`
 - `REGION`
@@ -587,7 +632,7 @@ To integrate deeplink support in iOS you need:
 
 Add key `CFBundleURLTypes` to `Info.plist`
 
-Example: `example/ios/Runner/Info.plist`
+Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -663,14 +708,38 @@ To check current status of background tracking call:
 Affise.isBackgroundTrackingEnabled(); // returns true or false describing current background tracking state
 ```
 
-## GDPR right to be forgotten
+## Get random user Id
+
+```dart
+Affise.getRandomUserId();
+```
+
+## Get random device Id
+
+```dart
+Affise.getRandomDeviceId();
+```
+
+## Get module state
+
+```dart
+Affise.getStatus(AffiseModules.STATUS, (response) {
+    // handle status response
+});
+```
+
+## Platform specific
+
+### GDPR right to be forgotten
+
+> `Android Only`
 
 Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
 To provide this functionality to user, as the app developer, you can call
 
 ```dart
 Affise.init(..);
-Affise.forget(); // to forget users data
+Affise.android.forget(); // to forget users data
 ```
 
 After processing such request our backend servers will delete all users data.
@@ -679,36 +748,8 @@ To prevent library from generating new events, disable tracking just before call
 ```dart
 Affise.init(..);
 Affise.setTrackingEnabled(false);
-Affise.forget(); // to forget users data
+Affise.android.forget(); // to forget users data
 ```
-
-## Get random user Id
-
-Use the next public method of SDK
-
-```dart
-Affise.GetRandomUserId();
-```
-
-## Get random device Id
-
-Use the next public method of SDK
-
-```dart
-Affise.GetRandomDeviceId();
-```
-
-## Get module state
-
-> Implemented for `Android`
-
-```dart
-Affise.GetStatus(AffiseModules.STATUS, (response) {
-    // handle response
-});
-```
-
-## Platform specific
 
 ### Get referrer
 
@@ -795,7 +836,7 @@ Configure your app to send postback copies to Affise:
 Add key `NSAdvertisingAttributionReportEndpoint` to `Info.plist`
 Set key value to `https://affise-skadnetwork.com/`
 
-Example: `example/ios/Runner/Info.plist`
+Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
 
 ```xml
 <key>CFBundleURLTypes</key>

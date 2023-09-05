@@ -1,9 +1,11 @@
 import 'dart:core';
-import 'dart:ffi';
 
+import 'package:affise_attribution_lib/affise.dart';
 import 'package:affise_attribution_lib/events/parameters/predefined_object.dart';
 
+import '../utils/try_cast.dart';
 import 'parameters/predefined_float.dart';
+import 'parameters/predefined_group.dart';
 import 'parameters/predefined_list_object.dart';
 import 'parameters/predefined_list_string.dart';
 import 'parameters/predefined_long.dart';
@@ -12,7 +14,7 @@ import 'parameters/predefined_string.dart';
 /// Base event
 abstract class Event {
   /// Event predefined parameters
-  Map<String, dynamic> predefinedParameters = {};
+  final Map<String, dynamic> _predefinedParameters = {};
 
   /// Serialize event to dynamic
   ///
@@ -40,39 +42,64 @@ abstract class Event {
   bool isFirstForUser() => false;
 
   /// Add predefined [parameter] with [value] of double to event
-  void addPredefinedFloat(PredefinedFloat parameter, double value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedFloat(PredefinedFloat parameter, double value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
   }
 
   /// Add predefined [parameter] with [value] of List<Map<String, dynamic>> to event
-  void addPredefinedListObject(PredefinedListObject parameter, List<Map<String, dynamic>> value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedListObject(PredefinedListObject parameter, List<Map<String, dynamic>> value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
   }
 
   /// Add predefined [parameter] with [value] of List<String> to event
-  void addPredefinedListString(PredefinedListString parameter, List<String> value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedListString(PredefinedListString parameter, List<String> value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
   }
 
   /// Add predefined [parameter] with [value] of int to event
-  void addPredefinedLong(PredefinedLong parameter, int value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedLong(PredefinedLong parameter, int value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
   }
 
   /// Add predefined [parameter] with [value] of Map<String, dynamic> to event
-  void addPredefinedObject(PredefinedObject parameter, Map<String, dynamic> value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedObject(PredefinedObject parameter, Map<String, dynamic> value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
   }
 
   /// Add predefined [parameter] with [value] of String to event
-  void addPredefinedString(PredefinedString parameter, String value) {
-    predefinedParameters[parameter.value] = value;
+  Event addPredefinedString(PredefinedString parameter, String value) {
+    _predefinedParameters[parameter.value] = value;
+    return this;
+  }
+
+  /// Add predefined [parameter] with [value] of List<PredefinedGroup> to event
+  // TODO addPredefinedListGroup
+  // Event addPredefinedListGroup(List<PredefinedGroup> value) {
+  //   if (!_predefinedParameters.containsKey(PredefinedGroup.NAME)) {
+  //     _predefinedParameters[PredefinedGroup.NAME] = <Map<String, dynamic>>[];
+  //   }
+
+  //   for (var group in value) {
+  //     tryCast<List<Map<String, dynamic>>>(_predefinedParameters[PredefinedGroup.NAME])
+  //         ?.add(group.getPredefinedParameters());
+  //   }
+  //   return this;
+  // }
+
+  /// Store and send this event
+  void send() {
+    Affise.sendEvent(this);
   }
 
   /// Get map of predefined parameter
   ///
   /// @return map of predefined parameter
   Map<String, dynamic> getPredefinedParameters() {
-    return predefinedParameters;
+    return _predefinedParameters;
   }
 }

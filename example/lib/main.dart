@@ -1,7 +1,7 @@
 import 'package:affise_attribution_lib/affise.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'affise/affise_api_widget.dart';
 import 'affise/affise_widget.dart';
 
 void main() {
@@ -16,7 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _callback = "";
+
+  ValueNotifier<String> output = ValueNotifier("");
 
   @override
   void initState() {
@@ -24,10 +25,8 @@ class _MyAppState extends State<MyApp> {
     initAffise();
   }
 
-  void _cbState(String data) {
-    setState(() {
-      _callback = data;
-    });
+  void setOutput(String data) {
+    output.value = data;
   }
 
   void initAffise() async {
@@ -38,41 +37,7 @@ class _MyAppState extends State<MyApp> {
 
     Affise.init(properties);
     Affise.registerDeeplinkCallback((uri) {
-      _cbState("Deeplink: $uri");
-      if (kDebugMode) {
-        print("Deeplink $uri");
-      }
-    });
-
-    Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
-      if (kDebugMode) {
-        print("ReferrerValue: $value");
-      }
-    });
-
-    Affise.android.getReferrer((value) {
-      if (kDebugMode) {
-        print("Referrer: $value");
-      }
-    });
-
-    Affise.getStatus(AffiseModules.STATUS, (value) {
-      if (kDebugMode) {
-        print("Modules status: $value");
-      }
-    });
-
-    Affise.ios.registerAppForAdNetworkAttribution((error) {
-      if (kDebugMode) {
-        print("SKAd registerAppForAdNetworkAttribution: $error");
-      }
-    });
-
-    Affise.ios.updatePostbackConversionValue(
-        1, SKAdNetwork.CoarseConversionValue.medium, (error) {
-      if (kDebugMode) {
-        print("SKAd updatePostbackConversionValue: $error");
-      }
+      setOutput("Deeplink: $uri");
     });
   }
 
@@ -83,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(
+            bottom: const TabBar(
               tabs: [
                 Tab(
                   child: Row(
@@ -111,34 +76,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: TabBarView(
             children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(8),
-                      child: Text(_callback),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Affise.getStatus(AffiseModules.STATUS, (value) {
-                          _cbState("Status: ${value.toString()}");
-                        });
-                      },
-                      child: const Text("Status"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Affise.android.getReferrer((value) {
-                          _cbState("Referrer: $value");
-                        });
-                      },
-                      child: const Text("Referrer"),
-                    ),
-                  ],
-                ),
-              ),
+              AffiseApiWidget(output),
               const AffiseWidget(),
             ],
           ),

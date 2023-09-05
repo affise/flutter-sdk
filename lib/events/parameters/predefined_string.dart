@@ -57,6 +57,14 @@ enum PredefinedString {
   UTM_SOURCE,
   VERTICAL,
   VOUCHER_CODE,
+  CLICK_ID,
+  CAMPAIGN_ID,
+  EVENT_NAME,
+  PID,
+  PRODUCT_ID,
+  CONVERSION_ID,
+  CONTENT_NAME,
+  PRODUCT_NAME,
 }
 
 extension PredefinedStringExt on PredefinedString {
@@ -178,6 +186,22 @@ extension PredefinedStringExt on PredefinedString {
         return "vertical";
       case PredefinedString.VOUCHER_CODE:
         return "voucher_code";
+      case PredefinedString.CLICK_ID: 
+        return "click_id";
+      case PredefinedString.CAMPAIGN_ID: 
+        return "campaign_id";
+      case PredefinedString.EVENT_NAME: 
+        return "event_name";
+      case PredefinedString.PID: 
+        return "pid";
+      case PredefinedString.PRODUCT_ID: 
+        return "product_id";
+      case PredefinedString.CONVERSION_ID: 
+        return "conversion_id";
+      case PredefinedString.CONTENT_NAME: 
+        return "content_name";
+      case PredefinedString.PRODUCT_NAME: 
+        return "product_name";
     }
   }
 }

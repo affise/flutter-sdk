@@ -29,14 +29,8 @@ class EventToSerializedEventConverter extends Converter<Event, Map<String, dynam
     //Add event data
     result[Parameters.AFFISE_EVENT_DATA] = from.serialize();
 
-    Map<String, dynamic> parameters = {};
-
-    from.getPredefinedParameters().forEach((key, value) {
-      parameters[key] = value;
-    });
-
     //Add predefined parameters
-    result[Parameters.AFFISE_PARAMETERS] = parameters;
+    result[Parameters.AFFISE_PARAMETERS] = from.getPredefinedParameters();
 
     return result;
   }

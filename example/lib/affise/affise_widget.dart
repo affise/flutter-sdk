@@ -12,12 +12,13 @@ class AffiseWidget extends StatefulWidget {
 }
 
 class _AffiseWidgetState extends State<AffiseWidget> {
+  
+  DefaultEventsFactory factory = DefaultEventsFactory();
   List<Event> items = [];
 
   @override
   void initState() {
     super.initState();
-    DefaultEventsFactory factory = DefaultEventsFactory();
     items = factory.createEvents();
   }
 
@@ -47,7 +48,10 @@ class _AffiseWidgetState extends State<AffiseWidget> {
             itemBuilder: (context, index) {
               return ElevatedButton(
                 onPressed: () {
-                  Affise.sendEvent(items[index]);
+                  // Send event
+                  items[index].send();
+                  // or
+                  // Affise.sendEvent(items[index]);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: (items[index] is BaseSubscriptionEvent)

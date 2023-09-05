@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import com.affise.attribution.internal.AffiseApiMethod
 import com.affise.attribution.internal.AffiseApiWrapper
-import com.affise.attribution.internal.utils.JSONObjectExtKt
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -16,7 +15,6 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
-import org.json.JSONObject
 
 
 /** AffiseAttributionPlugin */
@@ -40,8 +38,7 @@ class AffiseAttributionLibPlugin :
 
         apiWrapper = AffiseApiWrapper(flutterPluginBinding.applicationContext as? Application)
         apiWrapper?.flutter()
-        apiWrapper?.setCallback { name, data ->
-            val map = JSONObjectExtKt.toMap(JSONObject(data ?: "{}"))
+        apiWrapper?.setCallback { name, map ->
             handler.post {
                 channel?.invokeMethod(name, map)
             }

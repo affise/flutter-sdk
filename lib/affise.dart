@@ -33,6 +33,10 @@ class Affise {
     });
   }
 
+  static Future<bool> isInitialized() async { 
+    return _native.isInitialized();
+  }
+
   /// Send events
   static void sendEvents() {
     _native.sendEvents();
