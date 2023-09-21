@@ -14,6 +14,8 @@ import 'native/affise_native.dart';
 import 'skad/coarse_value.dart';
 
 export 'affise_init_properties.dart';
+export 'ad/affise_ad_revenue.dart';
+export 'ad/affise_ad_source.dart';
 export 'events/event.dart';
 export 'events/events.dart';
 export 'events/subscription_events.dart';

@@ -65,6 +65,10 @@ enum PredefinedString {
   CONVERSION_ID,
   CONTENT_NAME,
   PRODUCT_NAME,
+  SOURCE,
+  NETWORK,
+  UNIT,
+  PLACEMENT,
 }
 
 extension PredefinedStringExt on PredefinedString {
@@ -202,6 +206,14 @@ extension PredefinedStringExt on PredefinedString {
         return "content_name";
       case PredefinedString.PRODUCT_NAME: 
         return "product_name";
+      case PredefinedString.SOURCE:
+        return "source";
+      case PredefinedString.NETWORK:
+        return "network";
+      case PredefinedString.UNIT:
+        return "unit";
+      case PredefinedString.PLACEMENT:
+        return "placement";
     }
   }
 }

@@ -1,8 +1,8 @@
 # Affise Attribution Flutter Library
 
-| Package                  | Version |
-|--------------------------|:-------:|
-| `affise_attribution_lib` | [`1.6.1`](https://github.com/affise/sdk-react/releases) |
+| Package                  |                         Version                         |
+|--------------------------|:-------------------------------------------------------:|
+| `affise_attribution_lib` | [`1.6.2`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -48,6 +48,7 @@
     - [Get referrer value](#get-referrer-value)
       - [Referrer keys](#referrer-keys)
     - [StoreKit Ad Network](#storekit-ad-network)
+- [SDK to SDK integrations](#sdk-to-sdk-integrations)
 
 # Description
 
@@ -78,12 +79,12 @@ dependencies:
 
 Add modules to android project
 
-| Module             | Version                                      |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Module               | Version                                                                                                                                                                      |
+|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `module-advertising` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) |
 | `module-network`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             |
 | `module-phone`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   |
-| `module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)      
+| `module-status`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
@@ -101,9 +102,9 @@ dependencies {
 
 Add modules to iOS project
 
-| Module                | Version |
-|-----------------------|:-------:|
-| `AffiseModule/Status` | `1.6.9` |
+| Module                | Version  |
+|-----------------------|:--------:|
+| `AffiseModule/Status` | `1.6.11` |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -112,7 +113,7 @@ target 'Runner' do
   # ...
   
   # Affise Module
-  pod 'AffiseModule/Status', `~> 1.6.9`
+  pod 'AffiseModule/Status', `~> 1.6.11`
 end
 
 ### Initialize
@@ -272,13 +273,9 @@ class Presenter {
       "items": "cookies, potato, milk",
     };
 
-    Event event = AddToCartEvent(
-      userData: "groceries"
-    );
-        
-    event.addPredefinedObject(PredefinedObject.CONTENT, items);
-    
-    Affise.sendEvent(event);
+    AddToCartEvent(userData: "groceries")
+      .addPredefinedObject(PredefinedObject.CONTENT, items)
+      .send();
   }
 }
 ```
@@ -289,6 +286,7 @@ With above example you can implement other events:
 - `AddPaymentInfo`
 - `AddToCart`
 - `AddToWishlist`
+- `AdRevenue`
 - `ClickAdv`
 - `CompleteRegistration`
 - `CompleteStream`
@@ -309,6 +307,12 @@ With above example you can implement other events:
 - `ListView`
 - `Login`
 - `OpenedFromPushNotification`
+- `Order`
+- `OrderItemAdded`
+- `OrderItemRemove`
+- `OrderCancel`
+- `OrderReturnRequest`
+- `OrderReturnRequestCancel`
 - `Purchase`
 - `Rate`
 - `ReEngage`
@@ -388,21 +392,23 @@ class Presenter {
 
     event
       .addPredefinedString(PredefinedString.DESCRIPTION, "best before 2029")
-      .addPredefinedObject(PredefinedObject.CONTENT, items);
-
-    Affise.sendEvent(event);
+      .addPredefinedObject(PredefinedObject.CONTENT, items)
+      .send(); // Send event like this
+    
+    // Or Send event like this
+    // Affise.sendEvent(event);
   }
 }
 ```
 
 In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTENT` is used, but many others is available:
 
-| PredefinedParameter                           | Type                                   | Event Method            |
-|-----------------------------------------------|----------------------------------------|-------------------------|
-| [PredefinedString](#predefinedstring)         | String                                 | addPredefinedString()   |
-| [PredefinedLong](#predefinedlong)             | int                                    | addPredefinedLong()     |
-| [PredefinedFloat](#predefinedfloat)           | double                                 | addPredefinedFloat()    |
-| [PredefinedObject](#predefinedobject)         | Map&lt;String, dynamic&gt;             | addPredefinedObject()   |
+| PredefinedParameter                           | Type                                   | Event Method              |
+|-----------------------------------------------|----------------------------------------|---------------------------|
+| [PredefinedString](#predefinedstring)         | String                                 | addPredefinedString()     |
+| [PredefinedLong](#predefinedlong)             | int                                    | addPredefinedLong()       |
+| [PredefinedFloat](#predefinedfloat)           | double                                 | addPredefinedFloat()      |
+| [PredefinedObject](#predefinedobject)         | Map&lt;String, dynamic&gt;             | addPredefinedObject()     |
 | [PredefinedListObject](#predefinedlistobject) | List&lt;Map&lt;String, dynamic&gt;&gt; | addPredefinedListObject() |
 | [PredefinedListString](#predefinedliststring) | List&lt;String&gt;                     | addPredefinedListString() |
 
@@ -435,6 +441,7 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `DESTINATION_LIST`
 - `EVENT_NAME`
 - `NEW_VERSION`
+- `NETWORK`
 - `OLD_VERSION`
 - `ORDER_ID`
 - `PARAM_01`
@@ -449,6 +456,7 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `PARAM_10`
 - `PAYMENT_INFO_AVAILABLE`
 - `PID`
+- `PLACEMENT`
 - `PREFERRED_NEIGHBORHOODS`
 - `PRODUCT_ID`
 - `PRODUCT_NAME`
@@ -459,12 +467,14 @@ In examples above `PredefinedParameters.DESCRIPTION` and `PredefinedObject.CONTE
 - `REVIEW_TEXT`
 - `SEARCH_STRING`
 - `SEGMENT`
+- `SOURCE`
 - `STATUS`
 - `SUBSCRIPTION_ID`
 - `SUCCESS`
 - `SUGGESTED_DESTINATIONS`
 - `SUGGESTED_HOTELS`
 - `TUTORIAL_ID`
+- `UNIT`
 - `UTM_CAMPAIGN`
 - `UTM_MEDIUM`
 - `UTM_SOURCE`
@@ -846,4 +856,16 @@ Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
       <string>https://affise-skadnetwork.com/</string>
     </dict>
 </array>
+```
+
+# SDK to SDK integrations
+
+```dart
+// Send AdRevenue info
+AffiseAdRevenue(AffiseAdSource.ADMOB)
+  .setRevenue(2.5, "ImpressionData_Currency")
+  .setNetwork("ImpressionData_Network")
+  .setUnit("ImpressionData_Unit")
+  .setPlacement("ImpressionData_Placement")
+  .send();
 ```

@@ -3,6 +3,7 @@ enum EventName {
   ADD_PAYMENT_INFO,
   ADD_TO_CART,
   ADD_TO_WISHLIST,
+  AD_REVENUE,
   CLICK_ADV,
   COMPLETE_REGISTRATION,
   COMPLETE_STREAM,
@@ -34,6 +35,8 @@ enum EventName {
   LOGIN,
   OPENED_FROM_PUSH_NOTIFICATION,
   ORDER,
+  ORDER_ITEM_ADDED,
+  ORDER_ITEM_REMOVE,
   ORDER_CANCEL,
   ORDER_RETURN_REQUEST,
   ORDER_RETURN_REQUEST_CANCEL,
@@ -73,6 +76,8 @@ extension EventNameExt on EventName {
         return "AddToCart";
       case EventName.ADD_TO_WISHLIST:
         return "AddToWishlist";
+      case EventName.AD_REVENUE:
+        return "AdRevenue";
       case EventName.CLICK_ADV:
         return "ClickAdv";
       case EventName.COMPLETE_REGISTRATION:
@@ -135,6 +140,10 @@ extension EventNameExt on EventName {
         return "OpenedFromPushNotification";
       case EventName.ORDER:
         return "Order";
+      case EventName.ORDER_ITEM_ADDED:
+        return "OrderItemAdded";
+      case EventName.ORDER_ITEM_REMOVE:
+        return "OrderItemRemove";
       case EventName.ORDER_CANCEL:
         return "OrderCancel";
       case EventName.ORDER_RETURN_REQUEST:

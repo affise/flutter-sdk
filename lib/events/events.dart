@@ -2,6 +2,7 @@ export 'package:affise_attribution_lib/events/predefined/achieve_level_event.dar
 export 'package:affise_attribution_lib/events/predefined/add_payment_info_event.dart';
 export 'package:affise_attribution_lib/events/predefined/add_to_cart_event.dart';
 export 'package:affise_attribution_lib/events/predefined/add_to_wishlist_event.dart';
+export 'package:affise_attribution_lib/events/predefined/ad_revenue_event.dart';
 export 'package:affise_attribution_lib/events/predefined/click_adv_event.dart';
 export 'package:affise_attribution_lib/events/predefined/complete_registration_event.dart';
 export 'package:affise_attribution_lib/events/predefined/complete_stream_event.dart';
@@ -34,6 +35,8 @@ export 'package:affise_attribution_lib/events/predefined/login_event.dart';
 export 'package:affise_attribution_lib/events/predefined/opened_from_push_notification_event.dart';
 export 'package:affise_attribution_lib/events/predefined/order_cancel_event.dart';
 export 'package:affise_attribution_lib/events/predefined/order_event.dart';
+export 'package:affise_attribution_lib/events/predefined/order_item_added_event.dart';
+export 'package:affise_attribution_lib/events/predefined/order_item_remove_event.dart';
 export 'package:affise_attribution_lib/events/predefined/order_return_request_cancel_event.dart';
 export 'package:affise_attribution_lib/events/predefined/order_return_request_event.dart';
 export 'package:affise_attribution_lib/events/predefined/purchase_event.dart';

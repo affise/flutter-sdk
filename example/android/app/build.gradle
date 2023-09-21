@@ -69,8 +69,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.13'
-    implementation 'com.affise:module-network:1.6.13'
-    implementation 'com.affise:module-phone:1.6.13'
-    implementation "com.affise:module-status:1.6.13"
+    implementation 'com.affise:module-advertising:1.6.16'
+    implementation 'com.affise:module-network:1.6.16'
+    implementation 'com.affise:module-phone:1.6.16'
+    implementation "com.affise:module-status:1.6.16"
 }
