@@ -1,3 +1,6 @@
+export 'package:affise_attribution_lib/events/custom/user_custom_event.dart';
+export 'package:affise_attribution_lib/events/custom/user_custom_subscription_event.dart';
+
 export 'package:affise_attribution_lib/events/predefined/achieve_level_event.dart';
 export 'package:affise_attribution_lib/events/predefined/add_payment_info_event.dart';
 export 'package:affise_attribution_lib/events/predefined/add_to_cart_event.dart';

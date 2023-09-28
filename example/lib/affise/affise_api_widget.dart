@@ -92,6 +92,15 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
             },
             child: const Text("SKAd update"),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Affise.getProviders().then((data) {
+                var key = ProviderType.AFFISE_APP_TOKEN;
+                setOutput("Get Providers: $key = ${data[key]}");
+              });
+            },
+            child: const Text("Get Providers"),
+          ),
         ],
       ),
     );

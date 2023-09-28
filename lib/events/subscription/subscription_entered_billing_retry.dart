@@ -11,11 +11,11 @@ class TrialInRetryEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_TRIAL_IN_RETRY;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_TRIAL_IN_RETRY.typeName;
 }
 
 /// Event OfferInRetry use [data] of event and [userData]
@@ -27,11 +27,11 @@ class OfferInRetryEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_OFFER_IN_RETRY;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_OFFER_IN_RETRY.typeName;
 }
 
 /// Event SubscriptionInRetry use [data] of event and [userData]
@@ -43,9 +43,9 @@ class SubscriptionInRetryEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ENTERED_BILLING_RETRY.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_SUBSCRIPTION_IN_RETRY;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_SUBSCRIPTION_IN_RETRY.typeName;
 }

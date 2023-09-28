@@ -11,11 +11,11 @@ class ConvertedTrialEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_TRIAL.typeName;
 }
 
 /// Event ConvertedOffer use [data] of event and [userData]
@@ -27,9 +27,9 @@ class ConvertedOfferEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_FIRST_CONVERSION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_CONVERTED_OFFER.typeName;
 }

@@ -11,9 +11,9 @@ class UnsubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_UNSUBSCRIPTION;
+  String get type => SubscriptionEventName.AFFISE_UNSUBSCRIPTION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_UNSUBSCRIPTION;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_UNSUBSCRIPTION.typeName;
 }

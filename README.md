@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                         |
 |--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.2`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.3`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -16,7 +16,11 @@
     - [Requirements](#requirements)
       - [Android](#android-1)
 - [Features](#features)
-  - [Device identifiers collection](#device-identifiers-collection)
+  - [ProviderType identifiers collection](#providertype-identifiers-collection)
+    - [Attribution](#attribution)
+    - [Advertising](#advertising)
+    - [Network](#network)
+    - [Phone](#phone)
   - [Events tracking](#events-tracking)
   - [Custom events tracking](#custom-events-tracking)
   - [Predefined event parameters](#predefined-event-parameters)
@@ -41,6 +45,7 @@
   - [Disable background tracking](#disable-background-tracking)
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
+  - [Get providers](#get-providers)
   - [Get module state](#get-module-state)
   - [Platform specific](#platform-specific)
     - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
@@ -104,7 +109,7 @@ Add modules to iOS project
 
 | Module                | Version  |
 |-----------------------|:--------:|
-| `AffiseModule/Status` | `1.6.11` |
+| `AffiseModule/Status` | `1.6.12` |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -113,7 +118,7 @@ target 'Runner' do
   # ...
   
   # Affise Module
-  pod 'AffiseModule/Status', `~> 1.6.11`
+  pod 'AffiseModule/Status', `~> 1.6.12`
 end
 
 ### Initialize
@@ -174,13 +179,15 @@ OAID certificate in your project `example/android/app/src/assets/oaid.cert.pem`
 
 # Features
 
-## Device identifiers collection
+## ProviderType identifiers collection
 
-To match users with events and data library is sending, these identifiers are collected:
+To match users with events and data library is sending, these `ProviderType` identifiers are collected:
+
+### Attribution
 
 - `AFFISE_APP_ID`
 - `AFFISE_PKG_APP_NAME`
-- `AFFISE_APP_NAME_DASHBOARD`
+- `AFF_APP_NAME_DASHBOARD`
 - `APP_VERSION`
 - `APP_VERSION_RAW`
 - `STORE`
@@ -195,41 +202,35 @@ To match users with events and data library is sending, these identifiers are co
 - `FIRST_OPEN_TIME`
 - `INSTALLED_HOUR`
 - `FIRST_OPEN_HOUR`
+- `INSTALL_FIRST_EVENT`
 - `INSTALL_BEGIN_TIME`
 - `INSTALL_FINISH_TIME`
+- `REFERRER_INSTALL_VERSION`
 - `REFERRAL_TIME`
+- `REFERRER_CLICK_TIME`
+- `REFERRER_CLICK_TIME_SERVER`
+- `REFERRER_GOOGLE_PLAY_INSTANT`
 - `CREATED_TIME`
 - `CREATED_TIME_MILLI`
 - `CREATED_TIME_HOUR`
 - `UNINSTALL_TIME`
 - `REINSTALL_TIME`
 - `LAST_SESSION_TIME`
-- `CONNECTION_TYPE`
 - `CPU_TYPE`
 - `HARDWARE_NAME`
-- `NETWORK_TYPE`
 - `DEVICE_MANUFACTURER`
-- `PROXY_IP_ADDRESS`
 - `DEEPLINK_CLICK`
 - `DEVICE_ATLAS_ID`
 - `AFFISE_DEVICE_ID`
 - `AFFISE_ALT_DEVICE_ID`
-- `ADID`
 - `ANDROID_ID`
 - `ANDROID_ID_MD5`
-- `MAC_SHA1`
-- `MAC_MD5`
-- `GAID_ADID`
-- `GAID_ADID_MD5`
-- `OAID`
-- `OAID_MD5`
 - `REFTOKEN`
 - `REFTOKENS`
 - `REFERRER`
 - `USER_AGENT`
 - `MCCODE`
 - `MNCODE`
-- `ISP`
 - `REGION`
 - `COUNTRY`
 - `LANGUAGE`
@@ -237,12 +238,15 @@ To match users with events and data library is sending, these identifiers are co
 - `DEVICE_TYPE`
 - `OS_NAME`
 - `PLATFORM`
+- `SDK_PLATFORM`
 - `API_LEVEL_OS`
 - `AFFISE_SDK_VERSION`
 - `OS_VERSION`
 - `RANDOM_USER_ID`
 - `AFFISE_SDK_POS`
 - `TIMEZONE_DEV`
+- `AFFISE_EVENT_NAME`
+- `AFFISE_EVENT_TOKEN`
 - `LAST_TIME_SESSION`
 - `TIME_SESSION`
 - `AFFISE_SESSION_COUNT`
@@ -256,8 +260,35 @@ To match users with events and data library is sending, these identifiers are co
 - `UUID`
 - `AFFISE_APP_OPENED`
 - `PUSHTOKEN`
-- `EVENTS`
 - `AFFISE_EVENTS_COUNT`
+- `AFFISE_SDK_EVENTS_COUNT`
+- `AFFISE_METRICS_EVENTS_COUNT`
+- `AFFISE_INTERNAL_EVENTS_COUNT`
+- `IS_ROOTED`
+- `IS_EMULATOR`
+
+### Advertising
+
+- `GAID_ADID`
+- `GAID_ADID_MD5`
+- `OAID`
+- `OAID_MD5`
+- `ADID`
+- `ALTSTR_ADID`
+- `FIREOS_ADID`
+- `COLOROS_ADID`
+
+### Network
+
+- `MAC_SHA1`
+- `MAC_MD5`
+- `CONNECTION_TYPE`
+- `PROXY_IP_ADDRESS`
+
+### Phone
+
+- `NETWORK_TYPE`
+- `ISP`
 
 ## Events tracking
 
@@ -386,17 +417,12 @@ class Presenter {
       "items": "cookies, potato, milk",
     };
 
-    AddToCartEvent event = AddToCartEvent(
+    AddToCartEvent(
       timeStampMillis: DateTime.now().millisecondsSinceEpoch,
-    );
-
-    event
+    )
       .addPredefinedString(PredefinedString.DESCRIPTION, "best before 2029")
       .addPredefinedObject(PredefinedObject.CONTENT, items)
-      .send(); // Send event like this
-    
-    // Or Send event like this
-    // Affise.sendEvent(event);
+      .send(); // Send event
   }
 }
 ```
@@ -728,6 +754,17 @@ Affise.getRandomUserId();
 
 ```dart
 Affise.getRandomDeviceId();
+```
+
+## Get providers
+
+Returns providers map with [ProviderType](#providertype-identifiers-collection) as key
+
+```dart
+Affise.getProviders().then((providers) {
+  var key = ProviderType.AFFISE_APP_TOKEN;
+  var value = providers[key];
+});
 ```
 
 ## Get module state

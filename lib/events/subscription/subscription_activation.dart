@@ -12,11 +12,11 @@ class InitialSubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_SUBSCRIPTION;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_SUBSCRIPTION.typeName;
 }
 
 /// Event InitialTrial use [data] of event and [userData]
@@ -29,11 +29,11 @@ class InitialTrialEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_TRIAL;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_TRIAL.typeName;
 }
 
 
@@ -47,9 +47,9 @@ class InitialOfferEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_ACTIVATION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_OFFER;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_INITIAL_OFFER.typeName;
 }

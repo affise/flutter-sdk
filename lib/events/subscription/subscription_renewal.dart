@@ -11,9 +11,9 @@ class RenewedSubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_RENEWAL.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_RENEWED_SUBSCRIPTION.typeName;
 }

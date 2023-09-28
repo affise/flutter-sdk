@@ -7,6 +7,7 @@ import 'events/event.dart';
 import 'module/affise_modules.dart';
 import 'module/on_key_value_callback.dart';
 import 'native_api_interface.dart';
+import 'parameters/provider_type.dart';
 import 'referrer/referrer_callback.dart';
 import 'referrer/referrer_key.dart';
 import 'callback/error_callback.dart';
@@ -23,6 +24,7 @@ export 'referrer/referrer_key.dart';
 export 'module/affise_modules.dart';
 export 'module/affise_key_value.dart';
 export 'skad/skad_network.dart';
+export 'parameters/provider_type.dart';
 
 
 class Affise {
@@ -138,6 +140,12 @@ class Affise {
   /// Get random Device Id
   static Future<String> getRandomDeviceId() async {
     return _native.getRandomDeviceId();
+  }
+
+  /// Get providers map
+  static Future<Map<ProviderType, dynamic>> getProviders() async {
+    ProviderType.fromString(null);
+    return _native.getProviders();
   }
 
   static AffiseAndroidApi android = _AffiseAndroid(_native);

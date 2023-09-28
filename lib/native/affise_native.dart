@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
 import '../deeplink/on_deeplink_callback.dart';
@@ -7,6 +9,7 @@ import '../events/event_to_serialized_event_converter.dart';
 import '../module/affise_modules.dart';
 import '../module/affise_key_value.dart';
 import '../module/on_key_value_callback.dart';
+import '../parameters/provider_type.dart';
 import '../referrer/referrer_callback.dart';
 import '../referrer/referrer_key.dart';
 import '../utils/try_cast.dart';
@@ -105,12 +108,26 @@ class AffiseNative extends NativeBase {
     return await native(AffiseApiMethod.GET_RANDOM_DEVICE_ID);
   }
 
+  Future<Map<ProviderType, dynamic>> getProviders() async {
+    Map<Object?, Object?>? data = await native(AffiseApiMethod.GET_PROVIDERS);
+    if (data == null) return {};
+
+    final Map<ProviderType, dynamic> result = {};
+    data.forEach((keyString, value) {
+      ProviderType? key = ProviderType.fromString(keyString.toString());
+      if (key != null) {
+        result[key] = value;
+      }
+    });
+    return result;
+  }
+
   void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
     nativeCallback(AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK, completionHandler);
   }
 
   void updatePostbackConversionValue(int fineValue, String coarseValue, ErrorCallback completionHandler) {
-    Map<String, dynamic> value = {
+    final Map<String, dynamic> value = {
       'fineValue': fineValue,
       'coarseValue': coarseValue,
     };

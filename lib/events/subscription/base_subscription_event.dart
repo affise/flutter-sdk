@@ -7,10 +7,10 @@ import 'subscription_sub_type.dart';
 
 abstract class BaseSubscriptionEvent extends NativeEvent {
   /// Type of subscription
-  SubscriptionEventName get type;
+  String get type;
 
   /// Subtype of subscription
-  SubscriptionSubType get subtype;
+  String get subtype;
 
   Map<String, dynamic> data;
 
@@ -23,7 +23,7 @@ abstract class BaseSubscriptionEvent extends NativeEvent {
   AffisePropertyBuilder serializeBuilder() {
     AffisePropertyBuilder result = super.serializeBuilder().addRaw(
         SubscriptionParameters.AFFISE_SUBSCRIPTION_EVENT_TYPE_KEY,
-        subtype.typeName);
+        subtype);
     data.forEach((key, value) {
       result.addRaw(key, value);
     });
@@ -34,5 +34,5 @@ abstract class BaseSubscriptionEvent extends NativeEvent {
   ///
   /// @return name
   @override
-  String getName() => type.eventName;
+  String getName() => type;
 }

@@ -11,9 +11,9 @@ class ReactivatedSubscriptionEvent extends BaseSubscriptionEvent {
 
   /// Type of event
   @override
-  SubscriptionEventName get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_REACTIVATION;
+  String get type => SubscriptionEventName.AFFISE_SUBSCRIPTION_REACTIVATION.eventName;
 
   /// Subtype of event
   @override
-  SubscriptionSubType get subtype => SubscriptionSubType.AFFISE_SUB_REACTIVATED_SUBSCRIPTION;
+  String get subtype => SubscriptionSubType.AFFISE_SUB_REACTIVATED_SUBSCRIPTION.typeName;
 }
