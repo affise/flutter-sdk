@@ -27,11 +27,16 @@ enum AffiseApiMethod {
   GET_STATUS_CALLBACK,
   REGISTER_DEEPLINK_CALLBACK,
   SKAD_REGISTER_ERROR_CALLBACK,
-  SKAD_POSTBACK_ERROR_CALLBACK
+  SKAD_POSTBACK_ERROR_CALLBACK,
+
+  // debug
+  DEBUG_VALIDATE_CALLBACK,
+  DEBUG_NETWORK_CALLBACK,
 }
 
-AffiseApiMethod? apiFromString(String apiName) {
-return AffiseApiMethod.values.firstWhere((e) => e.apiName == apiName);
+AffiseApiMethod? apiMethodFrom(String? name) {
+  if (name == null) return null;
+  return AffiseApiMethod.values.firstWhere((e) => e.apiName == name);
 }
 
 extension AffiseApiMethodExt on AffiseApiMethod {
@@ -91,6 +96,10 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "skad_register_error_callback";
       case AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK:
         return "skad_postback_error_callback";
+      case AffiseApiMethod.DEBUG_VALIDATE_CALLBACK:
+        return "debug_validate_callback";
+      case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
+        return "debug_network_callback";
     }
   }
 }

@@ -1,31 +1,10 @@
 import 'package:flutter/scheduler.dart';
 
-import 'affise_init_properties.dart';
-import 'deeplink/on_deeplink_callback.dart';
-import 'events/auto_catching_type.dart';
-import 'events/event.dart';
-import 'module/affise_modules.dart';
-import 'module/on_key_value_callback.dart';
 import 'native_api_interface.dart';
-import 'parameters/provider_type.dart';
-import 'referrer/referrer_callback.dart';
-import 'referrer/referrer_key.dart';
-import 'callback/error_callback.dart';
 import 'native/affise_native.dart';
-import 'skad/coarse_value.dart';
+import 'export.dart';
 
-export 'affise_init_properties.dart';
-export 'ad/affise_ad_revenue.dart';
-export 'ad/affise_ad_source.dart';
-export 'events/event.dart';
-export 'events/events.dart';
-export 'events/subscription_events.dart';
-export 'referrer/referrer_key.dart';
-export 'module/affise_modules.dart';
-export 'module/affise_key_value.dart';
-export 'skad/skad_network.dart';
-export 'parameters/provider_type.dart';
-
+export 'export.dart';
 
 class Affise {
   static final AffiseNative _native = AffiseNative();
@@ -150,6 +129,7 @@ class Affise {
 
   static AffiseAndroidApi android = _AffiseAndroid(_native);
   static AffiseIOSApi ios = _AffiseIOS(_native);
+  static AffiseDebug debug = _AffiseDebug(_native);
 }
 
 class _AffiseAndroid implements AffiseAndroidApi {
@@ -204,6 +184,28 @@ class _AffiseIOS implements AffiseIOSApi {
   void updatePostbackConversionValue(int fineValue, CoarseValue coarseValue, ErrorCallback completionHandler) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       native?.updatePostbackConversionValue(fineValue, coarseValue.value, completionHandler);
+    });
+  }
+}
+
+class _AffiseDebug implements AffiseDebug {
+  AffiseNative? native;
+
+  _AffiseDebug(this.native);
+
+  /// SKAd registerAppForAdNetworkAttribution
+  @override
+  void validate(DebugOnValidateCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.validate(callback);
+    });
+  }
+
+  /// SKAd updatePostbackConversionValue
+  @override
+  void network(DebugOnNetworkCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.network(callback);
     });
   }
 }

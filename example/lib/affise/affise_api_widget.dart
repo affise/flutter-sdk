@@ -46,6 +46,16 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // Debug: Validate credentials https://github.com/affise/flutter-sdk#validate-credentials
+              Affise.debug.validate((status) {
+                setOutput("Validate: $status");
+              });
+            },
+            child: const Text("Debug: Validate credentials"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Deeplinks https://github.com/affise/flutter-sdk#deeplinks
               Affise.registerDeeplinkCallback((uri) {
                 setOutput("Deeplink: $uri");
               });
@@ -54,6 +64,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // Get module state https://github.com/affise/flutter-sdk#get-module-state
               Affise.getStatus(AffiseModules.STATUS, (value) {
                 setOutput("Status: ${value.toString()}");
               });
@@ -62,6 +73,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // Get referrer https://github.com/affise/flutter-sdk#get-referrer
               Affise.android.getReferrer((value) {
                 setOutput("Referrer: $value");
               });
@@ -70,6 +82,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-value
               Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
                 setOutput("ReferrerValue: $value");
               });
@@ -78,6 +91,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
               Affise.ios.registerAppForAdNetworkAttribution((error) {
                 setOutput("SKAd register: $error");
               });
@@ -86,6 +100,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
               Affise.ios.updatePostbackConversionValue(1, SKAdNetwork.CoarseConversionValue.medium, (error) {
                 setOutput("SKAd update: $error");
               });
@@ -94,6 +109,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
           ),
           ElevatedButton(
             onPressed: () {
+              // Get providers https://github.com/affise/flutter-sdk#get-providers
               Affise.getProviders().then((data) {
                 var key = ProviderType.AFFISE_APP_TOKEN;
                 setOutput("Get Providers: $key = ${data[key]}");

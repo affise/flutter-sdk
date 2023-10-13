@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import '../utils/try_cast.dart';
 
 class AffiseKeyValue {
@@ -18,7 +16,7 @@ extension AffiseKeyValueExt on List<Object?> {
   List<AffiseKeyValue> get toAffiseKeyValueList {
     List<AffiseKeyValue> result = [];
     for (Object? e in this) {
-      LinkedHashMap<Object?, Object?>? t = tryCast<LinkedHashMap<Object?, Object?>>(e);
+      Map<Object?, Object?>? t = tryCast<Map<Object?, Object?>>(e);
       String? key = t?["key"]?.toString();
       String? value = t?["value"]?.toString();
       if (key == null || value == null) continue;

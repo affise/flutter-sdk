@@ -1,13 +1,13 @@
-import 'dart:collection';
-
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
+import '../debug/network/debug_on_network_callback.dart';
+import '../debug/validate/debug_on_validate_callback.dart';
 import '../deeplink/on_deeplink_callback.dart';
 import '../events/auto_catching_type.dart';
 import '../events/event.dart';
 import '../events/event_to_serialized_event_converter.dart';
-import '../module/affise_modules.dart';
 import '../module/affise_key_value.dart';
+import '../module/affise_modules.dart';
 import '../module/on_key_value_callback.dart';
 import '../parameters/provider_type.dart';
 import '../referrer/referrer_callback.dart';
@@ -15,10 +15,10 @@ import '../referrer/referrer_key.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
 import 'native_base.dart';
+import 'utils/debug_utils.dart';
 
 class AffiseNative extends NativeBase {
-
-  EventToSerializedEventConverter  converter = EventToSerializedEventConverter();
+  EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
   void init(AffiseInitProperties initProperties) {
     native(AffiseApiMethod.INIT, initProperties.toMap);
@@ -41,7 +41,10 @@ class AffiseNative extends NativeBase {
   }
 
   void registerDeeplinkCallback(OnDeeplinkCallback callback) {
-    nativeCallback(AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK, callback);
+    nativeCallbackOnce(
+      AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK,
+      callback,
+    );
   }
 
   void setSecretKey(String secretKey) {
@@ -89,15 +92,26 @@ class AffiseNative extends NativeBase {
   }
 
   void getReferrer(ReferrerCallback callback) {
-    nativeCallback(AffiseApiMethod.GET_REFERRER_CALLBACK, callback);
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_REFERRER_CALLBACK,
+      callback,
+    );
   }
 
   void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
-    nativeCallback(AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK, callback, key.value);
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK,
+      callback,
+      key.value,
+    );
   }
 
   void getStatus(AffiseModules module, OnKeyValueCallback callback) {
-    nativeCallback(AffiseApiMethod.GET_STATUS_CALLBACK, callback, module.value);
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_STATUS_CALLBACK,
+      callback,
+      module.value,
+    );
   }
 
   Future<String> getRandomUserId() async {
@@ -123,15 +137,37 @@ class AffiseNative extends NativeBase {
   }
 
   void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
-    nativeCallback(AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK, completionHandler);
+    nativeCallbackOnce(
+      AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK,
+      completionHandler,
+    );
   }
 
-  void updatePostbackConversionValue(int fineValue, String coarseValue, ErrorCallback completionHandler) {
+  void updatePostbackConversionValue(
+      int fineValue, String coarseValue, ErrorCallback completionHandler) {
     final Map<String, dynamic> value = {
       'fineValue': fineValue,
       'coarseValue': coarseValue,
     };
-    nativeCallback(AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK, completionHandler, value);
+    nativeCallbackOnce(
+      AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK,
+      completionHandler,
+      value,
+    );
+  }
+
+  void validate(DebugOnValidateCallback callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.DEBUG_VALIDATE_CALLBACK,
+      callback,
+    );
+  }
+
+  void network(DebugOnNetworkCallback callback) {
+    nativeCallback(
+      AffiseApiMethod.DEBUG_NETWORK_CALLBACK,
+      callback,
+    );
   }
 
   @override
@@ -139,7 +175,9 @@ class AffiseNative extends NativeBase {
     if (callback == null) return;
     switch (api) {
       case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
-        tryCast<OnDeeplinkCallback>(callback)?.call(Uri.parse(data?.toString() ?? ""));
+        tryCast<OnDeeplinkCallback>(callback)?.call(
+          Uri.parse(data?.toString() ?? ""),
+        );
         break;
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
         tryCast<ReferrerCallback>(callback)?.call(data?.toString() ?? "");
@@ -148,14 +186,27 @@ class AffiseNative extends NativeBase {
         tryCast<ReferrerCallback>(callback)?.call(data?.toString() ?? "");
         break;
       case AffiseApiMethod.GET_STATUS_CALLBACK:
-        List<AffiseKeyValue> list = tryCast<List<Object?>>(data)?.toAffiseKeyValueList ?? [];
-        tryCast<OnKeyValueCallback>(callback)?.call(list);
+        tryCast<OnKeyValueCallback>(callback)?.call(
+          tryCast<List<Object?>>(data)?.toAffiseKeyValueList ?? [],
+        );
         break;
       case AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK:
         tryCast<ErrorCallback>(callback)?.call(data?.toString() ?? "");
         break;
       case AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK:
         tryCast<ErrorCallback>(callback)?.call(data?.toString() ?? "");
+        break;
+      case AffiseApiMethod.DEBUG_VALIDATE_CALLBACK:
+        tryCast<DebugOnValidateCallback>(callback)?.call(
+          DebugUtils.getValidationStatus(data),
+        );
+        break;
+      case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
+        Map<Object?, Object?>? json = tryCast<Map<Object?, Object?>>(data);
+        tryCast<DebugOnNetworkCallback>(callback)?.call(
+          DebugUtils.parseRequest(json),
+          DebugUtils.parseResponse(json),
+        );
         break;
       default:
         break;

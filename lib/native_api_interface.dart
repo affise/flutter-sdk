@@ -1,7 +1,4 @@
-import 'callback/error_callback.dart';
-import 'referrer/referrer_callback.dart';
-import 'referrer/referrer_key.dart';
-import 'skad/coarse_value.dart';
+import 'export.dart';
 
 abstract class AffiseAndroidApi {
   const AffiseAndroidApi();
@@ -21,4 +18,12 @@ abstract class AffiseIOSApi {
   void registerAppForAdNetworkAttribution(ErrorCallback completionHandler);
 
   void updatePostbackConversionValue(int fineValue, CoarseValue coarseValue, ErrorCallback completionHandler);
+}
+
+abstract class AffiseDebug {
+  const AffiseDebug();
+
+  void validate(DebugOnValidateCallback callback);
+
+  void network(DebugOnNetworkCallback callback);
 }

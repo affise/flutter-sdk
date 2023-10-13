@@ -78,7 +78,7 @@ abstract class Event {
   }
 
   /// Add predefined [parameter] with [value] of List<PredefinedGroup> to event
-  // TODO addPredefinedListGroup
+  // addPredefinedListGroup
   // Event addPredefinedListGroup(List<PredefinedGroup> value) {
   //   if (!_predefinedParameters.containsKey(PredefinedGroup.NAME)) {
   //     _predefinedParameters[PredefinedGroup.NAME] = <Map<String, dynamic>>[];

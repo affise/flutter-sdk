@@ -48,6 +48,7 @@ class _AffiseWidgetState extends State<AffiseWidget> {
             itemBuilder: (context, index) {
               return ElevatedButton(
                 onPressed: () {
+                  // Events tracking https://github.com/affise/flutter-sdk#events-tracking
                   // Send event
                   items[index].send();
                   // or
