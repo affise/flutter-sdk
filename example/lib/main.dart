@@ -69,12 +69,12 @@ class _MyAppState extends State<MyApp> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(
+            bottom: const TabBar(
               tabs: [
                 Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(Icons.swap_horiz),
                       SizedBox(width: 8),
                       Text('API'),
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                 Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(Icons.file_upload),
                       SizedBox(width: 8),
                       Text('Events'),

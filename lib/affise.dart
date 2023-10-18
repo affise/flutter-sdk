@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/scheduler.dart';
 
 import 'native_api_interface.dart';
@@ -16,23 +18,37 @@ class Affise {
     });
   }
 
-  static Future<bool> isInitialized() async { 
-    return _native.isInitialized();
+  static Future<bool> isInitialized() async {
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.isInitialized().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future; 
   }
 
   /// Send events
   static void sendEvents() {
-    _native.sendEvents();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.sendEvents();
+    });
   }
 
   /// Store and send [event]
   static void sendEvent(Event event) {
-    _native.sendEvent(event);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.sendEvent(event);
+    });
   }
 
   /// Add [pushToken]
   static void addPushToken(String pushToken) {
-    _native.addPushToken(pushToken);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.addPushToken(pushToken);
+    });
   }
 
   /// Register [callback] for deeplink
@@ -45,17 +61,23 @@ class Affise {
   /// Set new [secretKey]
   @Deprecated('Use Affise.setSecretKey(secretKey)')
   static void setSecretId(String secretId) {
-    _native.setSecretKey(secretId);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setSecretKey(secretId);
+    });
   }
 
   /// Set new [secretKey]
   static void setSecretKey(String secretKey) {
-    _native.setSecretKey(secretKey);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setSecretKey(secretKey);
+    });
   }
 
   /// Send enabled autoCatching [types]
   static void setAutoCatchingTypes(List<AutoCatchingType> types) {
-    _native.setAutoCatchingTypes(types);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setAutoCatchingTypes(types);
+    });
   }
 
   /// Sets offline mode to [enabled] state
@@ -64,36 +86,66 @@ class Affise {
   /// but background work is not paused. When offline mode is enabled,
   /// all recorded events should be sent
   static void setOfflineModeEnabled(bool enabled) {
-    _native.setOfflineModeEnabled(enabled);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setOfflineModeEnabled(enabled);
+    });
   }
 
   /// Returns current offline mode state
   static Future<bool> isOfflineModeEnabled() async {
-    return _native.isOfflineModeEnabled();
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.isOfflineModeEnabled().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Sets background tracking mode to [enabled] state
   ///
   /// When disabled, library should not generate any tracking events while in background
   static void setBackgroundTrackingEnabled(bool enabled) {
-    _native.setBackgroundTrackingEnabled(enabled);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setBackgroundTrackingEnabled(enabled);
+    });
   }
 
   /// Returns current background tracking state
   static Future<bool> isBackgroundTrackingEnabled() async {
-    return _native.isBackgroundTrackingEnabled();
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.isBackgroundTrackingEnabled().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Sets offline mode to [enabled] state
   ///
   /// When disabled, library should not generate any tracking events
   static void setTrackingEnabled(bool enabled) {
-    _native.setTrackingEnabled(enabled);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setTrackingEnabled(enabled);
+    });
   }
 
   /// Returns current tracking state
   static Future<bool> isTrackingEnabled() async {
-    return _native.isTrackingEnabled();
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.isTrackingEnabled().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Set [enabled] collect metrics
@@ -101,7 +153,9 @@ class Affise {
   /// When disabled, library should not generate any metrics events,
   /// but will send the saved metrics events
   static void setEnabledMetrics(bool enabled) {
-    _native.setEnabledMetrics(enabled);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.setEnabledMetrics(enabled);
+    });
   }
 
   /// Get module status
@@ -113,18 +167,41 @@ class Affise {
 
   /// Get random User Id
   static Future<String> getRandomUserId() async {
-    return _native.getRandomUserId();
+    var completer = Completer<String>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getRandomUserId().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Get random Device Id
   static Future<String> getRandomDeviceId() async {
-    return _native.getRandomDeviceId();
+    var completer = Completer<String>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getRandomDeviceId().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Get providers map
   static Future<Map<ProviderType, dynamic>> getProviders() async {
-    ProviderType.fromString(null);
-    return _native.getProviders();
+    var completer = Completer<Map<ProviderType, dynamic>>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getProviders().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   static AffiseAndroidApi android = _AffiseAndroid(_native);
@@ -157,12 +234,16 @@ class _AffiseAndroid implements AffiseAndroidApi {
   /// Erases all user data from mobile and sends [GDPREvent]
   @override
   void forget(String userData) {
-    native?.forget(userData);
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.forget(userData);
+    });
   }
 
   @override
   void crashApplication() {
-    native?.crashApplication();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.crashApplication();
+    });
   }
 }
 
