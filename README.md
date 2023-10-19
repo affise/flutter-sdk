@@ -181,7 +181,7 @@ For a minimal working functionality your app needs to declare internet permissio
 </manifest>
 ```
 
-OAID certificate in your project `example/android/app/src/assets/oaid.cert.pem`
+OAID certificate in your project [`example/android/app/src/main/assets/oaid.cert.pem`](example/android/app/src/main/assets/oaid.cert.pem)
 
 #### iOS
 
@@ -190,7 +190,7 @@ For working functionality your app needs to declare [`NSUserTrackingUsageDescrip
 
 Open XCode project `info.plist` and add key `NSUserTrackingUsageDescription` with string value
 
-Example [`info.plist`](example\ios\Runner\Info.plist):
+Example [`info.plist`](example/ios/Runner/Info.plist):
 
 ```xml
 <plist version="1.0">
