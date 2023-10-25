@@ -1,4 +1,4 @@
-import 'package:affise_attribution_lib/network/http_method.dart';
+import 'http_method.dart';
 
 class HttpRequest {
   Uri url;

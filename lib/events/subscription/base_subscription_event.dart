@@ -1,9 +1,6 @@
-import 'package:affise_attribution_lib/events/native_event.dart';
-
+import '../native_event.dart';
 import '../property/affise_property_builder.dart';
-import 'subscription_event_name.dart';
 import 'subscription_parameters.dart';
-import 'subscription_sub_type.dart';
 
 abstract class BaseSubscriptionEvent extends NativeEvent {
   /// Type of subscription

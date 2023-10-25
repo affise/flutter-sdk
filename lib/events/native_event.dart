@@ -1,7 +1,6 @@
-import 'package:affise_attribution_lib/events/event.dart';
-import 'package:affise_attribution_lib/events/property/affise_property.dart';
-
 import '../utils/timestamp.dart';
+import 'event.dart';
+import 'property/affise_property.dart';
 import 'property/affise_property_builder.dart';
 
 abstract class NativeEvent extends Event {

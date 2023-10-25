@@ -1,6 +1,5 @@
-import 'package:affise_attribution_lib/events/native_event.dart';
-
 import '../event_name.dart';
+import '../native_event.dart';
 
 /// Event AddToWishlist
 ///

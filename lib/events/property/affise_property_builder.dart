@@ -1,6 +1,5 @@
-import 'package:affise_attribution_lib/events/property/affise_event_utils.dart';
-import 'package:affise_attribution_lib/utils/to_snake_case.dart';
-
+import 'affise_event_utils.dart';
+import '../../utils/to_snake_case.dart';
 import 'affise_property.dart';
 
 class AffisePropertyBuilder {

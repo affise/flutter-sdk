@@ -1,5 +1,4 @@
-import 'package:affise_attribution_lib/utils/to_snake_case.dart';
-
+import '../../utils/to_snake_case.dart';
 import '../event_name.dart';
 import 'affise_property.dart';
 

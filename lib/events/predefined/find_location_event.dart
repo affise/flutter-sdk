@@ -1,5 +1,4 @@
-import 'package:affise_attribution_lib/events/native_event.dart';
-
+import '../native_event.dart';
 import '../event_name.dart';
 
 /// Event FindLocation

@@ -1,15 +1,6 @@
 import 'dart:core';
 
-import 'package:affise_attribution_lib/affise.dart';
-import 'package:affise_attribution_lib/events/parameters/predefined_object.dart';
-
-import '../utils/try_cast.dart';
-import 'parameters/predefined_float.dart';
-import 'parameters/predefined_group.dart';
-import 'parameters/predefined_list_object.dart';
-import 'parameters/predefined_list_string.dart';
-import 'parameters/predefined_long.dart';
-import 'parameters/predefined_string.dart';
+import '../affise.dart';
 
 /// Base event
 abstract class Event {

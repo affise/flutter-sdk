@@ -1,8 +1,7 @@
-import 'package:affise_attribution_lib/debug/validate/validation_status.dart';
-import 'package:affise_attribution_lib/network/http_method.dart';
-import 'package:affise_attribution_lib/network/http_request.dart';
-import 'package:affise_attribution_lib/network/http_response.dart';
-
+import '../../debug/validate/validation_status.dart';
+import '../../network/http_method.dart';
+import '../../network/http_request.dart';
+import '../../network/http_response.dart';
 import '../../utils/try_cast.dart';
 
 class DebugUtils {

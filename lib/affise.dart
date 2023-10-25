@@ -11,11 +11,32 @@ export 'export.dart';
 class Affise {
   static final AffiseNative _native = AffiseNative();
 
-  /// Init [AffiseComponent] with [app] and [initProperties]
-  static void init(AffiseInitProperties initProperties) {
+  /// Affise SDK settings builder
+  static AffiseSettings settings({required String affiseAppId, required String secretKey}) {
+    return AffiseSettings(affiseAppId, secretKey);
+  }
+
+  /// Init [AffiseComponent] with [initProperties]
+  static void start(AffiseInitProperties initProperties) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.init(initProperties);
     });
+  }
+
+  /// Deprecated
+  ///
+  /// Use instead:
+  /// ```dart
+  ///Affise
+  ///  .settings(
+  ///    affiseAppId: "Your appId", //Change to your app id
+  ///    secretKey: "Your SDK secretKey", //Change to your SDK secretKey
+  ///  )
+  ///  .start(); // Start Affise SDK
+  /// ```
+  @Deprecated('Use [Affise.settings(affiseAppId, secretKey).start()]')
+  static void init(AffiseInitProperties initProperties) {
+    start(initProperties);
   }
 
   static Future<bool> isInitialized() async {
@@ -55,14 +76,6 @@ class Affise {
   static void registerDeeplinkCallback(OnDeeplinkCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.registerDeeplinkCallback(callback);
-    });
-  }
-
-  /// Set new [secretKey]
-  @Deprecated('Use Affise.setSecretKey(secretKey)')
-  static void setSecretId(String secretId) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.setSecretKey(secretId);
     });
   }
 

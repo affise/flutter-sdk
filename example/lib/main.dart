@@ -32,13 +32,13 @@ class _MyAppState extends State<MyApp> {
 
   void initAffise() async {
     // Initialize https://github.com/affise/flutter-sdk#initialize
-    AffiseInitProperties properties = AffiseInitProperties(
-      affiseAppId: "129", //Change to your app id
-      secretKey: "93a40b54-6f12-443f-a250-ebf67c5ee4d2", //Change to your SDK key
-      isProduction: false, //To enable debug methods set Production to false
-    );
-
-    Affise.init(properties);
+    Affise
+        .settings(
+          affiseAppId: "129", //Change to your app id
+          secretKey: "93a40b54-6f12-443f-a250-ebf67c5ee4d2", //Change to your SDK key
+        )
+        .setProduction(false) //To enable debug methods set Production to false
+        .start(); // Start Affise SDK
 
     // Deeplinks https://github.com/affise/flutter-sdk#deeplinks
     Affise.registerDeeplinkCallback((uri) {
@@ -69,12 +69,12 @@ class _MyAppState extends State<MyApp> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
+            bottom: TabBar(
               tabs: [
                 Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: const [
                       Icon(Icons.swap_horiz),
                       SizedBox(width: 8),
                       Text('API'),
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                 Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: const [
                       Icon(Icons.file_upload),
                       SizedBox(width: 8),
                       Text('Events'),

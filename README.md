@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                         |
 |--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.5`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.6`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -13,6 +13,7 @@
       - [Android](#android)
       - [iOS](#ios)
     - [Initialize](#initialize)
+      - [Domain](#domain)
     - [Requirements](#requirements)
       - [Android](#android-1)
       - [iOS](#ios-1)
@@ -114,7 +115,7 @@ Add modules to iOS project
 
 | Module                |                                       Version                                        |
 |-----------------------|:------------------------------------------------------------------------------------:|
-| `AffiseModule/Status` | [`1.6.14`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) |
+| `AffiseModule/Status` | [`1.6.15`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -123,7 +124,7 @@ target 'Runner' do
   # ...
   
   # Affise Module
-  pod 'AffiseModule/Status', `1.6.14`
+  pod 'AffiseModule/Status', `1.6.15`
 end
 ```
 
@@ -142,12 +143,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    AffiseInitProperties properties = AffiseInitProperties(
-      affiseAppId: "Your appId", //Change to your app id
-      secretKey: "Your SDK secretKey", //Change to your SDK secretKey
-    );
-    
-    Affise.init(properties);
+    Affise
+      .settings(
+        affiseAppId: "Your appId", //Change to your app id
+        secretKey: "Your SDK secretKey", //Change to your SDK secretKey
+      )
+      .start(); // Start Affise SDK
   }
 }
 ```
@@ -156,6 +157,21 @@ Check if library is initialized
 
 ```dart
 Affise.isInitialized();
+```
+
+#### Domain
+
+Set SDK server domain:
+
+```dart
+Affise
+  .settings(
+    affiseAppId: "Your appId", 
+    secretKey: "Your SDK secretKey",
+  )
+  .setProduction(false)
+  .setDomain("https://YoureCustomDomain/") // Set custom domain
+  .start(); // Start Affise SDK
 ```
 
 ### Requirements
@@ -650,11 +666,12 @@ To use this feature, create file with name `partner_key` in your app assets dire
 
 ## Deeplinks
 
-Register deeplink callback right after Affise.init(..)
+Register deeplink callback right after `Affise.settings(..).start()`
 
 ```dart
 void init() {
-  Affise.init(..);
+  Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
   Affise.registerDeeplinkCallback((uri) {
     // Handle deeplink
   });
@@ -710,7 +727,8 @@ Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
 In some scenarios you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
 
 ```dart
-Affise.init(..);
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
 Affise.setOfflineModeEnabled(true); // to enable offline mode
 Affise.setOfflineModeEnabled(false); // to disable offline mode
 ```
@@ -728,7 +746,8 @@ Affise.isOfflineModeEnabled(); // returns true or false describing current track
 To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
 ```dart
-Affise.init(..);
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
 Affise.setTrackingEnabled(true); // to enable tracking
 Affise.setTrackingEnabled(false); // to disable tracking
 ```
@@ -748,7 +767,8 @@ Affise.isTrackingEnabled(); // returns true or false describing current tracking
 To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
 
 ```dart
-Affise.init(..);
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
 Affise.setBackgroundTrackingEnabled(true); // to enable background tracking
 Affise.setBackgroundTrackingEnabled(false); // to disable background tracking
 ```
@@ -804,7 +824,8 @@ Under the EU's General Data Protection Regulation (GDPR): An individual has the 
 To provide this functionality to user, as the app developer, you can call
 
 ```dart
-Affise.init(..);
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
 Affise.android.forget(); // to forget users data
 ```
 
@@ -812,7 +833,8 @@ After processing such request our backend servers will delete all users data.
 To prevent library from generating new events, disable tracking just before calling Affise.forget:
 
 ```dart
-Affise.init(..);
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
 Affise.setTrackingEnabled(false);
 Affise.android.forget(); // to forget users data
 ```
@@ -943,13 +965,13 @@ Validate your credentials by receiving `ValidationStatus` values:
 - `NETWORK_ERROR` - network or server not available (for example `Airoplane mode` is active)
 
 ```dart
-AffiseInitProperties properties = AffiseInitProperties(
-  affiseAppId: "Your appId", //Change to your app id
-  secretKey: "Your SDK secretKey", //Change to your SDK secretKey
-  isProduction: false, //To enable debug methods set Production to false
-);
-    
-Affise.init(properties);
+Affise
+  .settings(
+    affiseAppId: "Your appId",
+    secretKey: "Your SDK secretKey",
+  )
+  .setProduction(false) //To enable debug methods set Production to false
+  .start(); // Start Affise SDK
 
 Affise.debug.validate((status) {
     // Handle validation status

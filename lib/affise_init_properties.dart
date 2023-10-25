@@ -11,6 +11,7 @@ class AffiseInitProperties {
   String? secretKey;
   List<AutoCatchingType>? autoCatchingClickEvents;
   bool enabledMetrics = false;
+  String? domain;
 
   AffiseInitProperties({
     required this.affiseAppId,
@@ -21,6 +22,7 @@ class AffiseInitProperties {
     this.appToken,
     this.enabledMetrics = false,
     this.autoCatchingClickEvents,
+    this.domain
   });
 
   Map<String, dynamic> get toMap {
@@ -30,9 +32,10 @@ class AffiseInitProperties {
       'partParamName': partParamName,
       'partParamNameToken': partParamNameToken,
       'appToken': appToken,
-      'secretId': secretKey,
+      'secretKey': secretKey,
       'autoCatchingClickEvents': autoCatchingClickEvents?.toStringList,
       'enabledMetrics': enabledMetrics,
+      'domain': domain,
     };
   }
 }
