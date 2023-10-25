@@ -953,7 +953,12 @@ AffiseAdRevenue(AffiseAdSource.ADMOB)
 ## Validate credentials
 
 > **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+> 
 > Debug methods WON'T work on Production
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 Validate your credentials by receiving `ValidationStatus` values:
 
@@ -983,8 +988,15 @@ Affise.debug.validate((status) {
 ## iOS
 
 > **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+> 
 > This app has crashed because it attempted to access privacy-sensitive data without a usage description.
+> 
 > The app's `Info.plist` must contain an `NSUserTrackingUsageDescription` key with a string value explaining
+> 
 > to the user how the app uses this data.
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 Open `info.plist` and add key `NSUserTrackingUsageDescription` with string value. For more information [read requirements](#requirements)
