@@ -693,7 +693,7 @@ Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/A
     <category android:name="android.intent.category.BROWSABLE" />
     
     <data
-        android:host="YOUR_AFFISE_APP_ID.affattr.com"
+        android:host="YOUR_DOMAIN"
         android:scheme="flutter" />
 </intent-filter>
 ```
@@ -713,7 +713,7 @@ Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>YOUR_AFFISE_APP_ID.affattr.com</string>
+        <string>YOUR_DOMAIN</string>
         <key>CFBundleURLSchemes</key>
         <array>
             <string>react</string>
