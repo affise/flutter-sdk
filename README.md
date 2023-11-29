@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                         |
 |--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.6`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.7`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -115,7 +115,7 @@ Add modules to iOS project
 
 | Module                |                                       Version                                        |
 |-----------------------|:------------------------------------------------------------------------------------:|
-| `AffiseModule/Status` | [`1.6.15`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) |
+| `AffiseModule/Status` | [`1.6.17`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -124,7 +124,7 @@ target 'Runner' do
   # ...
   
   # Affise Module
-  pod 'AffiseModule/Status', `1.6.15`
+  pod 'AffiseModule/Status', `1.6.17`
 end
 ```
 
