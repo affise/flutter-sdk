@@ -20,6 +20,7 @@ enum AffiseApiMethod {
   GET_RANDOM_USER_ID,
   GET_RANDOM_DEVICE_ID,
   GET_PROVIDERS,
+  MODULE_START,
 
   // callbacks
   GET_REFERRER_CALLBACK,
@@ -84,6 +85,8 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_random_device_id";
       case AffiseApiMethod.GET_PROVIDERS:
         return "get_providers";
+      case AffiseApiMethod.MODULE_START:
+        return "module_start";
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
         return "get_referrer_callback";
       case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:

@@ -178,6 +178,13 @@ class Affise {
     });
   }
 
+  /// Manual module start
+  static moduleStart(AffiseModules module)  {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.moduleStart(module);
+    });
+  }
+
   /// Get random User Id
   static Future<String> getRandomUserId() async {
     var completer = Completer<String>();

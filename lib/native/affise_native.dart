@@ -114,6 +114,10 @@ class AffiseNative extends NativeBase {
     );
   }
 
+  void moduleStart(AffiseModules module) {
+    native(AffiseApiMethod.MODULE_START, module.value);
+  }
+
   Future<String> getRandomUserId() async {
     return await native(AffiseApiMethod.GET_RANDOM_USER_ID);
   }
