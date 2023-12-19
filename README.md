@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                         |
 |--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.8`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.9`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -48,12 +48,12 @@
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
   - [Get providers](#get-providers)
+  - [Get referrer](#get-referrer)
+  - [Get referrer value](#get-referrer-value)
+    - [Referrer keys](#referrer-keys)
   - [Get module state](#get-module-state)
   - [Platform specific](#platform-specific)
     - [GDPR right to be forgotten](#gdpr-right-to-be-forgotten)
-    - [Get referrer](#get-referrer)
-    - [Get referrer value](#get-referrer-value)
-      - [Referrer keys](#referrer-keys)
     - [StoreKit Ad Network](#storekit-ad-network)
 - [SDK to SDK integrations](#sdk-to-sdk-integrations)
 - [Debug](#debug)
@@ -121,8 +121,8 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.18`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `STATUS`      | [`1.6.18`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.19`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `STATUS`      | [`1.6.19`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -131,8 +131,8 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.18`
-  pod 'AffiseModule/Status', `1.6.18`
+  pod 'AffiseModule/Advertising', `1.6.19`
+  pod 'AffiseModule/Status', `1.6.19`
 end
 ```
 
@@ -826,42 +826,7 @@ Affise.getProviders().then((providers) {
 });
 ```
 
-## Get module state
-
-```dart
-Affise.getStatus(AffiseModules.STATUS, (response) {
-    // handle status response
-});
-```
-
-## Platform specific
-
-### GDPR right to be forgotten
-
-> `Android Only`
-
-Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
-To provide this functionality to user, as the app developer, you can call
-
-```dart
-Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
-
-Affise.android.forget(); // to forget users data
-```
-
-After processing such request our backend servers will delete all users data.
-To prevent library from generating new events, disable tracking just before calling Affise.forget:
-
-```dart
-Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
-
-Affise.setTrackingEnabled(false);
-Affise.android.forget(); // to forget users data
-```
-
-### Get referrer
-
-> `Android Only`
+## Get referrer
 
 Use the next public method of SDK
 
@@ -871,9 +836,7 @@ Affise.android.getReferrer((value) {
 });
 ```
 
-### Get referrer value
-
-> `Android Only`
+## Get referrer value
 
 Use the next public method of SDK to get referrer value by
 
@@ -883,7 +846,7 @@ Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
 });
 ```
 
-#### Referrer keys
+### Referrer keys
 
 In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 
@@ -917,6 +880,39 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `SUB_3`
 - `SUB_4`
 - `SUB_5`
+
+## Get module state
+
+```dart
+Affise.getStatus(AffiseModules.STATUS, (response) {
+    // handle status response
+});
+```
+
+## Platform specific
+
+### GDPR right to be forgotten
+
+> `Android Only`
+
+Under the EU's General Data Protection Regulation (GDPR): An individual has the right to have their personal data erased.
+To provide this functionality to user, as the app developer, you can call
+
+```dart
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
+Affise.android.forget(); // to forget users data
+```
+
+After processing such request our backend servers will delete all users data.
+To prevent library from generating new events, disable tracking just before calling Affise.forget:
+
+```dart
+Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
+
+Affise.setTrackingEnabled(false);
+Affise.android.forget(); // to forget users data
+```
 
 ### StoreKit Ad Network
 
@@ -1010,11 +1006,11 @@ Affise.debug.validate((status) {
 > **Warning**
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
-> 
+>
 > This app has crashed because Affise Advertising Module is attempted to access privacy-sensitive data without a usage description.
-> 
+>
 > The app's `Info.plist` must contain an `NSUserTrackingUsageDescription` key with a string value explaining
-> 
+>
 > to the user how the app uses this data.
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
