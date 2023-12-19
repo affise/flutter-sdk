@@ -23,22 +23,6 @@ class Affise {
     });
   }
 
-  /// Deprecated
-  ///
-  /// Use instead:
-  /// ```dart
-  ///Affise
-  ///  .settings(
-  ///    affiseAppId: "Your appId", //Change to your app id
-  ///    secretKey: "Your SDK secretKey", //Change to your SDK secretKey
-  ///  )
-  ///  .start(); // Start Affise SDK
-  /// ```
-  @Deprecated('Use [Affise.settings(affiseAppId, secretKey).start()]')
-  static void init(AffiseInitProperties initProperties) {
-    start(initProperties);
-  }
-
   static Future<bool> isInitialized() async {
     var completer = Completer<bool>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -224,6 +208,20 @@ class Affise {
     return completer.future;
   }
 
+  /// Get referrer
+  static void getReferrer(ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getReferrer(callback);
+    });
+  }
+
+  /// Get referrer Value
+  static void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getReferrerValue(key, callback);
+    });
+  }
+
   static AffiseAndroidApi android = _AffiseAndroid(_native);
   static AffiseIOSApi ios = _AffiseIOS(_native);
   static AffiseDebug debug = _AffiseDebug(_native);
@@ -234,22 +232,6 @@ class _AffiseAndroid implements AffiseAndroidApi {
   AffiseNative? native;
 
   _AffiseAndroid(this.native);
-
-  /// Get referrer
-  @override
-  void getReferrer(ReferrerCallback callback) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getReferrer(callback);
-    });
-  }
-
-  /// Get referrer Value
-  @override
-  void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getReferrerValue(key, callback);
-    });
-  }
 
   /// Erases all user data from mobile and sends [GDPREvent]
   @override

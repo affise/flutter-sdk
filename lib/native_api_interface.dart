@@ -3,10 +3,6 @@ import 'export.dart';
 abstract class AffiseAndroidApi {
   const AffiseAndroidApi();
 
-  void getReferrer(ReferrerCallback callback);
-
-  void getReferrerValue(ReferrerKey key, ReferrerCallback callback);
-
   void forget(String userData);
 
   void crashApplication();

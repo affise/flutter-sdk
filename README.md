@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                         |
 |--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.9`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.10`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -744,7 +744,7 @@ Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
 
 ## Offline mode
 
-In some scenarios you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise init:
+In some scenarios you would want to limit Affise network usage, to pause that activity call anywhere in your application following code after Affise start:
 
 ```dart
 Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
@@ -763,7 +763,7 @@ Affise.isOfflineModeEnabled(); // returns true or false describing current track
 
 ## Disable tracking
 
-To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
+To disable any tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise start:
 
 ```dart
 Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
@@ -784,7 +784,7 @@ Affise.isTrackingEnabled(); // returns true or false describing current tracking
 
 ## Disable background tracking
 
-To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise init:
+To disable any background tracking activity, storing events and gathering device identifiers and metrics call anywhere in your application following code after Affise start:
 
 ```dart
 Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
@@ -831,7 +831,7 @@ Affise.getProviders().then((providers) {
 Use the next public method of SDK
 
 ```dart
-Affise.android.getReferrer((value) {
+Affise.getReferrer((value) {
   // handle referrer
 });
 ```
@@ -841,7 +841,7 @@ Affise.android.getReferrer((value) {
 Use the next public method of SDK to get referrer value by
 
 ```dart
-Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
+Affise.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
   // handle referrer
 });
 ```

@@ -78,7 +78,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
                   ElevatedButton(
                     onPressed: () {
                       // Get referrer https://github.com/affise/flutter-sdk#get-referrer
-                      Affise.android.getReferrer((value) {
+                      Affise.getReferrer((value) {
                         setOutput("Referrer: $value");
                       });
                     },
@@ -87,7 +87,7 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
                   ElevatedButton(
                     onPressed: () {
                       // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-value
-                      Affise.android.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
+                      Affise.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
                         setOutput("ReferrerValue: $value");
                       });
                     },
