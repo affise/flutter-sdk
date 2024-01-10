@@ -35,13 +35,6 @@ class Affise {
     return completer.future; 
   }
 
-  /// Send events
-  static void sendEvents() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.sendEvents();
-    });
-  }
-
   /// Store and send [event]
   static void sendEvent(Event event) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -163,10 +156,29 @@ class Affise {
   }
 
   /// Manual module start
-  static moduleStart(AffiseModules module)  {
+  static Future<bool> moduleStart(AffiseModules module) async {
+    var completer = Completer<bool>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.moduleStart(module);
+      _native.moduleStart(module).then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
     });
+    return completer.future;
+  }
+
+  /// Get installed modules
+  static Future<List<AffiseModules>> getModulesInstalled() async {
+    var completer = Completer<List<AffiseModules>>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getModulesInstalled().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 
   /// Get random User Id

@@ -29,6 +29,11 @@ enum ReferrerKey {
   SUB_3,
   SUB_4,
   SUB_5,
+  AFFISE_SUB_1,
+  AFFISE_SUB_2,
+  AFFISE_SUB_3,
+  AFFISE_SUB_4,
+  AFFISE_SUB_5,
 }
 
 extension ReferrerKeyValue on ReferrerKey {
@@ -94,6 +99,16 @@ extension ReferrerKeyValue on ReferrerKey {
         return "sub4";
       case ReferrerKey.SUB_5:
         return "sub5";
+      case ReferrerKey.AFFISE_SUB_1:
+        return "affise_sub1";
+      case ReferrerKey.AFFISE_SUB_2:
+        return "affise_sub2";
+      case ReferrerKey.AFFISE_SUB_3:
+        return "affise_sub3";
+      case ReferrerKey.AFFISE_SUB_4:
+        return "affise_sub4";
+      case ReferrerKey.AFFISE_SUB_5:
+        return "affise_sub5";
       default:
         return "";
     }

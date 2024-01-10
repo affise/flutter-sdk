@@ -1,7 +1,7 @@
 enum AffiseApiMethod {
   INIT,
   IS_INITIALIZED,
-  SEND_EVENTS,
+  // SEND_EVENTS, // deprecated
   SEND_EVENT,
   ADD_PUSH_TOKEN,
   REGISTER_WEB_VIEW,
@@ -21,6 +21,7 @@ enum AffiseApiMethod {
   GET_RANDOM_DEVICE_ID,
   GET_PROVIDERS,
   MODULE_START,
+  GET_MODULES_INSTALLED,
 
   // callbacks
   GET_REFERRER_CALLBACK,
@@ -47,8 +48,9 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "init";
       case AffiseApiMethod.IS_INITIALIZED:
         return "is_initialized";
-      case AffiseApiMethod.SEND_EVENTS:
-        return "send_events";
+      // deprecated
+      // case AffiseApiMethod.SEND_EVENTS:
+      //   return "send_events";
       case AffiseApiMethod.SEND_EVENT:
         return "send_event";
       case AffiseApiMethod.ADD_PUSH_TOKEN:
@@ -87,6 +89,8 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_providers";
       case AffiseApiMethod.MODULE_START:
         return "module_start";
+      case AffiseApiMethod.GET_MODULES_INSTALLED:
+        return "get_modules_installed";
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
         return "get_referrer_callback";
       case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:

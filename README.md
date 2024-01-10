@@ -1,8 +1,8 @@
 # Affise Attribution Flutter Library
 
-| Package                  |                         Version                         |
-|--------------------------|:-------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.10`](https://github.com/affise/sdk-react/releases) |
+| Package                  |                         Version                          |
+|--------------------------|:--------------------------------------------------------:|
+| `affise_attribution_lib` | [`1.6.11`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -86,10 +86,16 @@ dependencies:
 
 ### Modules
 
-If module start type is `manual`, then call
-
 ```dart
 Affise.moduleStart(AffiseModules.ADVERTISING);
+```
+
+Get list of installed modules:
+
+```dart
+Affise.getModulesInstalled().then((modules) {
+  print("Modules: $modules");
+});
 ```
 
 #### Android
@@ -108,10 +114,10 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.+'
-    implementation 'com.affise:module-network:1.6.+'
-    implementation 'com.affise:module-phone:1.6.+'
-    implementation 'com.affise:module-status:1.6.+'
+    implementation 'com.affise:module-advertising:1.6.22'
+    implementation 'com.affise:module-network:1.6.22'
+    implementation 'com.affise:module-phone:1.6.22'
+    implementation 'com.affise:module-status:1.6.22'
 }
 ```
 
@@ -121,8 +127,8 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.19`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `STATUS`      | [`1.6.19`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.20`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `STATUS`      | [`1.6.20`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -131,8 +137,8 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.19`
-  pod 'AffiseModule/Status', `1.6.19`
+  pod 'AffiseModule/Advertising', `1.6.20`
+  pod 'AffiseModule/Status', `1.6.20`
 end
 ```
 
@@ -873,6 +879,11 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 - `AFFISE_REF`
 - `AFFISE_SITE_ID`
 - `AFFISE_SUB_SITE_ID`
+- `AFFISE_SUB_1`
+- `AFFISE_SUB_2`
+- `AFFISE_SUB_3`
+- `AFFISE_SUB_4`
+- `AFFISE_SUB_5`
 - `AFFC`
 - `PID`
 - `SUB_1`

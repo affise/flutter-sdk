@@ -28,10 +28,6 @@ class AffiseNative extends NativeBase {
     return await native(AffiseApiMethod.IS_INITIALIZED);
   }
 
-  void sendEvents() {
-    native(AffiseApiMethod.SEND_EVENTS);
-  }
-
   void sendEvent(Event event) {
     native(AffiseApiMethod.SEND_EVENT, converter.convert(event));
   }
@@ -114,8 +110,23 @@ class AffiseNative extends NativeBase {
     );
   }
 
-  void moduleStart(AffiseModules module) {
-    native(AffiseApiMethod.MODULE_START, module.value);
+  Future<bool> moduleStart(AffiseModules module) async {
+    return await native(AffiseApiMethod.MODULE_START, module.value);
+  }
+
+  Future<List<AffiseModules>> getModulesInstalled() async {
+    List<Object?>? data = await native(AffiseApiMethod.GET_MODULES_INSTALLED);
+    final List<AffiseModules> result = [];
+    if (data == null) return result;
+
+    for (var value in data) {
+      AffiseModules? module = AffiseModules.fromString(value.toString());
+      if (module != null) {
+        result.add(module);
+      }
+    }
+
+    return result;
   }
 
   Future<String> getRandomUserId() async {

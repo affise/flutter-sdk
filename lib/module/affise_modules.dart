@@ -1,4 +1,16 @@
-enum AffiseModules { ADVERTISING, NETWORK, PHONE, STATUS }
+import 'package:collection/collection.dart';
+
+enum AffiseModules {
+  ADVERTISING,
+  NETWORK,
+  PHONE,
+  STATUS;
+
+  static AffiseModules? fromString(String? value) {
+    if (value == null) return null;
+    return AffiseModules.values.firstWhereOrNull((e) => e.value == value);
+  }
+}
 
 extension AffiseModulesExt on AffiseModules {
   String get value {
