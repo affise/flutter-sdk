@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.11`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.12`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -114,10 +114,10 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.22'
-    implementation 'com.affise:module-network:1.6.22'
-    implementation 'com.affise:module-phone:1.6.22'
-    implementation 'com.affise:module-status:1.6.22'
+    implementation 'com.affise:module-advertising:1.6.23'
+    implementation 'com.affise:module-network:1.6.23'
+    implementation 'com.affise:module-phone:1.6.23'
+    implementation 'com.affise:module-status:1.6.23'
 }
 ```
 
@@ -127,8 +127,8 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.20`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `STATUS`      | [`1.6.20`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.25`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `STATUS`      | [`1.6.25`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -137,8 +137,8 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.20`
-  pod 'AffiseModule/Status', `1.6.20`
+  pod 'AffiseModule/Advertising', `1.6.25`
+  pod 'AffiseModule/Status', `1.6.25`
 end
 ```
 
@@ -468,6 +468,13 @@ Use any of custom events if default doesn't fit your scenario:
 - `CustomId08Event`
 - `CustomId09Event`
 - `CustomId10Event`
+
+If above event functionality still limits your usecase, you can use `UserCustomEvent`
+
+```dart
+UserCustomEvent(eventName: "MyCustomEvent")
+    .send(); 
+```
 
 ## Predefined event parameters
 
