@@ -129,6 +129,10 @@ class AffiseNative extends NativeBase {
     return result;
   }
 
+  Future<bool> isFirstRun() async {
+    return await native(AffiseApiMethod.IS_FIRST_RUN);
+  }
+
   Future<String> getRandomUserId() async {
     return await native(AffiseApiMethod.GET_RANDOM_USER_ID);
   }

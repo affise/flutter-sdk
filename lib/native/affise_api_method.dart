@@ -22,6 +22,7 @@ enum AffiseApiMethod {
   GET_PROVIDERS,
   MODULE_START,
   GET_MODULES_INSTALLED,
+  IS_FIRST_RUN,
 
   // callbacks
   GET_REFERRER_CALLBACK,
@@ -91,6 +92,8 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "module_start";
       case AffiseApiMethod.GET_MODULES_INSTALLED:
         return "get_modules_installed";
+      case AffiseApiMethod.IS_FIRST_RUN:
+        return "is_first_run";
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
         return "get_referrer_callback";
       case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:

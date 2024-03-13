@@ -220,6 +220,19 @@ class Affise {
     return completer.future;
   }
 
+  /// Is it first run
+  static Future<bool> isFirstRun() async {
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.isFirstRun().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
+  }
+
   /// Get referrer
   static void getReferrer(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {

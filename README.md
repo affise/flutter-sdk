@@ -2,7 +2,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.12`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.13`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -48,6 +48,7 @@
   - [Get random user Id](#get-random-user-id)
   - [Get random device Id](#get-random-device-id)
   - [Get providers](#get-providers)
+  - [Is first run](#is-first-run)
   - [Get referrer](#get-referrer)
   - [Get referrer value](#get-referrer-value)
     - [Referrer keys](#referrer-keys)
@@ -114,10 +115,10 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.23'
-    implementation 'com.affise:module-network:1.6.23'
-    implementation 'com.affise:module-phone:1.6.23'
-    implementation 'com.affise:module-status:1.6.23'
+    implementation 'com.affise:module-advertising:1.6.26'
+    implementation 'com.affise:module-network:1.6.26'
+    implementation 'com.affise:module-phone:1.6.26'
+    implementation 'com.affise:module-status:1.6.26'
 }
 ```
 
@@ -127,8 +128,8 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.25`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `STATUS`      | [`1.6.25`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.27`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `STATUS`      | [`1.6.27`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -137,8 +138,8 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.25`
-  pod 'AffiseModule/Status', `1.6.25`
+  pod 'AffiseModule/Advertising', `1.6.27`
+  pod 'AffiseModule/Status', `1.6.27`
 end
 ```
 
@@ -836,6 +837,13 @@ Returns providers map with [ProviderType](#providertype-identifiers-collection) 
 Affise.getProviders().then((providers) {
   var key = ProviderType.AFFISE_APP_TOKEN;
   var value = providers[key];
+});
+```
+
+## Is first run
+```dart
+Affise.isFirstRun().then((isFirstRun) {
+  // handle
 });
 ```
 
