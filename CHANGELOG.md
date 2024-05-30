@@ -1,15 +1,27 @@
 # Changelog
 
+## [1.6.14] - 2024-05-30
+
+### Added
+
+- Event api `sendNow`.
+- Affise `internal` library group callback support.
+
+### Changed
+
+- Update native iOS to `1.6.32`.
+- Update native Android to `1.6.33`.
+
 ## [1.6.13] - 2024-03-13
 
 ### Added
 
-- Event api `isFirstRun`.
+- Api `isFirstRun`.
 
 ### Changed
 
 - Update native iOS to `1.6.27`.
-- Update native Android to `1.6.26`.
+- Update native Android to `1.6.32`.
 
 ## [1.6.12] - 2024-02-06
 
@@ -45,6 +57,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.14]: https://github.com/affise/flutter-sdk/compare/1.6.13...1.6.14
 [1.6.13]: https://github.com/affise/flutter-sdk/compare/1.6.12...1.6.13
 [1.6.12]: https://github.com/affise/flutter-sdk/compare/1.6.11...1.6.12
 [1.6.11]: https://github.com/affise/flutter-sdk/compare/1.6.10...1.6.11

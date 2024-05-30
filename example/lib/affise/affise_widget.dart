@@ -53,6 +53,12 @@ class _AffiseWidgetState extends State<AffiseWidget> {
                   items[index].send();
                   // or
                   // Affise.sendEvent(items[index]);
+                  // or
+                  // items[index].sendNow(() {
+                  //   debugPrint("success: ${items[index].getName()}");
+                  // }, (status) {
+                  //   debugPrint("failed: ${items[index].getName()} ${status}");
+                  // });
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: (items[index] is BaseSubscriptionEvent)

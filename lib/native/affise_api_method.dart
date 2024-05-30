@@ -1,8 +1,8 @@
 enum AffiseApiMethod {
   INIT,
   IS_INITIALIZED,
-  // SEND_EVENTS, // deprecated
   SEND_EVENT,
+  SEND_EVENT_NOW,
   ADD_PUSH_TOKEN,
   REGISTER_WEB_VIEW,
   UNREGISTER_WEB_VIEW,
@@ -49,11 +49,10 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "init";
       case AffiseApiMethod.IS_INITIALIZED:
         return "is_initialized";
-      // deprecated
-      // case AffiseApiMethod.SEND_EVENTS:
-      //   return "send_events";
       case AffiseApiMethod.SEND_EVENT:
         return "send_event";
+      case AffiseApiMethod.SEND_EVENT_NOW:
+        return "send_event_now";
       case AffiseApiMethod.ADD_PUSH_TOKEN:
         return "add_push_token";
       case AffiseApiMethod.REGISTER_WEB_VIEW:

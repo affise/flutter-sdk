@@ -42,6 +42,13 @@ class Affise {
     });
   }
 
+  /// Store and send [event]
+  static void sendEventNow(Event event, OnSendSuccessCallback success, OnSendFailedCallback failed) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.sendEventNow(event, success, failed);
+    });
+  }
+
   /// Add [pushToken]
   static void addPushToken(String pushToken) {
     SchedulerBinding.instance.addPostFrameCallback((_) {

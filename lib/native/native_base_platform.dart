@@ -36,7 +36,7 @@ abstract class NativeBasePlatform extends PlatformInterface {
     return _methodChannel.invokeMethod(apiName, data);
   }
 
-  void apiCallback(String apiName, dynamic arguments) {}
+  dynamic apiCallback(String apiName, dynamic arguments) {}
 
   void _nativeCallback() {
     _methodChannel.setMethodCallHandler((MethodCall call) async {

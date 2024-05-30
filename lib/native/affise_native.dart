@@ -1,23 +1,22 @@
+import '../events/export.dart';
+import '../module/export.dart';
+import '../debug/export.dart';
+import '../referrer/export.dart';
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
-import '../debug/network/debug_on_network_callback.dart';
-import '../debug/validate/debug_on_validate_callback.dart';
 import '../deeplink/on_deeplink_callback.dart';
-import '../events/auto_catching_type.dart';
-import '../events/event.dart';
 import '../events/event_to_serialized_event_converter.dart';
-import '../module/affise_key_value.dart';
-import '../module/affise_modules.dart';
-import '../module/on_key_value_callback.dart';
 import '../parameters/provider_type.dart';
-import '../referrer/referrer_callback.dart';
-import '../referrer/referrer_key.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
 import 'native_base.dart';
 import 'utils/debug_utils.dart';
 
 class AffiseNative extends NativeBase {
+
+  static const _SUCCESS = "success";
+  static const _FAILED = "failed";
+
   EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
   void init(AffiseInitProperties initProperties) {
@@ -30,6 +29,17 @@ class AffiseNative extends NativeBase {
 
   void sendEvent(Event event) {
     native(AffiseApiMethod.SEND_EVENT, converter.convert(event));
+  }
+
+  void sendEventNow(Event event, OnSendSuccessCallback success, OnSendFailedCallback failed) {
+    nativeCallbackGroup(
+      AffiseApiMethod.SEND_EVENT_NOW,
+      {
+        _SUCCESS: success,
+        _FAILED: failed,
+      },
+      converter.convert(event),
+    );
   }
 
   void addPushToken(String pushToken) {
@@ -190,9 +200,20 @@ class AffiseNative extends NativeBase {
   }
 
   @override
-  void handleCallback(AffiseApiMethod api, dynamic callback, dynamic data) {
+  dynamic handleCallback(AffiseApiMethod api, dynamic callback, dynamic data, String? tag) {
     if (callback == null) return;
     switch (api) {
+      case AffiseApiMethod.SEND_EVENT_NOW:
+        switch (tag) {
+          case _SUCCESS:
+            tryCast<OnSendSuccessCallback>(callback)?.call();
+            break;
+          case _FAILED:
+            Map<Object?, Object?>? json = tryCast<Map<Object?, Object?>>(data);
+            tryCast<OnSendFailedCallback>(callback)?.call(DebugUtils.parseResponse(json));
+            break;
+        }
+        break;
       case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
         tryCast<OnDeeplinkCallback>(callback)?.call(
           Uri.parse(data?.toString() ?? ""),

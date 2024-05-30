@@ -87,6 +87,11 @@ abstract class Event {
     Affise.sendEvent(this);
   }
 
+  /// Send this event now
+  void sendNow(OnSendSuccessCallback success, OnSendFailedCallback failed) {
+    Affise.sendEventNow(this, success, failed);
+  }
+
   /// Get map of predefined parameter
   ///
   /// @return map of predefined parameter
