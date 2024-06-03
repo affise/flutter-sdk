@@ -1,9 +1,9 @@
 group 'com.affise.attribution.affise_attribution_lib'
-version '1.6.14'
+version '1.6.15'
 
 buildscript {
     ext.kotlin_version = '1.7.10'
-    ext.affise_version = '1.6.33'
+    ext.affise_version = '1.6.34'
 
     repositories {
         google()

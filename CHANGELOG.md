@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.15] - 2024-06-03
+
+### Changed
+
+- Update native Android to [`1.6.34`](https://github.com/affise/sdk-android/blob/v1.6.34/CHANGELOG.md).
+
 ## [1.6.14] - 2024-05-30
 
 ### Added
@@ -9,8 +15,8 @@
 
 ### Changed
 
-- Update native iOS to `1.6.32`.
-- Update native Android to `1.6.33`.
+- Update native iOS to [`1.6.32`](https://github.com/affise/sdk-ios/blob/1.6.32/CHANGELOG.md).
+- Update native Android to [`1.6.33`](https://github.com/affise/sdk-android/blob/v1.6.33/CHANGELOG.md).
 
 ## [1.6.13] - 2024-03-13
 
@@ -57,6 +63,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.15]: https://github.com/affise/flutter-sdk/compare/1.6.14...1.6.15
 [1.6.14]: https://github.com/affise/flutter-sdk/compare/1.6.13...1.6.14
 [1.6.13]: https://github.com/affise/flutter-sdk/compare/1.6.12...1.6.13
 [1.6.12]: https://github.com/affise/flutter-sdk/compare/1.6.11...1.6.12

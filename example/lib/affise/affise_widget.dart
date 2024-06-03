@@ -57,7 +57,7 @@ class _AffiseWidgetState extends State<AffiseWidget> {
                   // items[index].sendNow(() {
                   //   debugPrint("success: ${items[index].getName()}");
                   // }, (status) {
-                  //   debugPrint("failed: ${items[index].getName()} ${status}");
+                  //   debugPrint("failed: ${items[index].getName()} $status");
                   // });
                 },
                 style: ElevatedButton.styleFrom(

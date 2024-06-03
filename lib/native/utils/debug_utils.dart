@@ -10,18 +10,18 @@ class DebugUtils {
         ValidationStatus.UNKNOWN_ERROR;
   }
 
-  static HttpRequest parseRequest(Map<Object?, Object?>? json) {
-    var request = tryCast<Map<Object?, Object?>>(json?["request"]);
-    var headersRaw = tryCast<Map<Object?, Object?>>(request?["headers"]);
+  static HttpRequest parseRequest(dynamic data) {
+    var json = tryCast<Map<Object?, Object?>>(data);
+    var headersRaw = tryCast<Map<Object?, Object?>>(json?["headers"]);
     Map<String, String> reqHeaders = {};
 
     headersRaw?.forEach((key, value) {
       reqHeaders[key.toString()] = value.toString();
     });
 
-    Uri reqUrl = Uri.parse(request?["url"]?.toString() ?? "");
-    HttpMethod? reqMethod = httpMethodFrom(request?["method"]?.toString());
-    String? reqBody = request?["body"]?.toString();
+    Uri reqUrl = Uri.parse(json?["url"]?.toString() ?? "");
+    HttpMethod? reqMethod = httpMethodFrom(json?["method"]?.toString());
+    String? reqBody = json?["body"]?.toString();
 
     return HttpRequest(
       reqUrl,
@@ -31,17 +31,28 @@ class DebugUtils {
     );
   }
 
-  static HttpResponse parseResponse(Map<Object?, Object?>? json) {
-    var request = tryCast<Map<Object?, Object?>>(json?["response"]);
-
-    int resCode = int.tryParse(request?["code"]?.toString() ?? "") ?? 0;
-    String resMessage = request?["message"]?.toString() ?? "";
-    String? resBody = request?["body"]?.toString();
+  static HttpResponse parseResponse(dynamic data) {
+    var json = tryCast<Map<Object?, Object?>>(data);
+    int resCode = int.tryParse(json?["code"]?.toString() ?? "") ?? 0;
+    String resMessage = json?["message"]?.toString() ?? "";
+    String? resBody = json?["body"]?.toString();
 
     return HttpResponse(
       resCode,
       resMessage,
       resBody,
     );
+  }
+
+  static HttpRequest parseRequestMap(dynamic data, String key) {
+    var json = tryCast<Map<Object?, Object?>>(data);
+    var request = tryCast<Map<Object?, Object?>>(json?[key]);
+    return parseRequest(request);
+  }
+
+  static HttpResponse parseResponseMap(dynamic data, String key) {
+    var json = tryCast<Map<Object?, Object?>>(data);
+    var response = tryCast<Map<Object?, Object?>>(json?[key]);
+    return parseResponse(response);
   }
 }

@@ -209,8 +209,7 @@ class AffiseNative extends NativeBase {
             tryCast<OnSendSuccessCallback>(callback)?.call();
             break;
           case _FAILED:
-            Map<Object?, Object?>? json = tryCast<Map<Object?, Object?>>(data);
-            tryCast<OnSendFailedCallback>(callback)?.call(DebugUtils.parseResponse(json));
+            tryCast<OnSendFailedCallback>(callback)?.call(DebugUtils.parseResponse(data));
             break;
         }
         break;
@@ -242,10 +241,9 @@ class AffiseNative extends NativeBase {
         );
         break;
       case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
-        Map<Object?, Object?>? json = tryCast<Map<Object?, Object?>>(data);
         tryCast<DebugOnNetworkCallback>(callback)?.call(
-          DebugUtils.parseRequest(json),
-          DebugUtils.parseResponse(json),
+          DebugUtils.parseRequestMap(data, "request"),
+          DebugUtils.parseResponseMap(data, "response"),
         );
         break;
       default:

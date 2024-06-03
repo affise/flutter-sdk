@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.14`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.15`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -118,10 +118,10 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.33'
-    implementation 'com.affise:module-network:1.6.33'
-    implementation 'com.affise:module-phone:1.6.33'
-    implementation 'com.affise:module-status:1.6.33'
+    implementation 'com.affise:module-advertising:1.6.34'
+    implementation 'com.affise:module-network:1.6.34'
+    implementation 'com.affise:module-phone:1.6.34'
+    implementation 'com.affise:module-status:1.6.34'
 }
 ```
 
@@ -379,7 +379,7 @@ AddToCartEvent()
       // handle event send success
     }, (status) {
       // handle event send failed
-      // Warning: event is NOT cached for later send
+      // 🟥Warning🟥: event is NOT cached for later send
     });
 ```
 

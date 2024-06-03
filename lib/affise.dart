@@ -42,7 +42,7 @@ class Affise {
     });
   }
 
-  /// Store and send [event]
+  /// Send [event] now
   static void sendEventNow(Event event, OnSendSuccessCallback success, OnSendFailedCallback failed) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.sendEventNow(event, success, failed);
