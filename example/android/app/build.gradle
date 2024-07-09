@@ -65,13 +65,15 @@ flutter {
     source '../..'
 }
 
-def affise_version = '1.6.35'
+final affise_version = '1.6.38'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Affise modules
     implementation "com.affise:module-advertising:$affise_version"
+    implementation "com.affise:module-androidid:$affise_version"
+    implementation "com.affise:module-link:$affise_version"
     implementation "com.affise:module-network:$affise_version"
     implementation "com.affise:module-phone:$affise_version"
     implementation "com.affise:module-status:$affise_version"

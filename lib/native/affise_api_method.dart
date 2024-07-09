@@ -20,14 +20,11 @@ enum AffiseApiMethod {
   GET_RANDOM_USER_ID,
   GET_RANDOM_DEVICE_ID,
   GET_PROVIDERS,
-  MODULE_START,
-  GET_MODULES_INSTALLED,
   IS_FIRST_RUN,
 
   // callbacks
   GET_REFERRER_CALLBACK,
   GET_REFERRER_VALUE_CALLBACK,
-  GET_STATUS_CALLBACK,
   REGISTER_DEEPLINK_CALLBACK,
   SKAD_REGISTER_ERROR_CALLBACK,
   SKAD_POSTBACK_ERROR_CALLBACK,
@@ -35,6 +32,19 @@ enum AffiseApiMethod {
   // debug
   DEBUG_VALIDATE_CALLBACK,
   DEBUG_NETWORK_CALLBACK,
+
+  ////////////////////////////////////////
+  // modules
+  ////////////////////////////////////////
+  MODULE_START,
+  GET_MODULES_INSTALLED,
+  GET_STATUS_CALLBACK,
+  // Link Module
+  MODULE_LINK_LINK_RESOLVE_CALLBACK,
+  ////////////////////////////////////////
+  // modules
+  ////////////////////////////////////////
+  INITIAL_LINK,
 }
 
 AffiseApiMethod? apiMethodFrom(String? name) {
@@ -87,18 +97,12 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_random_device_id";
       case AffiseApiMethod.GET_PROVIDERS:
         return "get_providers";
-      case AffiseApiMethod.MODULE_START:
-        return "module_start";
-      case AffiseApiMethod.GET_MODULES_INSTALLED:
-        return "get_modules_installed";
       case AffiseApiMethod.IS_FIRST_RUN:
         return "is_first_run";
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
         return "get_referrer_callback";
       case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:
         return "get_referrer_value_callback";
-      case AffiseApiMethod.GET_STATUS_CALLBACK:
-        return "get_status_callback";
       case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
         return "register_deeplink_callback";
       case AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK:
@@ -109,6 +113,23 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "debug_validate_callback";
       case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
         return "debug_network_callback";
+      ////////////////////////////////////////
+      // modules
+      ////////////////////////////////////////
+      case AffiseApiMethod.MODULE_START:
+        return "module_start";
+      case AffiseApiMethod.GET_MODULES_INSTALLED:
+        return "get_modules_installed";
+      case AffiseApiMethod.GET_STATUS_CALLBACK:
+        return "get_status_callback";
+      // Link Module
+      case AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK:
+        return "module_link_link_resolve_callback";
+      ////////////////////////////////////////
+      // modules
+      ////////////////////////////////////////
+      case AffiseApiMethod.INITIAL_LINK:
+        return "initial_link";
     }
   }
 }

@@ -75,4 +75,19 @@ class NativeBase extends NativeBasePlatform {
   dynamic handleCallback(AffiseApiMethod api, dynamic callback, dynamic data, String? tag) {
     return null;
   }
+
+  @override
+  dynamic apiStream(String apiName, dynamic arguments) {
+    AffiseApiMethod? api = apiMethodFrom(apiName);
+    if (api == null) return null;
+
+    Map<Object?, Object?>? map = tryCast<Map<Object?, Object?>>(arguments);
+    dynamic data = map?[apiName];
+
+    dynamic callback = _callbacks[api];
+    handleStream(api, callback, data);
+  }
+
+  handleStream(AffiseApiMethod api, dynamic callback, dynamic data) {
+  }
 }

@@ -4,9 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'affise/affise_api_widget.dart';
 import 'affise/affise_widget.dart';
+import 'components/show_alert.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
+      home: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -17,7 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   ValueNotifier<String> output = ValueNotifier("");
 
   @override
@@ -28,6 +36,10 @@ class _MyAppState extends State<MyApp> {
 
   void setOutput(String data) {
     output.value = data;
+  }
+
+  void alert({required String title, required String text}) {
+    showAlert(context, title: title, text: text);
   }
 
   void initAffise() async {
@@ -41,8 +53,16 @@ class _MyAppState extends State<MyApp> {
         .start(); // Start Affise SDK
 
     // Deeplinks https://github.com/affise/flutter-sdk#deeplinks
-    Affise.registerDeeplinkCallback((uri) {
-      setOutput("Deeplink: $uri");
+    Affise.registerDeeplinkCallback((value) {
+      setOutput("Deeplink: $value");
+      alert(
+        title: "Deeplink",
+        text: "${value.deeplink}\n\n"
+            "scheme: \"${value.scheme}\"\n"
+            "host: \"${value.host}\"\n"
+            "path: \"${value.path}\"\n\n"
+            "parameters: ${value.parameters}",
+      );
     });
 
     // Debug: network request/response
@@ -64,43 +84,42 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.swap_horiz),
-                      SizedBox(width: 8),
-                      Text('API'),
-                    ],
-                  ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: TabBar(
+            labelColor: Theme.of(context).colorScheme.primary,
+            indicatorColor: Theme.of(context).colorScheme.primary,
+            tabs: [
+              Tab(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.swap_horiz),
+                    SizedBox(width: 8),
+                    Text('API'),
+                  ],
                 ),
-                Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.file_upload),
-                      SizedBox(width: 8),
-                      Text('Events'),
-                    ],
-                  ),
+              ),
+              Tab(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.file_upload),
+                    SizedBox(width: 8),
+                    Text('Events'),
+                  ],
                 ),
-              ],
-            ),
-            title: const Text('Affise Demo'),
-          ),
-          body: TabBarView(
-            children: [
-              AffiseApiWidget(output),
-              const AffiseWidget(),
+              ),
             ],
           ),
+        ),
+        body: TabBarView(
+          children: [
+            AffiseApiWidget(output),
+            const AffiseWidget(),
+          ],
         ),
       ),
     );

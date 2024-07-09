@@ -1,21 +1,24 @@
-import '../events/export.dart';
-import '../module/export.dart';
-import '../debug/export.dart';
-import '../referrer/export.dart';
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
-import '../deeplink/on_deeplink_callback.dart';
+import '../debug/export.dart';
+import '../deeplink/export.dart';
 import '../events/event_to_serialized_event_converter.dart';
+import '../events/export.dart';
+import '../module/export.dart';
 import '../parameters/provider_type.dart';
+import '../referrer/export.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
 import 'native_base.dart';
-import 'utils/debug_utils.dart';
+import 'utils/export.dart';
 
 class AffiseNative extends NativeBase {
-
+  static const _FINE_VALUE = "fineValue";
+  static const _COARSE_VALUE = "coarseValue";
   static const _SUCCESS = "success";
   static const _FAILED = "failed";
+  static const _REQUEST = "request";
+  static const _RESPONSE = "response";
 
   EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
@@ -31,7 +34,11 @@ class AffiseNative extends NativeBase {
     native(AffiseApiMethod.SEND_EVENT, converter.convert(event));
   }
 
-  void sendEventNow(Event event, OnSendSuccessCallback success, OnSendFailedCallback failed) {
+  void sendEventNow(
+    Event event,
+    OnSendSuccessCallback success,
+    OnSendFailedCallback failed,
+  ) {
     nativeCallbackGroup(
       AffiseApiMethod.SEND_EVENT_NOW,
       {
@@ -47,10 +54,12 @@ class AffiseNative extends NativeBase {
   }
 
   void registerDeeplinkCallback(OnDeeplinkCallback callback) {
-    nativeCallbackOnce(
+    nativeCallback(
       AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK,
       callback,
     );
+
+    initialLink();
   }
 
   void setSecretKey(String secretKey) {
@@ -112,33 +121,6 @@ class AffiseNative extends NativeBase {
     );
   }
 
-  void getStatus(AffiseModules module, OnKeyValueCallback callback) {
-    nativeCallbackOnce(
-      AffiseApiMethod.GET_STATUS_CALLBACK,
-      callback,
-      module.value,
-    );
-  }
-
-  Future<bool> moduleStart(AffiseModules module) async {
-    return await native(AffiseApiMethod.MODULE_START, module.value);
-  }
-
-  Future<List<AffiseModules>> getModulesInstalled() async {
-    List<Object?>? data = await native(AffiseApiMethod.GET_MODULES_INSTALLED);
-    final List<AffiseModules> result = [];
-    if (data == null) return result;
-
-    for (var value in data) {
-      AffiseModules? module = AffiseModules.fromString(value.toString());
-      if (module != null) {
-        result.add(module);
-      }
-    }
-
-    return result;
-  }
-
   Future<bool> isFirstRun() async {
     return await native(AffiseApiMethod.IS_FIRST_RUN);
   }
@@ -175,8 +157,8 @@ class AffiseNative extends NativeBase {
   void updatePostbackConversionValue(
       int fineValue, String coarseValue, ErrorCallback completionHandler) {
     final Map<String, dynamic> value = {
-      'fineValue': fineValue,
-      'coarseValue': coarseValue,
+      _FINE_VALUE: fineValue,
+      _COARSE_VALUE: coarseValue,
     };
     nativeCallbackOnce(
       AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK,
@@ -199,8 +181,59 @@ class AffiseNative extends NativeBase {
     );
   }
 
+  ////////////////////////////////////////
+  // modules
+  ////////////////////////////////////////
+  Future<bool> moduleStart(AffiseModules module) async {
+    return await native(AffiseApiMethod.MODULE_START, module.value);
+  }
+
+  Future<List<AffiseModules>> getModulesInstalled() async {
+    List<Object?>? data = await native(AffiseApiMethod.GET_MODULES_INSTALLED);
+    final List<AffiseModules> result = [];
+    if (data == null) return result;
+
+    for (var value in data) {
+      AffiseModules? module = AffiseModules.fromString(value.toString());
+      if (module != null) {
+        result.add(module);
+      }
+    }
+
+    return result;
+  }
+
+  void getStatus(AffiseModules module, OnKeyValueCallback callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_STATUS_CALLBACK,
+      callback,
+      module.value,
+    );
+  }
+
+  // Link Module
+  void linkResolve(String url, AffiseLinkCallback callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK,
+      callback,
+      url,
+    );
+  }
+  ////////////////////////////////////////
+  // modules
+  ////////////////////////////////////////
+
+  void initialLink() {
+    native(AffiseApiMethod.INITIAL_LINK);
+  }
+
   @override
-  dynamic handleCallback(AffiseApiMethod api, dynamic callback, dynamic data, String? tag) {
+  dynamic handleCallback(
+    AffiseApiMethod api,
+    dynamic callback,
+    dynamic data,
+    String? tag,
+  ) {
     if (callback == null) return;
     switch (api) {
       case AffiseApiMethod.SEND_EVENT_NOW:
@@ -209,42 +242,65 @@ class AffiseNative extends NativeBase {
             tryCast<OnSendSuccessCallback>(callback)?.call();
             break;
           case _FAILED:
-            tryCast<OnSendFailedCallback>(callback)?.call(DebugUtils.parseResponse(data));
+            tryCast<OnSendFailedCallback>(callback)
+                ?.call(DebugUtils.toResponse(from: data));
             break;
         }
         break;
-      case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
-        tryCast<OnDeeplinkCallback>(callback)?.call(
-          Uri.parse(data?.toString() ?? ""),
-        );
-        break;
       case AffiseApiMethod.GET_REFERRER_CALLBACK:
-        tryCast<ReferrerCallback>(callback)?.call(data?.toString() ?? "");
+        tryCast<ReferrerCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
         break;
       case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:
-        tryCast<ReferrerCallback>(callback)?.call(data?.toString() ?? "");
-        break;
-      case AffiseApiMethod.GET_STATUS_CALLBACK:
-        tryCast<OnKeyValueCallback>(callback)?.call(
-          tryCast<List<Object?>>(data)?.toAffiseKeyValueList ?? [],
-        );
+        tryCast<ReferrerCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
         break;
       case AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK:
-        tryCast<ErrorCallback>(callback)?.call(data?.toString() ?? "");
+        tryCast<ErrorCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
         break;
       case AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK:
-        tryCast<ErrorCallback>(callback)?.call(data?.toString() ?? "");
+        tryCast<ErrorCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
         break;
       case AffiseApiMethod.DEBUG_VALIDATE_CALLBACK:
         tryCast<DebugOnValidateCallback>(callback)?.call(
-          DebugUtils.getValidationStatus(data),
+          DebugUtils.toValidationStatus(from: data),
         );
         break;
       case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
         tryCast<DebugOnNetworkCallback>(callback)?.call(
-          DebugUtils.parseRequestMap(data, "request"),
-          DebugUtils.parseResponseMap(data, "response"),
+          DebugUtils.toRequestWithKey(from: data, key: _REQUEST),
+          DebugUtils.toResponseWithKey(from: data, key: _RESPONSE),
         );
+        break;
+      ////////////////////////////////////////
+      // modules
+      ////////////////////////////////////////
+      case AffiseApiMethod.GET_STATUS_CALLBACK:
+        tryCast<OnKeyValueCallback>(callback)
+            ?.call(DataMapper.toAffiseKeyValueList(from: data));
+        break;
+      // Link Module
+      case AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK:
+        tryCast<AffiseLinkCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
+        break;
+      ////////////////////////////////////////
+      // modules
+      ////////////////////////////////////////
+      default:
+        break;
+    }
+  }
+
+  @override
+  handleStream(AffiseApiMethod api, dynamic callback, dynamic data) {
+    if (callback == null) return;
+    switch (api) {
+      case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
+        tryCast<OnDeeplinkCallback>(callback)
+            ?.call(DataMapper.toDeeplinkValue(from: data));
         break;
       default:
         break;

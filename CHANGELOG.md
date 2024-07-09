@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.6.17] - 2024-07-09
+
+### Fixed
+
+- AGP error
+- Android Deeplink callback on open application
+- Event timestamps
+
+### Added
+
+- New module `Link` support.
+- New module `AndroidId` support.
+
+### Changed
+
+- Update native iOS to [`1.6.33`](https://github.com/affise/sdk-ios/blob/1.6.33/CHANGELOG.md).
+- Update native Android to [`1.6.38`](https://github.com/affise/sdk-android/blob/v1.6.38/CHANGELOG.md).
+- Update `registerDeeplinkCallback` change uri to convenient values.
+- Update api `Affise.getStatus` moved to `Affise.module.getStatus`.
+- Update api `Affise.moduleStart` moved to `Affise.module.moduleStart`.
+- Update api `Affise.getModulesInstalled` moved to `Affise.module.getModulesInstalled`.
+
 ## [1.6.16] - 2024-06-14
 
 ### Fixed
@@ -73,6 +95,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.17]: https://github.com/affise/flutter-sdk/compare/1.6.16...1.6.17
 [1.6.16]: https://github.com/affise/flutter-sdk/compare/1.6.15...1.6.16
 [1.6.15]: https://github.com/affise/flutter-sdk/compare/1.6.14...1.6.15
 [1.6.14]: https://github.com/affise/flutter-sdk/compare/1.6.13...1.6.14

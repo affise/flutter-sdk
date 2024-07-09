@@ -3,13 +3,17 @@ package com.affise.attribution.affise_attribution_lib
 
 import android.app.Application
 import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import com.affise.attribution.deeplink.toDeeplinkValue
 import com.affise.attribution.internal.AffiseApiMethod
 import com.affise.attribution.internal.AffiseApiWrapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -21,20 +25,30 @@ import io.flutter.plugin.common.PluginRegistry
 class AffiseAttributionLibPlugin :
     FlutterPlugin,
     MethodCallHandler,
+    EventChannel.StreamHandler,
     ActivityAware,
-    PluginRegistry.NewIntentListener {
+    PluginRegistry.NewIntentListener
+{
 
     companion object {
         private const val CHANNEL = "affise_sdk/api"
+        private const val EVENTS_CHANNEL = "affise_sdk/api_events"
     }
 
     private var channel: MethodChannel? = null
+    private var eventChannel: EventChannel? = null
     private var apiWrapper: AffiseApiWrapper? = null
     private val handler: Handler = Handler(Looper.getMainLooper())
+
+    private var initialLink: String? = null
+    private var events: EventSink? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, CHANNEL)
         channel?.setMethodCallHandler(this)
+
+        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, EVENTS_CHANNEL)
+        eventChannel?.setStreamHandler(this)
 
         apiWrapper = AffiseApiWrapper(flutterPluginBinding.applicationContext as? Application)
         apiWrapper?.flutter()
@@ -51,16 +65,43 @@ class AffiseAttributionLibPlugin :
             result.error("no data", null, null)
             return
         }
-        apiWrapper?.call(AffiseApiMethod.from(call.method), data, ResultWrapper(result))
+        if (call.method == "initial_link") {
+            if (!initialLink.isNullOrBlank()) {
+                handleDeeplink(initialLink)
+            }
+        } else {
+            apiWrapper?.call(AffiseApiMethod.from(call.method), data, ResultWrapper(result))
+        }
     }
 
-    private fun handleIntent(intent: Intent) {
-        if (intent.action != Intent.ACTION_VIEW) return
-        apiWrapper?.handleDeeplink(intent.dataString)
+    private fun handleIntent(intent: Intent): Boolean {
+        if (intent.action != Intent.ACTION_VIEW) return false
+        initialLink = intent.dataString
+        handleDeeplink(intent.dataString)
+        return true
+    }
+
+    private fun handleDeeplink(url: String?) {
+        apiWrapper?.handleDeeplink(url)
+
+        val value = Uri.parse(url).toDeeplinkValue()
+        events?.success(
+            mapOf(
+                // TODO 1.6.39 internal utils
+                AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK.method to mapOf(
+                    "deeplink" to value.deeplink,
+                    "scheme" to value.scheme,
+                    "host" to value.host,
+                    "path" to value.path,
+                    "parameters" to value.parameters
+                )
+            )
+        )
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel?.setMethodCallHandler(null)
+        eventChannel?.setStreamHandler(null)
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -69,8 +110,7 @@ class AffiseAttributionLibPlugin :
     }
 
     override fun onNewIntent(intent: Intent): Boolean {
-        handleIntent(intent)
-        return false
+        return handleIntent(intent)
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -80,4 +120,12 @@ class AffiseAttributionLibPlugin :
     override fun onDetachedFromActivityForConfigChanges() = Unit
 
     override fun onDetachedFromActivity() = Unit
+
+    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        this.events = events
+    }
+
+    override fun onCancel(arguments: Any?) {
+        events = null
+    }
 }

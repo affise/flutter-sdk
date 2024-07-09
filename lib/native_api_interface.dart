@@ -1,5 +1,15 @@
 import 'export.dart';
 
+abstract class AffiseModulesApi {
+  getStatus(AffiseModules module, OnKeyValueCallback callback);
+
+  Future<bool> moduleStart(AffiseModules module);
+
+  Future<List<AffiseModules>> getModulesInstalled();
+
+  void linkResolve(String url, AffiseLinkCallback callback);
+}
+
 abstract class AffiseAndroidApi {
   const AffiseAndroidApi();
 

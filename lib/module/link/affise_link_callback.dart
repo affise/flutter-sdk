@@ -1,0 +1,1 @@
+typedef AffiseLinkCallback = void Function(String result);

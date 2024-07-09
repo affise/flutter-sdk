@@ -1,4 +1,5 @@
 name: affise_attribution_lib_example
+version: 1.0.0
 description: Demonstrates how to use the affise_attribution_lib plugin.
 
 # The following line prevents the package from being accidentally published to

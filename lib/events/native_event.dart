@@ -5,7 +5,7 @@ import 'property/affise_property_builder.dart';
 
 abstract class NativeEvent extends Event {
   String? userData;
-  int? timeStampMillis = timestamp();
+  int? timeStampMillis;
 
   NativeEvent({
     this.userData,
@@ -15,7 +15,7 @@ abstract class NativeEvent extends Event {
   AffisePropertyBuilder serializeBuilder() {
     return AffisePropertyBuilder()
         .init(getName())
-        .add(AffiseProperty.TIMESTAMP, timeStampMillis);
+        .add(AffiseProperty.TIMESTAMP, timeStampMillis ?? timestamp());
   }
 
   /// Serialize event to dynamic

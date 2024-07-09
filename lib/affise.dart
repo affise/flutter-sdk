@@ -156,36 +156,21 @@ class Affise {
   }
 
   /// Get module status
+  @Deprecated('Use `Affise.module.getStatus` instead')
   static getStatus(AffiseModules module, OnKeyValueCallback callback)  {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getStatus(module, callback);
-    });
+    Affise.module.getStatus(module, callback);
   }
 
   /// Manual module start
+  @Deprecated('Use `Affise.module.moduleStart` instead')
   static Future<bool> moduleStart(AffiseModules module) async {
-    var completer = Completer<bool>();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.moduleStart(module).then((value) {
-        completer.complete(value);
-      }).catchError((error) {
-        completer.completeError(error);
-      });
-    });
-    return completer.future;
+    return Affise.module.moduleStart(module);
   }
 
   /// Get installed modules
+  @Deprecated('Use `Affise.module.getModulesInstalled` instead')
   static Future<List<AffiseModules>> getModulesInstalled() async {
-    var completer = Completer<List<AffiseModules>>();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getModulesInstalled().then((value) {
-        completer.complete(value);
-      }).catchError((error) {
-        completer.completeError(error);
-      });
-    });
-    return completer.future;
+    return Affise.module.getModulesInstalled();
   }
 
   /// Get random User Id
@@ -254,9 +239,61 @@ class Affise {
     });
   }
 
+  static AffiseModulesApi module = _AffiseModules(_native);
   static AffiseAndroidApi android = _AffiseAndroid(_native);
   static AffiseIOSApi ios = _AffiseIOS(_native);
   static AffiseDebug debug = _AffiseDebug(_native);
+}
+
+class _AffiseModules implements AffiseModulesApi {
+
+  final AffiseNative native;
+
+  _AffiseModules(this.native);
+
+  /// Get module status
+  @override
+  getStatus(AffiseModules module, OnKeyValueCallback callback)  {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.getStatus(module, callback);
+    });
+  }
+
+  /// Manual module start
+  @override
+  Future<bool> moduleStart(AffiseModules module) async {
+    var completer = Completer<bool>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.moduleStart(module).then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
+  }
+
+  /// Get installed modules
+  @override
+  Future<List<AffiseModules>> getModulesInstalled() async {
+    var completer = Completer<List<AffiseModules>>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.getModulesInstalled().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
+  }
+
+  /// Module Link url Resolve
+  @override
+  void linkResolve(String url, AffiseLinkCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.linkResolve(url, callback);
+    });
+  }
 }
 
 class _AffiseAndroid implements AffiseAndroidApi {

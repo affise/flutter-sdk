@@ -1,7 +1,9 @@
 import 'package:affise_attribution_lib/affise.dart';
 import 'package:affise_attribution_lib/events/subscription/base_subscription_event.dart';
+import 'package:affise_attribution_lib/utils/to_snake_case.dart';
 import 'package:flutter/material.dart';
 
+import '../components/affise_button.dart';
 import 'factories/default_events_factory.dart';
 
 class AffiseWidget extends StatefulWidget {
@@ -29,24 +31,22 @@ class _AffiseWidgetState extends State<AffiseWidget> {
       children: [
         // Container(
         //   margin: const EdgeInsets.only(left: 8, right: 8),
-        //   child: ElevatedButton(
+        //   child: AffiseButton(
         //     onPressed: () {
         //       for (var item in items) {
-        //         Affise.sendEvent(item);
+        //         item.send();
         //       }
         //     },
-        //     style: ElevatedButton.styleFrom(
-        //       backgroundColor: Colors.red,
-        //     ),
-        //     child: const Text("Send All"),
+        //     backgroundColor: Colors.red,
+        //     text: "Send All",
         //   ),
         // ),
         Flexible(
           child: ListView.builder(
-            padding: const EdgeInsets.only(left: 8, right: 8),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             itemCount: items.length,
             itemBuilder: (context, index) {
-              return ElevatedButton(
+              return AffiseButton(
                 onPressed: () {
                   // Events tracking https://github.com/affise/flutter-sdk#events-tracking
                   // Send event
@@ -60,12 +60,11 @@ class _AffiseWidgetState extends State<AffiseWidget> {
                   //   debugPrint("failed: ${items[index].getName()} $status");
                   // });
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: (items[index] is BaseSubscriptionEvent)
-                      ? Colors.red
-                      : Colors.blue,
-                ),
-                child: Text(items[index].runtimeType.toString()),
+                backgroundColor: (items[index] is BaseSubscriptionEvent)
+                    ? Colors.red
+                    : Colors.blue,
+                foregroundColor: Theme.of(context).colorScheme.onBackground,
+                text: items[index].runtimeType.toString().toWords().toUpperCase(),
               );
             },
           ),
@@ -73,4 +72,8 @@ class _AffiseWidgetState extends State<AffiseWidget> {
       ],
     );
   }
+}
+
+extension StringExtension on String {
+  String toWords() => toSnakeCase().replaceAll("_", " ");
 }

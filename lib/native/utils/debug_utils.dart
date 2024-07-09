@@ -5,13 +5,13 @@ import '../../network/http_response.dart';
 import '../../utils/try_cast.dart';
 
 class DebugUtils {
-  static ValidationStatus getValidationStatus(dynamic data) {
-    return validationStatusFrom(data?.toString()) ??
+  static ValidationStatus toValidationStatus({dynamic from}) {
+    return validationStatusFrom(from?.toString()) ??
         ValidationStatus.UNKNOWN_ERROR;
   }
 
-  static HttpRequest parseRequest(dynamic data) {
-    var json = tryCast<Map<Object?, Object?>>(data);
+  static HttpRequest toRequest({dynamic from}) {
+    var json = tryCast<Map<Object?, Object?>>(from);
     var headersRaw = tryCast<Map<Object?, Object?>>(json?["headers"]);
     Map<String, String> reqHeaders = {};
 
@@ -31,8 +31,8 @@ class DebugUtils {
     );
   }
 
-  static HttpResponse parseResponse(dynamic data) {
-    var json = tryCast<Map<Object?, Object?>>(data);
+  static HttpResponse toResponse({dynamic from}) {
+    var json = tryCast<Map<Object?, Object?>>(from);
     int resCode = int.tryParse(json?["code"]?.toString() ?? "") ?? 0;
     String resMessage = json?["message"]?.toString() ?? "";
     String? resBody = json?["body"]?.toString();
@@ -44,15 +44,15 @@ class DebugUtils {
     );
   }
 
-  static HttpRequest parseRequestMap(dynamic data, String key) {
-    var json = tryCast<Map<Object?, Object?>>(data);
+  static HttpRequest toRequestWithKey({dynamic from, required String key}) {
+    var json = tryCast<Map<Object?, Object?>>(from);
     var request = tryCast<Map<Object?, Object?>>(json?[key]);
-    return parseRequest(request);
+    return toRequest(from: request);
   }
 
-  static HttpResponse parseResponseMap(dynamic data, String key) {
-    var json = tryCast<Map<Object?, Object?>>(data);
+  static HttpResponse toResponseWithKey({dynamic from, required String key}) {
+    var json = tryCast<Map<Object?, Object?>>(from);
     var response = tryCast<Map<Object?, Object?>>(json?[key]);
-    return parseResponse(response);
+    return toResponse(from: response);
   }
 }

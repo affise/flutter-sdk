@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.16`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.17`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -14,6 +14,8 @@
     - [Modules](#modules)
       - [Android](#android)
       - [iOS](#ios)
+      - [Module Advertising](#module-advertising)
+      - [Module Link](#module-link)
     - [Initialize](#initialize)
       - [Domain](#domain)
     - [Requirements](#requirements)
@@ -45,6 +47,9 @@
   - [Deeplinks](#deeplinks)
     - [Android](#android-2)
     - [iOS](#ios-2)
+  - [AppLinks](#applinks)
+    - [Android](#android-3)
+    - [iOS](#ios-3)
   - [Offline mode](#offline-mode)
   - [Disable tracking](#disable-tracking)
   - [Disable background tracking](#disable-background-tracking)
@@ -63,7 +68,7 @@
 - [Debug](#debug)
   - [Validate credentials](#validate-credentials)
 - [Troubleshoots](#troubleshoots)
-  - [iOS](#ios-3)
+  - [iOS](#ios-4)
 
 # Description
 
@@ -91,13 +96,13 @@ dependencies:
 ### Modules
 
 ```dart
-Affise.moduleStart(AffiseModules.ADVERTISING);
+Affise.module.moduleStart(AffiseModules.ADVERTISING);
 ```
 
 Get list of installed modules:
 
 ```dart
-Affise.getModulesInstalled().then((modules) {
+Affise.module.getModulesInstalled().then((modules) {
   print("Modules: $modules");
 });
 ```
@@ -109,6 +114,8 @@ Add modules to android project
 | Module        | Version                                                                                                                                                                      | Start  |
 |---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
 | `ADVERTISING` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
+| `ANDROIDID`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       | `Auto` |
+| `LINK`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      | `Auto` |
 | `NETWORK`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
 | `PHONE`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
 | `STATUS`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
@@ -118,10 +125,12 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.35'
-    implementation 'com.affise:module-network:1.6.35'
-    implementation 'com.affise:module-phone:1.6.35'
-    implementation 'com.affise:module-status:1.6.35'
+    implementation 'com.affise:module-advertising:1.6.38'
+    implementation 'com.affise:module-androidid:1.6.38'
+    implementation 'com.affise:module-link:1.6.38'
+    implementation 'com.affise:module-network:1.6.38'
+    implementation 'com.affise:module-phone:1.6.38'
+    implementation 'com.affise:module-status:1.6.38'
 }
 ```
 
@@ -131,8 +140,9 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.32`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `STATUS`      | [`1.6.32`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`        | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`      | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -141,10 +151,17 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.32`
-  pod 'AffiseModule/Status', `1.6.32`
+  pod 'AffiseModule/Advertising', `1.6.33`
+  pod 'AffiseModule/Link', `1.6.33`
+  pod 'AffiseModule/Status', `1.6.33`
 end
 ```
+
+#### Module Advertising
+
+`iOS`
+
+This module required to Use [`IDFA`](https://developer.apple.com/documentation/adsupport/asidentifiermanager/advertisingidentifier) (Identifier for advertisers)
 
 > **Warning**
 >
@@ -157,6 +174,18 @@ end
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 Open `info.plist` and add key `NSUserTrackingUsageDescription` with string value. For more information [read requirements](#requirements)
+
+#### Module Link
+
+Return last url in chan of redirection
+
+🟥Support MAX 10 redirections🟥
+
+```dart
+Affise.module.linkResolve("SITE_WITH_REDIRECTION", (redirectUrl) {  
+    // handle redirect url
+});
+```
 
 ### Initialize
 
@@ -726,7 +755,21 @@ To use this feature, create file with name `partner_key` in your app assets dire
 
 ## Deeplinks
 
-Register deeplink callback right after `Affise.settings(..).start()`
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> Deeplinks support only **CUSTOM** scheme **NOT** `http` or `https`
+>
+> For `http` or `https` read how to setup [AppLinks](#applinks)
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
+To integrate deeplink support you need:
+
+- Follow how to set up deeplinks for [Android](#android-2) or [iOS](#ios-2)
+
+- Register deeplink callback right after `Affise.settings(..).start()`
 
 ```dart
 void init() {
@@ -738,11 +781,29 @@ void init() {
 }
 ```
 
+Test Android DeepLink via terminal command:
+
+```terminal
+adb shell am start -a android.intent.action.VIEW -d "YOUR_SCHEME://YOUR_DOMAIN/somepath?param=1\&list=some\&list=other\&list="
+```
+
+Test iOS DeepLink via terminal command:
+
+```terminal
+xcrun simctl openurl booted "YOUR_SCHEME://YOUR_DOMAIN/somepath?param=1&list=some&list=other&list=1"
+```
+
 ### Android
 
 To integrate deeplink support in android you need:
 
-Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/AndroidManifest.xml`, 
+- Add intent filter to one of your activities [`AndroidManifest.xml example`](example/android/app/src/main/AndroidManifest.xml)
+
+- Add **custom** scheme (**NOT** `http` or `https`) and host to filter
+
+Example: `YOUR_SCHEME://YOUR_DOMAIN`
+
+Example: `myapp://mydomain.com`
 
 ```xml
 <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
@@ -754,7 +815,7 @@ Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/A
     
     <data
         android:host="YOUR_DOMAIN"
-        android:scheme="flutter" />
+        android:scheme="YOUR_SCHEME" />
 </intent-filter>
 ```
 
@@ -762,9 +823,11 @@ Add intent filter to `AndroidManifest.xml` as in `example/android/app/src/main/A
 
 To integrate deeplink support in iOS you need:
 
-Add key `CFBundleURLTypes` to `Info.plist`
+Add key `CFBundleURLTypes` to `Info.plist` [`example Info.plist`](example/ios/Runner/Info.plist)
 
-Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
+Example: `YOUR_SCHEME://YOUR_DOMAIN`
+
+Example: `myapp://mydomain.com`
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -776,9 +839,114 @@ Example: [`example/ios/Runner/Info.plist`](example/ios/Runner/Info.plist)
         <string>YOUR_DOMAIN</string>
         <key>CFBundleURLSchemes</key>
         <array>
-            <string>react</string>
+            <string>YOUR_SCHEME</string>
         </array>
     </dict>
+</array>
+```
+
+## AppLinks
+
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> You must owne website domain.
+>
+> And has ability to add file `https://yoursite/.well-known/apple-app-site-association` for iOS support
+> 
+> And has ability to add file `https://yoursite/.well-known/assetlinks.json` for Android support
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
+- Follow how to set up AppLinks for [Android](#android-3) or [iOS](#ios-3)
+
+### Android
+
+To integrate applink support in android you need:
+
+- Add intent filter to one of your activities [`AndroidManifest.xml example`](example/android/app/src/main/AndroidManifest.xml)
+
+- Add `https` or `http` scheme and host to filter
+
+Example: `https://YOUR_DOMAIN`
+
+Example: `https://mydomain.com`
+
+```xml
+<meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    
+    <data
+        android:host="YOUR_DOMAIN"
+        android:scheme="https" />
+</intent-filter>
+```
+
+- Associate your app with your website. [Read Google instructions](https://developer.android.com/studio/write/app-link-indexing#associatesite) <details>
+  <summary>How To Associate your app with your website</summary>
+
+  ---
+
+  After setting up URL support for your app, the App Links Assistant generates a Digital Assets Links file you can use to [associate your website with your app](https://developer.android.com/training/app-links/verify-android-applinks#web-assoc).
+
+  As an alternative to using the Digital Asset Links file, you can [associate your site and app in Search Console](https://support.google.com/webmasters/answer/6212023).
+
+  If you're using [Play App Signing](https://support.google.com/googleplay/android-developer/answer/9842756) for your app, then the certificate fingerprint produced by the App Links Assistant usually doesn't match the one on users' devices. In this case, you can find the correct Digital Asset Links JSON snippet for your app in your [Play Console](https://play.google.com/console/) developer account under **Release** > **Setup** > **App signing**.
+
+  To associate your app and your website using the App Links Assistant, click **Open Digital Asset Links File Generator** from the App Links Assistant and follow these steps:
+
+  ![app-links-assistant-dal-file-generator_2x](https://developer.android.com/static/studio/images/write/app-links-assistant-dal-file-generator_2x.png)
+  **Figure 2**. Enter details about your site and app to generate a Digital Asset Links file.
+
+  1. Enter your **Site domain** and your [**Application ID**](https://developer.android.com/studio/build/configure-app-module#set-application-id).
+
+  2. To include support in your Digital Asset Links file for [One Tap sign-in](https://developers.google.com/identity/one-tap/android/overview), select **Support sharing credentials between the app and the website** and enter your site's sign-in URL.This adds the following string to your Digital Asset Links file declaring that your app and website share sign-in credentials: `delegate_permission/common.get_login_creds`.
+
+  3. Specify the [signing config](https://developer.android.com/studio/publish/app-signing#sign-auto) or select a [keystore file](https://developer.android.com/studio/publish/app-signing#certificates-keystores).
+
+  Make sure you select the right release config or keystore file for the release build or the debug config or keystore file for the debug build of your app. If you want to set up your production build, use the release config. If you want to test your build, use the debug config.
+
+  4. Click **Generate Digital Asset Links file**.
+  5. Once Android Studio generates the file, click **Save file** to download it.
+  6. Upload the `assetlinks.json` file to your site, with read access for everyone, at `https://yoursite/.well-known/assetlinks.json`.
+
+  > **Important**
+  >
+  > The system verifies the Digital Asset Links file via the encrypted HTTPS protocol. Make sure that the **assetlinks.json** file is accessible over an HTTPS connection, regardless of whether your app's intent filter includes **https**.
+
+  7. Click **Link and Verify** to confirm that you've uploaded the correct Digital Asset Links file to the correct location.
+
+  Learn more about associating your website with your app through the Digital Asset Links file in Declare website associations.
+
+  ---
+
+</details>
+
+### iOS
+
+To integrate deeplink support in iOS you need:
+
+- Follow how to set up applink in the [official documentation](https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app).
+
+- Associate your app with your website. [Supporting associated domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)
+
+- [Configuring an associated domain](https://developer.apple.com/documentation/xcode/configuring-an-associated-domain/)
+
+- Add key `com.apple.developer.associated-domains` to `Info.plist`
+
+Example: `https://YOUR_DOMAIN`
+
+Example: `https://mydomain.com`
+
+```xml
+<key>com.apple.developer.associated-domains</key>
+<array>
+    <string>applinks:YOUR_DOMAIN</string>
 </array>
 ```
 
@@ -936,7 +1104,7 @@ In examples above `ReferrerKey.CLICK_ID` is used, but many others is available:
 ## Get module state
 
 ```dart
-Affise.getStatus(AffiseModules.STATUS, (response) {
+Affise.module.getStatus(AffiseModules.STATUS, (response) {
     // handle status response
 });
 ```

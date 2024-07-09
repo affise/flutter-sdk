@@ -33,7 +33,7 @@ class AffisePropertyBuilder {
 
   AffisePropertyBuilder addRaw(String key, Object? value) {
     if (key.isNotEmpty) {
-      _data[key] = _parseValue(value);
+      _data[key.toLowerCase()] = _parseValue(value);
     }
     return this;
   }

@@ -1,27 +1,11 @@
-import '../utils/try_cast.dart';
-
 class AffiseKeyValue {
-  String key = "";
-  String value = "";
+  String key;
+  String value;
 
-  AffiseKeyValue(this.key, this.value);
+  AffiseKeyValue({required this.key, required this.value});
 
   @override
   String toString() {
     return "{key: $key, value: $value}";
-  }
-}
-
-extension AffiseKeyValueExt on List<Object?> {
-  List<AffiseKeyValue> get toAffiseKeyValueList {
-    List<AffiseKeyValue> result = [];
-    for (Object? e in this) {
-      Map<Object?, Object?>? t = tryCast<Map<Object?, Object?>>(e);
-      String? key = t?["key"]?.toString();
-      String? value = t?["value"]?.toString();
-      if (key == null || value == null) continue;
-      result.add(AffiseKeyValue(key, value));
-    }
-    return result;
   }
 }
