@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.18] - 2024-07-31
+
+### Added
+
+- Modules compatibility check.
+
+### Fixed
+
+- Api `Affise.Module.getStatus`.
+
+### Changed
+
+- Update native iOS to [`1.6.36`](https://github.com/affise/sdk-ios/blob/1.6.36/CHANGELOG.md).
+- Update native Android to [`1.6.40`](https://github.com/affise/sdk-android/blob/v1.6.40/CHANGELOG.md).
+
 ## [1.6.17] - 2024-07-09
 
 ### Fixed
@@ -95,6 +110,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.18]: https://github.com/affise/flutter-sdk/compare/1.6.17...1.6.18
 [1.6.17]: https://github.com/affise/flutter-sdk/compare/1.6.16...1.6.17
 [1.6.16]: https://github.com/affise/flutter-sdk/compare/1.6.15...1.6.16
 [1.6.15]: https://github.com/affise/flutter-sdk/compare/1.6.14...1.6.15

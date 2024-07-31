@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
     // Debug: network request/response
     Affise.debug.network((request, response) {
       if (kDebugMode) {
-        print("Affise: $request");
+        // print("Affise: $request");
         print("Affise: $response");
       }
     });

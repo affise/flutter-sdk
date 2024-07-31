@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.17`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.18`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -125,12 +125,12 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.38'
-    implementation 'com.affise:module-androidid:1.6.38'
-    implementation 'com.affise:module-link:1.6.38'
-    implementation 'com.affise:module-network:1.6.38'
-    implementation 'com.affise:module-phone:1.6.38'
-    implementation 'com.affise:module-status:1.6.38'
+    implementation 'com.affise:module-advertising:1.6.40'
+    implementation 'com.affise:module-androidid:1.6.40'
+    implementation 'com.affise:module-link:1.6.40'
+    implementation 'com.affise:module-network:1.6.40'
+    implementation 'com.affise:module-phone:1.6.40'
+    implementation 'com.affise:module-status:1.6.40'
 }
 ```
 
@@ -140,9 +140,9 @@ Add modules to iOS project
 
 | Module        |                                       Version                                        | Start    |
 |---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`        | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`      | [`1.6.33`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING` | [`1.6.36`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`        | [`1.6.36`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`      | [`1.6.36`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -151,9 +151,9 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.33`
-  pod 'AffiseModule/Link', `1.6.33`
-  pod 'AffiseModule/Status', `1.6.33`
+  pod 'AffiseModule/Advertising', `1.6.36`
+  pod 'AffiseModule/Link', `1.6.36`
+  pod 'AffiseModule/Status', `1.6.36`
 end
 ```
 
@@ -775,8 +775,19 @@ To integrate deeplink support you need:
 void init() {
   Affise.settings(affiseAppId, secretKey).start(); // Start Affise SDK
 
-  Affise.registerDeeplinkCallback((uri) {
-    // Handle deeplink
+  Affise.registerDeeplinkCallback((value) {
+    // full uri "scheme://host/path?parameters"
+    var deeplink = value.deeplink;
+
+    // separated for convenience
+    var scheme = value.scheme;
+    var host = value.host;
+    var path = value.path;
+    var queryParametersMap = value.parameters;
+
+    if(queryParametersMap["<your_uri_key>"]?.contains("<your_uri_key_value>") == true) {
+      // handle value
+    }
   });
 }
 ```
@@ -854,7 +865,7 @@ Example: `myapp://mydomain.com`
 > You must owne website domain.
 >
 > And has ability to add file `https://yoursite/.well-known/apple-app-site-association` for iOS support
-> 
+>
 > And has ability to add file `https://yoursite/.well-known/assetlinks.json` for Android support
 >
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
@@ -929,7 +940,7 @@ Example: `https://mydomain.com`
 
 ### iOS
 
-To integrate deeplink support in iOS you need:
+To integrate applink support in iOS you need:
 
 - Follow how to set up applink in the [official documentation](https://developer.apple.com/documentation/xcode/supporting-universal-links-in-your-app).
 
