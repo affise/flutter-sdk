@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.19] - 2024-08-01
+
+### Fixed
+
+- Fix build ios.
+
 ## [1.6.18] - 2024-07-31
 
 ### Added
@@ -110,6 +116,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.19]: https://github.com/affise/flutter-sdk/compare/1.6.18...1.6.19
 [1.6.18]: https://github.com/affise/flutter-sdk/compare/1.6.17...1.6.18
 [1.6.17]: https://github.com/affise/flutter-sdk/compare/1.6.16...1.6.17
 [1.6.16]: https://github.com/affise/flutter-sdk/compare/1.6.15...1.6.16

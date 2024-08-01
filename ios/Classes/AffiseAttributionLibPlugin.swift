@@ -65,21 +65,10 @@ public class AffiseAttributionLibPlugin: NSObject, FlutterPlugin, FlutterStreamH
         apiWrapper?.handleDeeplink(url)
         initialLink = url
         
-        // TODO 1.6.34 internal utils
         let value = URL(string: url!).toDeeplinkValue()
         events?([
             AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK.method : value
         ])
-//        let value = URL(string: url!).toDeeplinkValue()
-//        events?([
-//            AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK.method : [
-//                "deeplink": value.deeplink,
-//                "scheme": value.scheme as Any,
-//                "host": value.host as Any,
-//                "path": value.path as Any,
-//                "parameters": value.parameters
-//            ]
-//        ])
     }
     
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
@@ -122,50 +111,5 @@ public class AffiseAttributionLibPlugin: NSObject, FlutterPlugin, FlutterStreamH
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         self.events = nil
         return nil
-    }
-}
-
-// TODO remove for 1.6.34
-extension Optional where Wrapped == URL {
-    
-    func toDeeplinkValue() -> [String:Any] {
-        guard let self = self else {
-            return [:]
-        }
-        
-        var host: String?
-        var path: String?
-        var parameters: [String:[String]] = [:]
-        
-        if #available(iOS 16.0, *) {
-#if swift(>=5.7.1)
-            host = self.host(percentEncoded: false)
-            path = self.path(percentEncoded: false)
-#else
-            host = self.host
-            path = self.path
-#endif
-        } else {
-            host = self.host
-            path = self.path
-        }
-        
-        let component = URLComponents(string: self.absoluteString)
-        for item in component?.queryItems ?? [] {
-            let value = item.value?.removingPercentEncoding
-            if parameters[item.name] != nil {
-                parameters[item.name]?.append(value ?? "")
-            } else {
-                parameters[item.name] = [value ?? ""]
-            }
-        }
-        
-        return [
-            "deeplink": self.absoluteString,
-            "scheme": self.scheme as Any,
-            "host": host as Any,
-            "path": path as Any,
-            "parameters": parameters
-        ]
     }
 }
