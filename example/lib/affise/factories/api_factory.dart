@@ -41,25 +41,37 @@ class ApiFactory {
           output?.call("Modules: $value");
         });
       },
-      "Referrer": () {
+      "Get Referrer Url": () {
         // Get referrer https://github.com/affise/flutter-sdk#get-referrer
-        Affise.getReferrer((value) {
+        Affise.getReferrerUrl((value) {
           output?.call("Referrer: $value");
         });
       },
-      "ReferrerValue": () {
+      "Get Referrer Url Value": () {
         // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-value
-        Affise.getReferrerValue(ReferrerKey.CLICK_ID, (value) {
+        Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
           output?.call("ReferrerValue: $value");
         });
       },
-      "SKAd register": () {
+      "iOS Get Referrer On Server": () {
+        // Get referrer https://github.com/affise/flutter-sdk#get-referrer-on-server
+        Affise.ios.getReferrerOnServer((value) {
+          output?.call("ReferrerOnServer: $value");
+        });
+      },
+      "iOS Get Referrer On Server Value": () {
+        // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-on-server-parameter
+        Affise.ios.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
+          output?.call("ReferrerOnServerValue: $value");
+        });
+      },
+      "iOS SKAd register": () {
         // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
         Affise.ios.registerAppForAdNetworkAttribution((error) {
           output?.call("SKAd register: $error");
         });
       },
-      "SKAd update": () {
+      "iOS SKAd update": () {
         // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
         Affise.ios.updatePostbackConversionValue(
             1, SKAdNetwork.CoarseConversionValue.medium, (error) {

@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.20] - 2024-08-19
+
+### Added
+
+- iOS only api `Affise.ios.getReferrerOnServer`.
+- iOS only api `Affise.ios.getReferrerOnServerValue`.
+
+### Changed
+
+- Api `Affise.getReferrer` to `Affise.getReferrerUrl`.
+- Api `Affise.getReferrerValue` to `Affise.getReferrerUrlValue`.
+- Update native iOS to [`1.6.39`](https://github.com/affise/sdk-ios/blob/1.6.39/CHANGELOG.md).
+- Update native Android to [`1.6.42`](https://github.com/affise/sdk-android/blob/v1.6.42/CHANGELOG.md).
+
 ## [1.6.19] - 2024-08-01
 
 ### Fixed
@@ -116,6 +130,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.20]: https://github.com/affise/flutter-sdk/compare/1.6.19...1.6.20
 [1.6.19]: https://github.com/affise/flutter-sdk/compare/1.6.18...1.6.19
 [1.6.18]: https://github.com/affise/flutter-sdk/compare/1.6.17...1.6.18
 [1.6.17]: https://github.com/affise/flutter-sdk/compare/1.6.16...1.6.17

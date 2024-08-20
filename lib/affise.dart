@@ -226,16 +226,28 @@ class Affise {
   }
 
   /// Get referrer
+  @Deprecated('Use `Affise.getReferrerUrl` instead')
   static void getReferrer(ReferrerCallback callback) {
+    getReferrerUrl(callback);
+  }
+
+  /// Get referrer Value
+  @Deprecated('Use `Affise.getReferrerUrlValue` instead')
+  static void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+    getReferrerUrlValue(key, callback);
+  }
+
+  /// Get referrer
+  static void getReferrerUrl(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getReferrer(callback);
+      _native.getReferrerUrl(callback);
     });
   }
 
   /// Get referrer Value
-  static void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+  static void getReferrerUrlValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getReferrerValue(key, callback);
+      _native.getReferrerUrlValue(key, callback);
     });
   }
 
@@ -336,6 +348,22 @@ class _AffiseIOS implements AffiseIOSApi {
   void updatePostbackConversionValue(int fineValue, CoarseValue coarseValue, ErrorCallback completionHandler) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       native?.updatePostbackConversionValue(fineValue, coarseValue.value, completionHandler);
+    });
+  }
+
+  /// Get referrer on server
+  @override
+  void getReferrerOnServer(ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.getReferrerOnServer(callback);
+    });
+  }
+
+  /// Get referrer on server value
+  @override
+  void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.getReferrerOnServerValue(key, callback);
     });
   }
 }

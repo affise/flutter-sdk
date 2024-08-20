@@ -106,16 +106,31 @@ class AffiseNative extends NativeBase {
     native(AffiseApiMethod.CRASH_APPLICATION);
   }
 
-  void getReferrer(ReferrerCallback callback) {
+  void getReferrerUrl(ReferrerCallback callback) {
     nativeCallbackOnce(
-      AffiseApiMethod.GET_REFERRER_CALLBACK,
+      AffiseApiMethod.GET_REFERRER_URL_CALLBACK,
       callback,
     );
   }
 
-  void getReferrerValue(ReferrerKey key, ReferrerCallback callback) {
+  void getReferrerUrlValue(ReferrerKey key, ReferrerCallback callback) {
     nativeCallbackOnce(
-      AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK,
+      AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK,
+      callback,
+      key.value,
+    );
+  }
+
+  void getReferrerOnServer(ReferrerCallback callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK,
+      callback,
+    );
+  }
+
+  void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK,
       callback,
       key.value,
     );
@@ -247,11 +262,19 @@ class AffiseNative extends NativeBase {
             break;
         }
         break;
-      case AffiseApiMethod.GET_REFERRER_CALLBACK:
+      case AffiseApiMethod.GET_REFERRER_URL_CALLBACK:
         tryCast<ReferrerCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
         break;
-      case AffiseApiMethod.GET_REFERRER_VALUE_CALLBACK:
+      case AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK:
+        tryCast<ReferrerCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
+        break;
+      case AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK:
+        tryCast<ReferrerCallback>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
+        break;
+      case AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK:
         tryCast<ReferrerCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
         break;

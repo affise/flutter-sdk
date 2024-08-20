@@ -9,6 +9,7 @@ import android.os.Looper
 import com.affise.attribution.deeplink.toDeeplinkValue
 import com.affise.attribution.internal.AffiseApiMethod
 import com.affise.attribution.internal.AffiseApiWrapper
+import com.affise.attribution.internal.utils.DataMapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -86,16 +87,7 @@ class AffiseAttributionLibPlugin :
 
         val value = Uri.parse(url).toDeeplinkValue()
         events?.success(
-            mapOf(
-                // TODO 1.6.39 internal utils
-                AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK.method to mapOf(
-                    "deeplink" to value.deeplink,
-                    "scheme" to value.scheme,
-                    "host" to value.host,
-                    "path" to value.path,
-                    "parameters" to value.parameters
-                )
-            )
+            DataMapper.fromDeeplinkValue(value)
         )
     }
 
