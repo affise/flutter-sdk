@@ -53,25 +53,25 @@ class ApiFactory {
           output?.call("ReferrerValue: $value");
         });
       },
-      "iOS Get Referrer On Server": () {
+      "iOS: Get Referrer On Server": () {
         // Get referrer https://github.com/affise/flutter-sdk#get-referrer-on-server
         Affise.ios.getReferrerOnServer((value) {
           output?.call("ReferrerOnServer: $value");
         });
       },
-      "iOS Get Referrer On Server Value": () {
+      "iOS: Get Referrer On Server Value": () {
         // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-on-server-parameter
         Affise.ios.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
           output?.call("ReferrerOnServerValue: $value");
         });
       },
-      "iOS SKAd register": () {
+      "iOS: SKAd register": () {
         // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
         Affise.ios.registerAppForAdNetworkAttribution((error) {
           output?.call("SKAd register: $error");
         });
       },
-      "iOS SKAd update": () {
+      "iOS: SKAd update": () {
         // StoreKit Ad Network https://github.com/affise/flutter-sdk#storekit-ad-network
         Affise.ios.updatePostbackConversionValue(
             1, SKAdNetwork.CoarseConversionValue.medium, (error) {

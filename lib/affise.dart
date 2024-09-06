@@ -32,7 +32,7 @@ class Affise {
         completer.completeError(error);
       });
     });
-    return completer.future; 
+    return completer.future;
   }
 
   /// Store and send [event]
@@ -306,6 +306,29 @@ class _AffiseModules implements AffiseModulesApi {
       native.linkResolve(url, callback);
     });
   }
+
+  /// Module subscription fetchProducts
+  @override
+  void fetchProducts(
+    List<String> ids,
+    AffiseResultCallback<AffiseProductsResult> callback,
+  ) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.fetchProducts(ids, callback);
+    });
+  }
+
+  /// Module subscription purchase
+  @override
+  void purchase(
+    AffiseProduct product,
+    AffiseProductType type,
+    AffiseResultCallback<AffisePurchasedInfo> callback,
+  ) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native.purchase(product, type, callback);
+    });
+  }
 }
 
 class _AffiseAndroid implements AffiseAndroidApi {
@@ -334,7 +357,7 @@ class _AffiseIOS implements AffiseIOSApi {
   AffiseNative? native;
 
   _AffiseIOS(this.native);
-  
+
   /// SKAd registerAppForAdNetworkAttribution
   @override
   void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
@@ -342,7 +365,7 @@ class _AffiseIOS implements AffiseIOSApi {
       native?.registerAppForAdNetworkAttribution(completionHandler);
     });
   }
-  
+
   /// SKAd updatePostbackConversionValue
   @override
   void updatePostbackConversionValue(int fineValue, CoarseValue coarseValue, ErrorCallback completionHandler) {

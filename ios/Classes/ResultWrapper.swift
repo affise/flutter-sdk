@@ -1,7 +1,7 @@
 import Flutter
 import AffiseInternal
 
-class ResultWrapper : AffiseResult {
+class ResultWrapper : InternalResult {
     
     private var methodResult: FlutterResult
     

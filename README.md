@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.20`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.21`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -16,6 +16,9 @@
       - [iOS](#ios)
       - [Module Advertising](#module-advertising)
       - [Module Link](#module-link)
+      - [Module Status](#module-status)
+      - [Module Subscription](#module-subscription)
+        - [AffiseProductType](#affiseproducttype)
     - [Initialize](#initialize)
       - [Domain](#domain)
     - [Requirements](#requirements)
@@ -121,18 +124,20 @@ Add modules to android project
 | `NETWORK`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
 | `PHONE`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
 | `STATUS`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
+| `SUBSCRIPTION`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)                | `Auto` |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.42'
-    implementation 'com.affise:module-androidid:1.6.42'
-    implementation 'com.affise:module-link:1.6.42'
-    implementation 'com.affise:module-network:1.6.42'
-    implementation 'com.affise:module-phone:1.6.42'
-    implementation 'com.affise:module-status:1.6.42'
+    implementation 'com.affise:module-advertising:1.6.44'
+    implementation 'com.affise:module-androidid:1.6.44'
+    implementation 'com.affise:module-link:1.6.44'
+    implementation 'com.affise:module-network:1.6.44'
+    implementation 'com.affise:module-phone:1.6.44'
+    implementation 'com.affise:module-status:1.6.44'
+    implementation 'com.affise:module-subscription:1.6.44'
 }
 ```
 
@@ -140,11 +145,12 @@ dependencies {
 
 Add modules to iOS project
 
-| Module        |                                       Version                                        | Start    |
-|---------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING` | [`1.6.39`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`        | [`1.6.39`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`      | [`1.6.39`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| Module         |                                       Version                                        | Start    |
+|----------------|:------------------------------------------------------------------------------------:|----------|
+| `ADVERTISING`  | [`1.6.40`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.40`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.40`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.40`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -153,9 +159,10 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.39`
-  pod 'AffiseModule/Link', `1.6.39`
-  pod 'AffiseModule/Status', `1.6.39`
+  pod 'AffiseModule/Advertising', `1.6.40`
+  pod 'AffiseModule/Link', `1.6.40`
+  pod 'AffiseModule/Status', `1.6.40`
+  pod 'AffiseModule/Subscription', `1.6.40`
 end
 ```
 
@@ -188,6 +195,52 @@ Affise.module.linkResolve("SITE_WITH_REDIRECTION", (redirectUrl) {
     // handle redirect url
 });
 ```
+
+#### Module Status
+
+```dart
+Affise.module.getStatus(AffiseModules.STATUS, (response) {
+    // handle status response
+});
+```
+
+#### Module Subscription
+
+Get products by ids:
+
+```dart
+var ids = ["exampple.product.id_1", "exampple.product.id_2"];
+
+Affise.module.fetchProducts(ids, (result) {
+  if (result.isSuccess) {
+    var value = result.asSuccess;
+    List<AffiseProduct> products = value.products;
+    List<String> invalidIds = value.invalidIds;
+  } else {
+    String error = result.asFailure;
+  }
+});
+```
+
+Purchase product:
+
+```dart
+// Specify product type for correct affise event
+Affise.module.purchase(product, AffiseProductType.CONSUMABLE, (result) {
+  if (result.isSuccess) {
+    AffisePurchasedInfo purchasedInfo = result.asSuccess;
+  } else {
+    String error = result.asFailure;
+  }
+});
+```
+
+##### AffiseProductType
+
+- `CONSUMABLE`
+- `NON_CONSUMABLE`
+- `RENEWABLE_SUBSCRIPTION`
+- `NON_RENEWABLE_SUBSCRIPTION`
 
 ### Initialize
 

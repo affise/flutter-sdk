@@ -31,6 +31,12 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
     apis = factory.create();
   }
 
+  @override
+  void dispose() {
+    output.dispose();
+    super.dispose();
+  }
+
   void setOutput(String data) {
     output.text = data;
 
@@ -54,18 +60,32 @@ class _AffiseApiWidgetState extends State<AffiseApiWidget> {
             minLines: 1,
             maxLines: 3,
             controller: output,
-            onTapOutside: (event) =>
-                {FocusManager.instance.primaryFocus?.unfocus()},
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             decoration: InputDecoration(
-              isDense: true,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              // isDense: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 8,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               suffixIcon: IconButton(
-                onPressed: output.clear,
-                icon: const Icon(Icons.clear),
+                onPressed: () {
+                    output.clear();
+                },
+                icon: Icon(
+                  Icons.clear,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
           ),

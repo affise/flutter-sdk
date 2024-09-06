@@ -21,6 +21,6 @@ Affise Attribution Flutter plugin.
   s.swift_version = '5.0'
 
   s.dependency 'Flutter'
-  s.dependency 'AffiseInternal', '1.6.39'
+  s.dependency 'AffiseInternal', '1.6.40'
 
 end

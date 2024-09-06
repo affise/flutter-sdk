@@ -8,6 +8,10 @@ abstract class AffiseModulesApi {
   Future<List<AffiseModules>> getModulesInstalled();
 
   void linkResolve(String url, AffiseLinkCallback callback);
+
+  void fetchProducts(List<String> ids, AffiseResultCallback<AffiseProductsResult> callback);
+
+  void purchase(AffiseProduct product, AffiseProductType type, AffiseResultCallback<AffisePurchasedInfo> callback);
 }
 
 abstract class AffiseAndroidApi {

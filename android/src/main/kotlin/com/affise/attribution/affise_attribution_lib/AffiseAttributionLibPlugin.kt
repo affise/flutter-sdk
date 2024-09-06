@@ -1,6 +1,5 @@
 package com.affise.attribution.affise_attribution_lib
 
-
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +8,7 @@ import android.os.Looper
 import com.affise.attribution.deeplink.toDeeplinkValue
 import com.affise.attribution.internal.AffiseApiMethod
 import com.affise.attribution.internal.AffiseApiWrapper
-import com.affise.attribution.internal.utils.DataMapper
+import com.affise.attribution.internal.data.DataMapper
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -99,6 +98,7 @@ class AffiseAttributionLibPlugin :
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
         handleIntent(binding.activity.intent)
+        apiWrapper?.activity = binding.activity
     }
 
     override fun onNewIntent(intent: Intent): Boolean {
@@ -111,7 +111,9 @@ class AffiseAttributionLibPlugin :
 
     override fun onDetachedFromActivityForConfigChanges() = Unit
 
-    override fun onDetachedFromActivity() = Unit
+    override fun onDetachedFromActivity() {
+        apiWrapper?.activity = null
+    }
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         this.events = events

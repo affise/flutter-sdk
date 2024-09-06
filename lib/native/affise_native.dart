@@ -9,16 +9,12 @@ import '../parameters/provider_type.dart';
 import '../referrer/export.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
+import 'data/data_name.dart';
 import 'native_base.dart';
 import 'utils/export.dart';
+import 'data/export.dart';
 
 class AffiseNative extends NativeBase {
-  static const _FINE_VALUE = "fineValue";
-  static const _COARSE_VALUE = "coarseValue";
-  static const _SUCCESS = "success";
-  static const _FAILED = "failed";
-  static const _REQUEST = "request";
-  static const _RESPONSE = "response";
 
   EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
@@ -42,8 +38,8 @@ class AffiseNative extends NativeBase {
     nativeCallbackGroup(
       AffiseApiMethod.SEND_EVENT_NOW,
       {
-        _SUCCESS: success,
-        _FAILED: failed,
+        DataName.SUCCESS: success,
+        DataName.FAILED: failed,
       },
       converter.convert(event),
     );
@@ -170,10 +166,12 @@ class AffiseNative extends NativeBase {
   }
 
   void updatePostbackConversionValue(
-      int fineValue, String coarseValue, ErrorCallback completionHandler) {
+      int fineValue, String coarseValue,
+      ErrorCallback completionHandler
+  ) {
     final Map<String, dynamic> value = {
-      _FINE_VALUE: fineValue,
-      _COARSE_VALUE: coarseValue,
+      DataName.FINE_VALUE: fineValue,
+      DataName.COARSE_VALUE: coarseValue,
     };
     nativeCallbackOnce(
       AffiseApiMethod.SKAD_POSTBACK_ERROR_CALLBACK,
@@ -234,6 +232,27 @@ class AffiseNative extends NativeBase {
       url,
     );
   }
+  // Subscription Module
+  void fetchProducts(List<String> ids, AffiseResultCallback<AffiseProductsResult> callback) {
+    nativeCallbackOnce(
+      AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK,
+      callback,
+      ids,
+    );
+  }
+
+  void purchase(AffiseProduct product, AffiseProductType type, AffiseResultCallback<AffisePurchasedInfo> callback) {
+    final Map<String, dynamic> data = {
+      DataName.PRODUCT: DataMapper.fromProduct(product),
+      DataName.TYPE: type.value,
+    };
+
+    nativeCallbackOnce(
+      AffiseApiMethod.MODULE_SUBS_PURCHASE_CALLBACK,
+      callback,
+      data,
+    );
+  }
   ////////////////////////////////////////
   // modules
   ////////////////////////////////////////
@@ -253,10 +272,10 @@ class AffiseNative extends NativeBase {
     switch (api) {
       case AffiseApiMethod.SEND_EVENT_NOW:
         switch (tag) {
-          case _SUCCESS:
+          case DataName.SUCCESS:
             tryCast<OnSendSuccessCallback>(callback)?.call();
             break;
-          case _FAILED:
+          case DataName.FAILED:
             tryCast<OnSendFailedCallback>(callback)
                 ?.call(DebugUtils.toResponse(from: data));
             break;
@@ -293,8 +312,8 @@ class AffiseNative extends NativeBase {
         break;
       case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
         tryCast<DebugOnNetworkCallback>(callback)?.call(
-          DebugUtils.toRequestWithKey(from: data, key: _REQUEST),
-          DebugUtils.toResponseWithKey(from: data, key: _RESPONSE),
+          DebugUtils.toRequestWithKey(from: data, key: DataName.REQUEST),
+          DebugUtils.toResponseWithKey(from: data, key: DataName.RESPONSE),
         );
         break;
       ////////////////////////////////////////
@@ -308,6 +327,15 @@ class AffiseNative extends NativeBase {
       case AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK:
         tryCast<AffiseLinkCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
+        break;
+      // Subscription Module
+      case AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK:
+        tryCast<AffiseResultCallback<AffiseProductsResult>>(callback)
+            ?.call(DataMapper.toResultAffiseProductsResult(from: data));
+        break;
+      case AffiseApiMethod.MODULE_SUBS_PURCHASE_CALLBACK:
+        tryCast<AffiseResultCallback<AffisePurchasedInfo>>(callback)
+            ?.call(DataMapper.toResultAffisePurchasedInfo(from: data));
         break;
       ////////////////////////////////////////
       // modules

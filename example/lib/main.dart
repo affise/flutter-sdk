@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'affise/affise_api_widget.dart';
+import 'affise/store/affise_store.dart';
 import 'affise/affise_widget.dart';
 import 'components/show_alert.dart';
 
@@ -85,7 +86,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: TabBar(
@@ -112,14 +113,27 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
+              Tab(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.store),
+                    SizedBox(width: 8),
+                    Text('Store'),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            AffiseApiWidget(output),
-            const AffiseWidget(),
-          ],
+        body: SafeArea(
+          child: TabBarView(
+            children: [
+              AffiseApiWidget(output),
+              const AffiseWidget(),
+              const AffiseStore(),
+            ],
+          ),
         ),
       ),
     );

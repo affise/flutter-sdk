@@ -43,6 +43,9 @@ enum AffiseApiMethod {
   GET_STATUS_CALLBACK,
   // Link Module
   MODULE_LINK_LINK_RESOLVE_CALLBACK,
+  // Subscription Module
+  MODULE_SUBS_FETCH_PRODUCTS_CALLBACK,
+  MODULE_SUBS_PURCHASE_CALLBACK,
   ////////////////////////////////////////
   // modules
   ////////////////////////////////////////
@@ -131,6 +134,11 @@ extension AffiseApiMethodExt on AffiseApiMethod {
       // Link Module
       case AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK:
         return "module_link_link_resolve_callback";
+      // Subscription Module
+      case AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK:
+        return "module_subs_fetch_products_callback";
+      case AffiseApiMethod.MODULE_SUBS_PURCHASE_CALLBACK:
+        return "module_subs_purchase_callback";
       ////////////////////////////////////////
       // modules
       ////////////////////////////////////////

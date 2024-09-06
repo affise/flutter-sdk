@@ -6,6 +6,8 @@ Future<void> showAlert(BuildContext context, {required String title, required St
     barrierDismissible: true,
     builder: (BuildContext context) {
       return AlertDialog(
+        elevation: 8,
+        shadowColor: Theme.of(context).colorScheme.surfaceTint.withOpacity(0.2),
         title: Text(title),
         content: Text(text),
         actions: <Widget>[
