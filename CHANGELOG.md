@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.22] - 2024-10-02
+
+### Added
+
+- Module `Subscription` StoreKit2 support.
+
+### Changed
+
+- Update native iOS to [`1.6.41`](https://github.com/affise/sdk-ios/blob/1.6.41/CHANGELOG.md).
+
 ## [1.6.21] - 2024-09-06
 
 ### Added
@@ -141,6 +151,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.22]: https://github.com/affise/flutter-sdk/compare/1.6.21...1.6.22
 [1.6.21]: https://github.com/affise/flutter-sdk/compare/1.6.20...1.6.21
 [1.6.20]: https://github.com/affise/flutter-sdk/compare/1.6.19...1.6.20
 [1.6.19]: https://github.com/affise/flutter-sdk/compare/1.6.18...1.6.19
