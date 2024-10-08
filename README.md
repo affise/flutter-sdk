@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.22`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.23`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -131,13 +131,13 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.44'
-    implementation 'com.affise:module-androidid:1.6.44'
-    implementation 'com.affise:module-link:1.6.44'
-    implementation 'com.affise:module-network:1.6.44'
-    implementation 'com.affise:module-phone:1.6.44'
-    implementation 'com.affise:module-status:1.6.44'
-    implementation 'com.affise:module-subscription:1.6.44'
+    implementation 'com.affise:module-advertising:1.6.45'
+    implementation 'com.affise:module-androidid:1.6.45'
+    implementation 'com.affise:module-link:1.6.45'
+    implementation 'com.affise:module-network:1.6.45'
+    implementation 'com.affise:module-phone:1.6.45'
+    implementation 'com.affise:module-status:1.6.45'
+    implementation 'com.affise:module-subscription:1.6.45'
 }
 ```
 
@@ -147,10 +147,10 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.41`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.41`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.41`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.41`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -159,10 +159,10 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.41`
-  pod 'AffiseModule/Link', `1.6.41`
-  pod 'AffiseModule/Status', `1.6.41`
-  pod 'AffiseModule/Subscription', `1.6.41`
+  pod 'AffiseModule/Advertising', `1.6.42`
+  pod 'AffiseModule/Link', `1.6.42`
+  pod 'AffiseModule/Status', `1.6.42`
+  pod 'AffiseModule/Subscription', `1.6.42`
 end
 ```
 
