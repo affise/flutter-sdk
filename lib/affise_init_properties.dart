@@ -20,8 +20,8 @@ class AffiseInitProperties {
     this.partParamName,
     this.partParamNameToken,
     this.appToken,
-    this.enabledMetrics = false,
-    this.autoCatchingClickEvents,
+    // this.enabledMetrics = false,
+    // this.autoCatchingClickEvents,
     this.domain
   });
 

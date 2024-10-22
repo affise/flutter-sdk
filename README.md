@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.23`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.24`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -20,6 +20,7 @@
       - [Module Subscription](#module-subscription)
         - [AffiseProductType](#affiseproducttype)
     - [Initialize](#initialize)
+      - [Before application is published](#before-application-is-published)
       - [Domain](#domain)
     - [Requirements](#requirements)
       - [Android](#android-1)
@@ -131,13 +132,13 @@ Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 ```gradle
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.45'
-    implementation 'com.affise:module-androidid:1.6.45'
-    implementation 'com.affise:module-link:1.6.45'
-    implementation 'com.affise:module-network:1.6.45'
-    implementation 'com.affise:module-phone:1.6.45'
-    implementation 'com.affise:module-status:1.6.45'
-    implementation 'com.affise:module-subscription:1.6.45'
+    implementation 'com.affise:module-advertising:1.6.47'
+    implementation 'com.affise:module-androidid:1.6.47'
+    implementation 'com.affise:module-link:1.6.47'
+    implementation 'com.affise:module-network:1.6.47'
+    implementation 'com.affise:module-phone:1.6.47'
+    implementation 'com.affise:module-status:1.6.47'
+    implementation 'com.affise:module-subscription:1.6.47'
 }
 ```
 
@@ -272,6 +273,18 @@ Check if library is initialized
 ```dart
 Affise.isInitialized();
 ```
+
+#### Before application is published
+
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> Please make sure your credentials are valid
+>
+> Visit section [validation credentials](#validate-credentials)
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 #### Domain
 

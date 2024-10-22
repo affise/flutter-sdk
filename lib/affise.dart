@@ -71,11 +71,11 @@ class Affise {
   }
 
   /// Send enabled autoCatching [types]
-  static void setAutoCatchingTypes(List<AutoCatchingType> types) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.setAutoCatchingTypes(types);
-    });
-  }
+  // static void setAutoCatchingTypes(List<AutoCatchingType> types) {
+  //   SchedulerBinding.instance.addPostFrameCallback((_) {
+  //     _native.setAutoCatchingTypes(types);
+  //   });
+  // }
 
   /// Sets offline mode to [enabled] state
   ///
@@ -149,11 +149,11 @@ class Affise {
   ///
   /// When disabled, library should not generate any metrics events,
   /// but will send the saved metrics events
-  static void setEnabledMetrics(bool enabled) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.setEnabledMetrics(enabled);
-    });
-  }
+  // static void setEnabledMetrics(bool enabled) {
+  //   SchedulerBinding.instance.addPostFrameCallback((_) {
+  //     _native.setEnabledMetrics(enabled);
+  //   });
+  // }
 
   /// Get module status
   @Deprecated('Use `Affise.module.getStatus` instead')

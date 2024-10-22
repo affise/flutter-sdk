@@ -8,8 +8,8 @@ class AffiseSettings {
   String? _partParamName;
   String? _partParamNameToken;
   String? _appToken;
-  List<AutoCatchingType>? _autoCatchingClickEvents;
-  bool _enabledMetrics = false;
+  // List<AutoCatchingType>? _autoCatchingClickEvents;
+  // bool _enabledMetrics = false;
 
   /// Affise SDK settings
   /// [affiseAppId] - your app id
@@ -47,16 +47,16 @@ class AffiseSettings {
   }
 
   /// Set [autoCatchingClickEvents] list of AutoCatchingType
-  AffiseSettings setAutoCatchingClickEvents(List<AutoCatchingType>? autoCatchingClickEvents) {
-    _autoCatchingClickEvents = autoCatchingClickEvents;
-    return this;
-  }
+  // AffiseSettings setAutoCatchingClickEvents(List<AutoCatchingType>? autoCatchingClickEvents) {
+  //   _autoCatchingClickEvents = autoCatchingClickEvents;
+  //   return this;
+  // }
 
   /// Set Metrics [enable]
-  AffiseSettings setEnabledMetrics(bool enable) {
-    _enabledMetrics = enable;
-    return this;
-  }
+  // AffiseSettings setEnabledMetrics(bool enable) {
+  //   _enabledMetrics = enable;
+  //   return this;
+  // }
 
   AffiseInitProperties _getInitProperties() {
     return AffiseInitProperties(
@@ -64,10 +64,10 @@ class AffiseSettings {
       secretKey: secretKey,
       isProduction: _isProduction,
       appToken: _appToken,
-      autoCatchingClickEvents: _autoCatchingClickEvents,
+      // autoCatchingClickEvents: _autoCatchingClickEvents,
       partParamName: _partParamName,
       partParamNameToken: _partParamNameToken,
-      enabledMetrics: _enabledMetrics,
+      // enabledMetrics: _enabledMetrics,
       domain: _domain,
     );
   }
