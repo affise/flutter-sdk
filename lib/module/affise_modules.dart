@@ -7,7 +7,8 @@ enum AffiseModules {
   NETWORK,
   PHONE,
   STATUS,
-  SUBSCRIPTION;
+  SUBSCRIPTION,
+  RUSTORE;
 
   static AffiseModules? fromString(String? value) {
     if (value == null) return null;
@@ -32,6 +33,8 @@ extension AffiseModulesExt on AffiseModules {
         return "Status";
       case AffiseModules.SUBSCRIPTION:
         return "Subscription";
+      case AffiseModules.RUSTORE:
+        return "RuStore";
     }
   }
 }

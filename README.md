@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.24`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.25`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -126,19 +126,23 @@ Add modules to android project
 | `PHONE`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
 | `STATUS`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
 | `SUBSCRIPTION`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)                | `Auto` |
+| `RUSTORE`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
+final affise_version = '1.6.49'
+
 dependencies {
     // Affise modules
-    implementation 'com.affise:module-advertising:1.6.47'
-    implementation 'com.affise:module-androidid:1.6.47'
-    implementation 'com.affise:module-link:1.6.47'
-    implementation 'com.affise:module-network:1.6.47'
-    implementation 'com.affise:module-phone:1.6.47'
-    implementation 'com.affise:module-status:1.6.47'
-    implementation 'com.affise:module-subscription:1.6.47'
+    implementation "com.affise:module-advertising:$affise_version"
+    implementation "com.affise:module-androidid:$affise_version"
+    implementation "com.affise:module-link:$affise_version"
+    implementation "com.affise:module-network:$affise_version"
+    implementation "com.affise:module-phone:$affise_version"
+    implementation "com.affise:module-status:$affise_version"
+    implementation "com.affise:module-subscription:$affise_version"
+    // implementation "com.affise:module-rustore:$affise_version"
 }
 ```
 
@@ -1124,6 +1128,8 @@ Affise.isFirstRun().then((isFirstRun) {
 
 Use the next public method of SDK
 
+> To get Install referrer by installing from `Android` `RuStore` include module [`RuStore`](#modules)
+
 ```dart
 Affise.getReferrerUrl((value) {
   // handle referrer
@@ -1133,6 +1139,8 @@ Affise.getReferrerUrl((value) {
 ## Get referrer value
 
 Use the next public method of SDK to get referrer value by
+
+> To get Install referrer by installing from `Android` `RuStore` include module [`RuStore`](#modules)
 
 ```dart
 Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
