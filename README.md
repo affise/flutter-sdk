@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.25`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.26`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -127,11 +127,12 @@ Add modules to android project
 | `STATUS`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
 | `SUBSCRIPTION`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)                | `Auto` |
 | `RUSTORE`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
+| `HUAWEI`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)                | `Auto` |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.49'
+final affise_version = '1.6.50'
 
 dependencies {
     // Affise modules
@@ -143,6 +144,7 @@ dependencies {
     implementation "com.affise:module-status:$affise_version"
     implementation "com.affise:module-subscription:$affise_version"
     // implementation "com.affise:module-rustore:$affise_version"
+    // implementation "com.affise:module-huawei:$affise_version"
 }
 ```
 
@@ -1130,6 +1132,8 @@ Use the next public method of SDK
 
 > To get Install referrer by installing from `Android` `RuStore` include module [`RuStore`](#modules)
 
+> To get Install referrer by installing from `Android` `AppGallery` include module [`Huawei`](#modules)
+
 ```dart
 Affise.getReferrerUrl((value) {
   // handle referrer
@@ -1141,6 +1145,8 @@ Affise.getReferrerUrl((value) {
 Use the next public method of SDK to get referrer value by
 
 > To get Install referrer by installing from `Android` `RuStore` include module [`RuStore`](#modules)
+
+> To get Install referrer by installing from `Android` `AppGallery` include module [`Huawei`](#modules)
 
 ```dart
 Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
