@@ -1163,7 +1163,7 @@ Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
 Use the next public method of SDK
 
 ```dart
-Affise.ios.getReferrerOnServer((value) {
+Affise.getReferrerOnServer((value) {
   // handle referrer
 });
 ```
@@ -1177,7 +1177,7 @@ Affise.ios.getReferrerOnServer((value) {
 Use the next public method of SDK to get referrer parameter by
 
 ```dart
-Affise.ios.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
+Affise.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
   // handle referrer value
 });
 ```
