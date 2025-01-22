@@ -251,6 +251,21 @@ class Affise {
     });
   }
 
+  
+  /// Get referrer on server
+  static void getReferrerOnServer(ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getReferrerOnServer(callback);
+    });
+  }
+
+  /// Get referrer on server value
+  static void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getReferrerOnServerValue(key, callback);
+    });
+  }
+
   static AffiseModulesApi module = _AffiseModules(_native);
   static AffiseAndroidApi android = _AffiseAndroid(_native);
   static AffiseIOSApi ios = _AffiseIOS(_native);
@@ -375,6 +390,7 @@ class _AffiseIOS implements AffiseIOSApi {
   }
 
   /// Get referrer on server
+  @Deprecated('Use `Affise.getReferrerOnServer` instead')
   @override
   void getReferrerOnServer(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -383,6 +399,7 @@ class _AffiseIOS implements AffiseIOSApi {
   }
 
   /// Get referrer on server value
+  @Deprecated('Use `Affise.getReferrerOnServerValue` instead')
   @override
   void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {

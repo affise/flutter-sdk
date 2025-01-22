@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.27] - 2025-01-22
+
+### Added
+
+- Api `Affise.getReferrerOnServer`.
+- Api `Affise.getReferrerOnServerValue`.
+
+### Changed
+
+- Update native Android to [`1.6.51`](https://github.com/affise/sdk-android/blob/v1.6.51/CHANGELOG.md).
+  
 ## [1.6.26] - 2024-12-13
 
 ### Added
@@ -197,6 +208,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.27]: https://github.com/affise/flutter-sdk/compare/1.6.26...1.6.27
 [1.6.26]: https://github.com/affise/flutter-sdk/compare/1.6.25...1.6.26
 [1.6.25]: https://github.com/affise/flutter-sdk/compare/1.6.24...1.6.25
 [1.6.24]: https://github.com/affise/flutter-sdk/compare/1.6.23...1.6.24

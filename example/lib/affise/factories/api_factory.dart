@@ -53,15 +53,15 @@ class ApiFactory {
           output?.call("ReferrerValue: $value");
         });
       },
-      "iOS: Get Referrer On Server": () {
+      "Get Referrer On Server": () {
         // Get referrer https://github.com/affise/flutter-sdk#get-referrer-on-server
-        Affise.ios.getReferrerOnServer((value) {
+        Affise.getReferrerOnServer((value) {
           output?.call("ReferrerOnServer: $value");
         });
       },
-      "iOS: Get Referrer On Server Value": () {
+      "Get Referrer On Server Value": () {
         // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-on-server-parameter
-        Affise.ios.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
+        Affise.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
           output?.call("ReferrerOnServerValue: $value");
         });
       },

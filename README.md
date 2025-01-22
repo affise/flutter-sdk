@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.26`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.27`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -132,7 +132,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.50'
+final affise_version = '1.6.51'
 
 dependencies {
     // Affise modules
@@ -1156,11 +1156,9 @@ Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
 
 ## Get referrer on server
 
-> `iOS Only`
-
 > **Note**
 >
-> Requires [Affise Status Module](#modules) for [ios](#ios)
+> Requires [Affise Status Module](#modules)
 
 Use the next public method of SDK
 
@@ -1172,11 +1170,9 @@ Affise.ios.getReferrerOnServer((value) {
 
 ## Get referrer on server parameter
 
-> `iOS Only`
-
 > **Note**
 >
-> Requires [Affise Status Module](#modules) for [ios](#ios)
+> Requires [Affise Status Module](#modules)
 
 Use the next public method of SDK to get referrer parameter by
 
