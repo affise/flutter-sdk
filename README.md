@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.27`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.28`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -132,7 +132,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.51'
+final affise_version = '1.6.52'
 
 dependencies {
     // Affise modules
@@ -154,10 +154,10 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.42`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -166,10 +166,10 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.42`
-  pod 'AffiseModule/Link', `1.6.42`
-  pod 'AffiseModule/Status', `1.6.42`
-  pod 'AffiseModule/Subscription', `1.6.42`
+  pod 'AffiseModule/Advertising', `1.6.43`
+  pod 'AffiseModule/Link', `1.6.43`
+  pod 'AffiseModule/Status', `1.6.43`
+  pod 'AffiseModule/Subscription', `1.6.43`
 end
 ```
 

@@ -34,10 +34,10 @@ target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
   # Affise modules
-  pod 'AffiseModule/Advertising', '1.6.42'
-  pod 'AffiseModule/Status', '1.6.42'
-  pod 'AffiseModule/Link', '1.6.42'
-  pod 'AffiseModule/Subscription', '1.6.42'
+  pod 'AffiseModule/Advertising', '1.6.43'
+  pod 'AffiseModule/Status', '1.6.43'
+  pod 'AffiseModule/Link', '1.6.43'
+  pod 'AffiseModule/Subscription', '1.6.43'
 end
 
 post_install do |installer|
