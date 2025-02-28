@@ -14,13 +14,13 @@ Affise Attribution Flutter plugin.
   s.author           = { 'affise' => 'support@affise.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
-  s.platform = :ios, '9.0'
+  s.platform = :ios, '12.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
   s.dependency 'Flutter'
-  s.dependency 'AffiseInternal', '1.6.43'
+  s.dependency 'AffiseInternal', '1.6.45'
 
 end

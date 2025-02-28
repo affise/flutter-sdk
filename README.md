@@ -4,11 +4,12 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.28`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.29`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
   - [Quick start](#quick-start)
+    - [SDK compatibility](#sdk-compatibility)
   - [Integration](#integration)
     - [Integrate as dependency](#integrate-as-dependency)
     - [Modules](#modules)
@@ -83,6 +84,12 @@ referrer.
 
 ## Quick start
 
+### SDK compatibility
+
+- `Xcode`   `14.2+`  
+- `iOS`     `12+`
+- `Android` `21+`
+
 ## Integration
 
 ### Integrate as dependency
@@ -132,7 +139,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.52'
+final affise_version = '1.6.53'
 
 dependencies {
     // Affise modules
@@ -154,10 +161,11 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.43`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -166,10 +174,11 @@ target 'Runner' do
   # ...
   
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.43`
-  pod 'AffiseModule/Link', `1.6.43`
-  pod 'AffiseModule/Status', `1.6.43`
-  pod 'AffiseModule/Subscription', `1.6.43`
+  pod 'AffiseModule/Advertising', `1.6.45`
+  pod 'AffiseModule/Link', `1.6.45`
+  pod 'AffiseModule/Persistent', `1.6.45`
+  pod 'AffiseModule/Status', `1.6.45`
+  pod 'AffiseModule/Subscription', `1.6.45`
 end
 ```
 
@@ -1103,6 +1112,14 @@ Affise.getRandomUserId();
 ```
 
 ## Get random device Id
+
+> **Note**
+>
+> Use [Affise `Persistent` Module](#modules) for `iOS`
+>
+> use [Affise `AndroidId` Module](#modules) for `Android`
+>
+> to make `device id` more persistent on application reinstall
 
 ```dart
 Affise.getRandomDeviceId();

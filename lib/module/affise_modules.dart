@@ -5,6 +5,7 @@ enum AffiseModules {
   ANDROIDID,
   LINK,
   NETWORK,
+  PERSISTENT,
   PHONE,
   STATUS,
   SUBSCRIPTION,
@@ -28,6 +29,8 @@ extension AffiseModulesExt on AffiseModules {
         return "Link";
       case AffiseModules.NETWORK:
         return "Network";
+      case AffiseModules.PERSISTENT:
+        return "Persistent";
       case AffiseModules.PHONE:
         return "Phone";
       case AffiseModules.STATUS:

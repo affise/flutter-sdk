@@ -1,9 +1,9 @@
 group 'com.affise.attribution.affise_attribution_lib'
-version '1.6.28'
+version '1.6.29'
 
 buildscript {
     ext.kotlin_version = '1.7.10'
-    ext.affise_version = '1.6.52'
+    ext.affise_version = '1.6.53'
     ext.agp_version = '7.2.1'
 
     repositories {
@@ -28,6 +28,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'com.affise.attribution.affise_attribution_lib'
     compileSdkVersion 31
 
     compileOptions {
