@@ -25,8 +25,8 @@ enum AffiseApiMethod {
   // callbacks
   GET_REFERRER_URL_CALLBACK,
   GET_REFERRER_URL_VALUE_CALLBACK,
-  GET_REFERRER_ON_SERVER_CALLBACK,
-  GET_REFERRER_ON_SERVER_VALUE_CALLBACK,
+  GET_DEFERRED_DEEPLINK_CALLBACK,
+  GET_DEFERRED_DEEPLINK_VALUE_CALLBACK,
   REGISTER_DEEPLINK_CALLBACK,
   SKAD_REGISTER_ERROR_CALLBACK,
   SKAD_POSTBACK_ERROR_CALLBACK,
@@ -108,10 +108,10 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_referrer_url_callback";
       case AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK:
         return "get_referrer_url_value_callback";
-      case AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK:
-        return "get_referrer_on_server_callback";
-      case AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK:
-        return "get_referrer_on_server_value_callback";
+      case AffiseApiMethod.GET_DEFERRED_DEEPLINK_CALLBACK:
+        return "get_deferred_deeplink_callback";
+      case AffiseApiMethod.GET_DEFERRED_DEEPLINK_VALUE_CALLBACK:
+        return "get_deferred_deeplink_value_callback";
       case AffiseApiMethod.REGISTER_DEEPLINK_CALLBACK:
         return "register_deeplink_callback";
       case AffiseApiMethod.SKAD_REGISTER_ERROR_CALLBACK:

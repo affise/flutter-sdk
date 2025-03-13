@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.29`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.30`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -49,12 +49,15 @@
   - [Push token tracking](#push-token-tracking)
   - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
   - [APK preinstall tracking](#apk-preinstall-tracking)
-  - [Deeplinks](#deeplinks)
-    - [Android](#android-2)
-    - [iOS](#ios-2)
-  - [AppLinks](#applinks)
-    - [Android](#android-3)
-    - [iOS](#ios-3)
+  - [Links](#links)
+    - [Deeplinks](#deeplinks)
+      - [Android](#android-2)
+      - [iOS](#ios-2)
+    - [AppLinks](#applinks)
+      - [Android](#android-3)
+      - [iOS](#ios-3)
+    - [Get deferred deeplink](#get-deferred-deeplink)
+    - [Get deferred deeplink value](#get-deferred-deeplink-value)
   - [Offline mode](#offline-mode)
   - [Disable tracking](#disable-tracking)
   - [Disable background tracking](#disable-background-tracking)
@@ -64,8 +67,6 @@
   - [Is first run](#is-first-run)
   - [Get referrer](#get-referrer)
   - [Get referrer value](#get-referrer-value)
-  - [Get referrer on server](#get-referrer-on-server)
-  - [Get referrer on server parameter](#get-referrer-on-server-parameter)
   - [Referrer keys](#referrer-keys)
   - [Get module state](#get-module-state)
   - [Platform specific](#platform-specific)
@@ -139,7 +140,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.53'
+final affise_version = '1.6.54'
 
 dependencies {
     // Affise modules
@@ -161,11 +162,11 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `PERSISTENT`   | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.45`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -173,12 +174,13 @@ Example [example/ios/Podfile](example/ios/Podfile)
 target 'Runner' do
   # ...
   
+  affise_version = '1.6.47'
   # Affise Modules
-  pod 'AffiseModule/Advertising', `1.6.45`
-  pod 'AffiseModule/Link', `1.6.45`
-  pod 'AffiseModule/Persistent', `1.6.45`
-  pod 'AffiseModule/Status', `1.6.45`
-  pod 'AffiseModule/Subscription', `1.6.45`
+  pod 'AffiseModule/Advertising', affise_version
+  pod 'AffiseModule/Link', affise_version
+  pod 'AffiseModule/Persistent', affise_version
+  pod 'AffiseModule/Status', affise_version
+  pod 'AffiseModule/Subscription', affise_version
 end
 ```
 
@@ -836,7 +838,9 @@ Affise.addPushToken("token");
 SDK is also supports scenario when APK is installed not from one of application markets, such as google play, huawei appgallery or amazon appstore
 To use this feature, create file with name `partner_key` in your app assets directory, and write unique identifier inside, this key will be passed to our backend so you can track events by partner later in your Affise console.
 
-## Deeplinks
+## Links
+
+### Deeplinks
 
 > **Warning**
 >
@@ -887,7 +891,7 @@ Test iOS DeepLink via terminal command:
 xcrun simctl openurl booted "YOUR_SCHEME://YOUR_DOMAIN/somepath?param=1&list=some&list=other&list=1"
 ```
 
-### Android
+#### Android
 
 To integrate deeplink support in android you need:
 
@@ -913,7 +917,7 @@ Example: `myapp://mydomain.com`
 </intent-filter>
 ```
 
-### iOS
+#### iOS
 
 To integrate deeplink support in iOS you need:
 
@@ -939,7 +943,7 @@ Example: `myapp://mydomain.com`
 </array>
 ```
 
-## AppLinks
+### AppLinks
 
 > **Warning**
 >
@@ -955,7 +959,7 @@ Example: `myapp://mydomain.com`
 
 - Follow how to set up AppLinks for [Android](#android-3) or [iOS](#ios-3)
 
-### Android
+#### Android
 
 To integrate applink support in android you need:
 
@@ -1021,7 +1025,7 @@ Example: `https://mydomain.com`
 
 </details>
 
-### iOS
+#### iOS
 
 To integrate applink support in iOS you need:
 
@@ -1042,6 +1046,34 @@ Example: `https://mydomain.com`
 <array>
     <string>applinks:YOUR_DOMAIN</string>
 </array>
+```
+
+### Get deferred deeplink
+
+> **Note**
+>
+> Requires [Affise Status Module](#modules)
+
+Use the next public method of SDK to get deferred deeplink from server
+
+```dart
+Affise.getDeferredDeeplink((deferredDeeplink) {
+  // handle deferred deeplink
+});
+```
+
+### Get deferred deeplink value
+
+> **Note**
+>
+> Requires [Affise Status Module](#modules)
+
+Use the next public method of SDK to get deferred deeplink value from server
+
+```dart
+Affise.getDeferredDeeplinkValue(ReferrerKey.CLICK_ID, (deferredDeeplinkValue) {
+  // handle deferred deeplink value
+});
 ```
 
 ## Offline mode
@@ -1115,11 +1147,11 @@ Affise.getRandomUserId();
 
 > **Note**
 >
-> Use [Affise `Persistent` Module](#modules) for `iOS`
+> To make `device id` more persistent on application reinstall
+>
+> use [Affise `Persistent` Module](#modules) for `iOS`
 >
 > use [Affise `AndroidId` Module](#modules) for `Android`
->
-> to make `device id` more persistent on application reinstall
 
 ```dart
 Affise.getRandomDeviceId();
@@ -1168,34 +1200,6 @@ Use the next public method of SDK to get referrer value by
 ```dart
 Affise.getReferrerUrlValue(ReferrerKey.CLICK_ID, (value) {
   // handle referrer
-});
-```
-
-## Get referrer on server
-
-> **Note**
->
-> Requires [Affise Status Module](#modules)
-
-Use the next public method of SDK
-
-```dart
-Affise.getReferrerOnServer((value) {
-  // handle referrer
-});
-```
-
-## Get referrer on server parameter
-
-> **Note**
->
-> Requires [Affise Status Module](#modules)
-
-Use the next public method of SDK to get referrer parameter by
-
-```dart
-Affise.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
-  // handle referrer value
 });
 ```
 

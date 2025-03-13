@@ -117,16 +117,16 @@ class AffiseNative extends NativeBase {
     );
   }
 
-  void getReferrerOnServer(ReferrerCallback callback) {
+  void getDeferredDeeplink(ReferrerCallback callback) {
     nativeCallbackOnce(
-      AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK,
+      AffiseApiMethod.GET_DEFERRED_DEEPLINK_CALLBACK,
       callback,
     );
   }
 
-  void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
+  void getDeferredDeeplinkValue(ReferrerKey key, ReferrerCallback callback) {
     nativeCallbackOnce(
-      AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK,
+      AffiseApiMethod.GET_DEFERRED_DEEPLINK_VALUE_CALLBACK,
       callback,
       key.value,
     );
@@ -289,11 +289,11 @@ class AffiseNative extends NativeBase {
         tryCast<ReferrerCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
         break;
-      case AffiseApiMethod.GET_REFERRER_ON_SERVER_CALLBACK:
+      case AffiseApiMethod.GET_DEFERRED_DEEPLINK_CALLBACK:
         tryCast<ReferrerCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
         break;
-      case AffiseApiMethod.GET_REFERRER_ON_SERVER_VALUE_CALLBACK:
+      case AffiseApiMethod.GET_DEFERRED_DEEPLINK_VALUE_CALLBACK:
         tryCast<ReferrerCallback>(callback)
             ?.call(DataMapper.toNonNullString(from: data));
         break;

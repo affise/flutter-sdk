@@ -53,16 +53,16 @@ class ApiFactory {
           output?.call("ReferrerValue: $value");
         });
       },
-      "Get Referrer On Server": () {
-        // Get referrer https://github.com/affise/flutter-sdk#get-referrer-on-server
-        Affise.getReferrerOnServer((value) {
-          output?.call("ReferrerOnServer: $value");
+      "Get Deferred Deeplink On Server": () {
+        // Get deferred deeplink https://github.com/affise/flutter-sdk#get-deferred-deeplink
+        Affise.getDeferredDeeplink((value) {
+          output?.call("DeferredDeeplink: $value");
         });
       },
-      "Get Referrer On Server Value": () {
-        // Get referrer value https://github.com/affise/flutter-sdk#get-referrer-on-server-parameter
-        Affise.getReferrerOnServerValue(ReferrerKey.CLICK_ID, (value) {
-          output?.call("ReferrerOnServerValue: $value");
+      "Get Deferred Deeplink Value On Server": () {
+        // Get deferred deeplink value https://github.com/affise/flutter-sdk#get-deferred-deeplink-value
+        Affise.getDeferredDeeplinkValue(ReferrerKey.CLICK_ID, (value) {
+          output?.call("DeferredDeeplinkValue: $value");
         });
       },
       "iOS: SKAd register": () {

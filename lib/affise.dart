@@ -250,19 +250,30 @@ class Affise {
       _native.getReferrerUrlValue(key, callback);
     });
   }
-
   
   /// Get referrer on server
+  @Deprecated('Use `Affise.getDeferredDeeplink` instead')
   static void getReferrerOnServer(ReferrerCallback callback) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getReferrerOnServer(callback);
-    });
+    Affise.getDeferredDeeplink(callback);
   }
 
   /// Get referrer on server value
+  @Deprecated('Use `Affise.getDeferredDeeplinkValue` instead')
   static void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
+    Affise.getDeferredDeeplinkValue(key, callback);
+  }
+  
+  /// Get deferred deeplink on server 
+  static void getDeferredDeeplink(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.getReferrerOnServerValue(key, callback);
+      _native.getDeferredDeeplink(callback);
+    });
+  }
+
+  /// Get deferred deeplink value on server 
+  static void getDeferredDeeplinkValue(ReferrerKey key, ReferrerCallback callback) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _native.getDeferredDeeplinkValue(key, callback);
     });
   }
 
@@ -390,20 +401,20 @@ class _AffiseIOS implements AffiseIOSApi {
   }
 
   /// Get referrer on server
-  @Deprecated('Use `Affise.getReferrerOnServer` instead')
+  @Deprecated('Use `Affise.getDeferredDeeplink` instead')
   @override
   void getReferrerOnServer(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getReferrerOnServer(callback);
+      native?.getDeferredDeeplink(callback);
     });
   }
 
   /// Get referrer on server value
-  @Deprecated('Use `Affise.getReferrerOnServerValue` instead')
+  @Deprecated('Use `Affise.getDeferredDeeplinkValue` instead')
   @override
   void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getReferrerOnServerValue(key, callback);
+      native?.getDeferredDeeplinkValue(key, callback);
     });
   }
 }

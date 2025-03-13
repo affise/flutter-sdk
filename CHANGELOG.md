@@ -1,10 +1,19 @@
 # Changelog
 
+## [1.6.30] - 2025-03-13
+
+### Changed
+
+- Update api `Affise.getReferrerOnServer` moved to `Affise.getDeferredDeeplink`.
+- Update api `Affise.getReferrerOnServerValue` moved to `Affise.getDeferredDeeplinkValue`.
+- Update native iOS to [`1.6.47`](https://github.com/affise/sdk-ios/blob/1.6.47/CHANGELOG.md).
+- Update native Android to [`1.6.54`](https://github.com/affise/sdk-android/blob/v1.6.54/CHANGELOG.md).
+  
 ## [1.6.29] - 2025-02-28
 
 ### Added
 
-- New module `Persistent` for iOS.
+- New module `Persistent` for `iOS`.
 - Persistent `AFFISE_DEVICE_ID`.
 - Added `namespace` in the module's `build.gradle`
 
@@ -237,6 +246,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.30]: https://github.com/affise/flutter-sdk/compare/1.6.29...1.6.30
 [1.6.29]: https://github.com/affise/flutter-sdk/compare/1.6.28...1.6.29
 [1.6.28]: https://github.com/affise/flutter-sdk/compare/1.6.27...1.6.28
 [1.6.27]: https://github.com/affise/flutter-sdk/compare/1.6.26...1.6.27
