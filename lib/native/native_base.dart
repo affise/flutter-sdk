@@ -72,6 +72,11 @@ class NativeBase extends NativeBasePlatform {
     return result;
   }
 
+  void removeApiCallback(AffiseApiMethod api) {
+    if(!_callbacksOnce.containsKey(api)) return;
+    _callbacksOnce.remove(api);
+  }
+
   dynamic handleCallback(AffiseApiMethod api, dynamic callback, dynamic data, String? tag) {
     return null;
   }

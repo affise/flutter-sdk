@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
 import '../debug/export.dart';
@@ -7,18 +9,29 @@ import '../events/export.dart';
 import '../module/export.dart';
 import '../parameters/provider_type.dart';
 import '../referrer/export.dart';
+import '../settings/affise_settings.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
 import 'data/data_name.dart';
+import 'data/export.dart';
 import 'native_base.dart';
 import 'utils/export.dart';
-import 'data/export.dart';
 
 class AffiseNative extends NativeBase {
 
   EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
   void init(AffiseInitProperties initProperties) {
+    nativeCallback(
+      AffiseApiMethod.ON_INIT_SUCCESS_HANDLER,
+      initProperties.onInitSuccessHandler,
+    );
+
+    nativeCallback(
+      AffiseApiMethod.ON_INIT_ERROR_HANDLER,
+      initProperties.onInitErrorHandler,
+    );
+
     native(AffiseApiMethod.INIT, initProperties.toMap);
   }
 
@@ -167,7 +180,7 @@ class AffiseNative extends NativeBase {
 
   void updatePostbackConversionValue(
       int fineValue, String coarseValue,
-      ErrorCallback completionHandler
+      ErrorCallback completionHandler,
   ) {
     final Map<String, dynamic> value = {
       DataName.FINE_VALUE: fineValue,
@@ -192,6 +205,10 @@ class AffiseNative extends NativeBase {
       AffiseApiMethod.DEBUG_NETWORK_CALLBACK,
       callback,
     );
+  }
+
+  Future<String> versionNative() async {
+    return await native(AffiseApiMethod.DEBUG_VERSION_NATIVE);
   }
 
   ////////////////////////////////////////
@@ -232,8 +249,9 @@ class AffiseNative extends NativeBase {
       url,
     );
   }
+
   // Subscription Module
-  void fetchProducts(List<String> ids, AffiseResultCallback<AffiseProductsResult> callback) {
+  void fetchProducts(List<String> ids, AffiseResultCallback<AffiseProductsResult> callback,) {
     nativeCallbackOnce(
       AffiseApiMethod.MODULE_SUBS_FETCH_PRODUCTS_CALLBACK,
       callback,
@@ -241,7 +259,10 @@ class AffiseNative extends NativeBase {
     );
   }
 
-  void purchase(AffiseProduct product, AffiseProductType type, AffiseResultCallback<AffisePurchasedInfo> callback) {
+  void purchase(
+      AffiseProduct product, AffiseProductType type,
+      AffiseResultCallback<AffisePurchasedInfo> callback,
+  ) {
     final Map<String, dynamic> data = {
       DataName.PRODUCT: DataMapper.fromProduct(product),
       DataName.TYPE: type.value,
@@ -280,6 +301,15 @@ class AffiseNative extends NativeBase {
                 ?.call(DebugUtils.toResponse(from: data));
             break;
         }
+        break;
+      case AffiseApiMethod.ON_INIT_SUCCESS_HANDLER:
+        tryCast<OnInitSuccessHandler>(callback)?.call();
+        removeApiCallback(api);
+        break;
+      case AffiseApiMethod.ON_INIT_ERROR_HANDLER:
+        tryCast<OnInitErrorHandler>(callback)
+            ?.call(DataMapper.toNonNullString(from: data));
+        removeApiCallback(api);
         break;
       case AffiseApiMethod.GET_REFERRER_URL_CALLBACK:
         tryCast<ReferrerCallback>(callback)

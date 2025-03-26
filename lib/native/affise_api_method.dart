@@ -23,6 +23,8 @@ enum AffiseApiMethod {
   IS_FIRST_RUN,
 
   // callbacks
+  ON_INIT_SUCCESS_HANDLER,
+  ON_INIT_ERROR_HANDLER,
   GET_REFERRER_URL_CALLBACK,
   GET_REFERRER_URL_VALUE_CALLBACK,
   GET_DEFERRED_DEEPLINK_CALLBACK,
@@ -34,6 +36,7 @@ enum AffiseApiMethod {
   // debug
   DEBUG_VALIDATE_CALLBACK,
   DEBUG_NETWORK_CALLBACK,
+  DEBUG_VERSION_NATIVE,
 
   ////////////////////////////////////////
   // modules
@@ -104,6 +107,10 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_providers";
       case AffiseApiMethod.IS_FIRST_RUN:
         return "is_first_run";
+      case AffiseApiMethod.ON_INIT_SUCCESS_HANDLER:
+        return "on_init_success_handler";
+      case AffiseApiMethod.ON_INIT_ERROR_HANDLER:
+        return "on_init_error_handler";
       case AffiseApiMethod.GET_REFERRER_URL_CALLBACK:
         return "get_referrer_url_callback";
       case AffiseApiMethod.GET_REFERRER_URL_VALUE_CALLBACK:
@@ -122,6 +129,8 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "debug_validate_callback";
       case AffiseApiMethod.DEBUG_NETWORK_CALLBACK:
         return "debug_network_callback";
+      case AffiseApiMethod.DEBUG_VERSION_NATIVE:
+        return "debug_version_native";
       ////////////////////////////////////////
       // modules
       ////////////////////////////////////////

@@ -40,4 +40,8 @@ abstract class AffiseDebug {
   void validate(DebugOnValidateCallback callback);
 
   void network(DebugOnNetworkCallback callback);
+  
+  String version();
+  
+  Future<String> versionNative();
 }

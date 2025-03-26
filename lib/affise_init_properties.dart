@@ -1,6 +1,8 @@
 import 'dart:core';
 
 import 'events/auto_catching_type.dart';
+import 'settings/on_init_error_handler.dart';
+import 'settings/on_init_success_handler.dart';
 
 class AffiseInitProperties {
   String? affiseAppId;
@@ -12,6 +14,8 @@ class AffiseInitProperties {
   List<AutoCatchingType>? autoCatchingClickEvents;
   bool enabledMetrics = false;
   String? domain;
+  OnInitSuccessHandler? onInitSuccessHandler;
+  OnInitErrorHandler? onInitErrorHandler;
 
   AffiseInitProperties({
     required this.affiseAppId,
@@ -22,7 +26,9 @@ class AffiseInitProperties {
     this.appToken,
     // this.enabledMetrics = false,
     // this.autoCatchingClickEvents,
-    this.domain
+    this.domain,
+    this.onInitSuccessHandler,
+    this.onInitErrorHandler,
   });
 
   Map<String, dynamic> get toMap {

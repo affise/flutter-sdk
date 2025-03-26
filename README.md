@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.30`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.31`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -75,6 +75,8 @@
 - [SDK to SDK integrations](#sdk-to-sdk-integrations)
 - [Debug](#debug)
   - [Validate credentials](#validate-credentials)
+  - [Version](#version)
+  - [Version native](#version-native)
 - [Troubleshoots](#troubleshoots)
   - [iOS](#ios-4)
 
@@ -125,22 +127,22 @@ Affise.module.getModulesInstalled().then((modules) {
 
 Add modules to android project
 
-| Module        | Version                                                                                                                                                                      | Start  |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
-| `ADVERTISING` | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
-| `ANDROIDID`   | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       | `Auto` |
-| `LINK`        | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      | `Auto` |
-| `NETWORK`     | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
-| `PHONE`       | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
-| `STATUS`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
-| `SUBSCRIPTION`      | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)                | `Auto` |
-| `RUSTORE`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)                | `Auto` |
-| `HUAWEI`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)                | `Auto` |
+| Module         | Version                                                                                                                                                                      | Start  |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| `ADVERTISING`  | [![module-advertising](https://img.shields.io/maven-central/v/com.affise/module-advertising?label=latest)](https://mvnrepository.com/artifact/com.affise/module-advertising) | `Auto` |
+| `ANDROIDID`    | [![module-androidid](https://img.shields.io/maven-central/v/com.affise/module-androidid?label=latest)](https://mvnrepository.com/artifact/com.affise/module-androidid)       | `Auto` |
+| `LINK`         | [![module-link](https://img.shields.io/maven-central/v/com.affise/module-link?label=latest)](https://mvnrepository.com/artifact/com.affise/module-link)                      | `Auto` |
+| `NETWORK`      | [![module-network](https://img.shields.io/maven-central/v/com.affise/module-network?label=latest)](https://mvnrepository.com/artifact/com.affise/module-network)             | `Auto` |
+| `PHONE`        | [![module-phone](https://img.shields.io/maven-central/v/com.affise/module-phone?label=latest)](https://mvnrepository.com/artifact/com.affise/module-phone)                   | `Auto` |
+| `STATUS`       | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-status?label=latest)](https://mvnrepository.com/artifact/com.affise/module-status)                | `Auto` |
+| `SUBSCRIPTION` | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)    | `Auto` |
+| `RUSTORE`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)             | `Auto` |
+| `HUAWEI`       | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)               | `Auto` |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.54'
+final affise_version = '1.6.55'
 
 dependencies {
     // Affise modules
@@ -162,11 +164,11 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `PERSISTENT`   | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.47`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -174,7 +176,7 @@ Example [example/ios/Podfile](example/ios/Podfile)
 target 'Runner' do
   # ...
   
-  affise_version = '1.6.47'
+  affise_version = '1.6.48'
   # Affise Modules
   pod 'AffiseModule/Advertising', affise_version
   pod 'AffiseModule/Link', affise_version
@@ -288,7 +290,15 @@ class _MyAppState extends State<MyApp> {
 Check if library is initialized
 
 ```dart
-Affise.isInitialized();
+Affise
+  .settings(
+    affiseAppId: "Your appId",
+    secretKey: "Your SDK secretKey",
+  )
+  .setOnInitSuccess(() {
+    // Called then library is initialized
+  })
+  .start();
 ```
 
 #### Before application is published
@@ -1359,6 +1369,24 @@ Affise
 Affise.debug.validate((status) {
     // Handle validation status
 });
+```
+
+## Version
+
+Get Affise flutter library version
+
+```kotlin
+Affise.debug.version()
+```
+
+## Version native
+
+Get Affise native `Android`/`iOS` library version
+
+```kotlin
+Affise.debug.versionNative().then((version) {
+  // Native version
+})
 ```
 
 # Troubleshoots

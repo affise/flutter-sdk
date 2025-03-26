@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.31] - 2025-03-26
+
+### Added
+
+- Api `Affise.settings.setOnInitSuccess`.
+- Api `Affise.settings.setOnInitError`.
+- Api `Affise.debug.version`.
+
+### Changed
+
+- Update native iOS to [`1.6.48`](https://github.com/affise/sdk-ios/blob/1.6.48/CHANGELOG.md).
+- Update native Android to [`1.6.55`](https://github.com/affise/sdk-android/blob/v1.6.55/CHANGELOG.md).
+  
 ## [1.6.30] - 2025-03-13
 
 ### Changed
@@ -246,6 +259,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.31]: https://github.com/affise/flutter-sdk/compare/1.6.30...1.6.31
 [1.6.30]: https://github.com/affise/flutter-sdk/compare/1.6.29...1.6.30
 [1.6.29]: https://github.com/affise/flutter-sdk/compare/1.6.28...1.6.29
 [1.6.28]: https://github.com/affise/flutter-sdk/compare/1.6.27...1.6.28

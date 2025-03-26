@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:affise_attribution_lib/affise.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ApiFactory {
@@ -13,6 +16,16 @@ class ApiFactory {
         // Debug: Validate credentials https://github.com/affise/flutter-sdk#validate-credentials
         Affise.debug.validate((status) {
           output?.call("Validate: $status");
+        });
+      },
+      "Debug: Version": () {
+        // Debug: Version https://github.com/affise/flutter-sdk#version
+        output?.call("Version: ${Affise.debug.version()}");
+      },
+      "Debug: Version Native": () {
+        // Debug: Version https://github.com/affise/flutter-sdk#version-native
+        Affise.debug.versionNative().then((version) {
+          output?.call("Version ${Platform.operatingSystem} Native: $version");
         });
       },
       "Deeplink": () {

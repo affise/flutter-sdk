@@ -1,0 +1,1 @@
+typedef OnInitErrorHandler = void Function(String e);

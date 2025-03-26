@@ -23,6 +23,7 @@ class Affise {
     });
   }
 
+  @Deprecated('Use `Affise.settings.setOnInitSuccess` instead')
   static Future<bool> isInitialized() async {
     var completer = Completer<bool>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -250,7 +251,7 @@ class Affise {
       _native.getReferrerUrlValue(key, callback);
     });
   }
-  
+
   /// Get referrer on server
   @Deprecated('Use `Affise.getDeferredDeeplink` instead')
   static void getReferrerOnServer(ReferrerCallback callback) {
@@ -263,14 +264,14 @@ class Affise {
     Affise.getDeferredDeeplinkValue(key, callback);
   }
   
-  /// Get deferred deeplink on server 
+  /// Get deferred deeplink on server
   static void getDeferredDeeplink(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.getDeferredDeeplink(callback);
     });
   }
 
-  /// Get deferred deeplink value on server 
+  /// Get deferred deeplink value on server
   static void getDeferredDeeplinkValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.getDeferredDeeplinkValue(key, callback);
@@ -424,7 +425,7 @@ class _AffiseDebug implements AffiseDebug {
 
   _AffiseDebug(this.native);
 
-  /// SKAd registerAppForAdNetworkAttribution
+  /// Debug validate
   @override
   void validate(DebugOnValidateCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -432,11 +433,31 @@ class _AffiseDebug implements AffiseDebug {
     });
   }
 
-  /// SKAd updatePostbackConversionValue
+  /// Debug network request/response
   @override
   void network(DebugOnNetworkCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       native?.network(callback);
     });
+  }
+
+  /// Debug get version of flutter library
+  @override
+  String version() {
+    return "1.6.31";
+  }
+
+  /// Debug get version of native library Android/iOS
+  @override
+  Future<String> versionNative() {
+    var completer = Completer<String>();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      native?.versionNative().then((value) {
+        completer.complete(value);
+      }).catchError((error) {
+        completer.completeError(error);
+      });
+    });
+    return completer.future;
   }
 }

@@ -1,4 +1,6 @@
 import '../affise.dart';
+export 'on_init_success_handler.dart';
+export 'on_init_error_handler.dart';
 
 class AffiseSettings {
   final String affiseAppId;
@@ -10,6 +12,8 @@ class AffiseSettings {
   String? _appToken;
   // List<AutoCatchingType>? _autoCatchingClickEvents;
   // bool _enabledMetrics = false;
+  OnInitSuccessHandler? _onInitSuccessHandler;
+  OnInitErrorHandler? _onInitErrorHandler;
 
   /// Affise SDK settings
   /// [affiseAppId] - your app id
@@ -58,6 +62,18 @@ class AffiseSettings {
   //   return this;
   // }
 
+  /// Set OnInitSuccessHandler
+  AffiseSettings setOnInitSuccess(OnInitSuccessHandler onInitSuccessHandler) {
+    _onInitSuccessHandler = onInitSuccessHandler;
+    return this;
+  }
+
+  /// Set OnInitErrorHandler
+  AffiseSettings setOnInitError(OnInitErrorHandler onInitErrorHandler) {
+    _onInitErrorHandler = onInitErrorHandler;
+    return this;
+  }
+
   AffiseInitProperties _getInitProperties() {
     return AffiseInitProperties(
       affiseAppId: affiseAppId,
@@ -69,6 +85,8 @@ class AffiseSettings {
       partParamNameToken: _partParamNameToken,
       // enabledMetrics: _enabledMetrics,
       domain: _domain,
+      onInitSuccessHandler: _onInitSuccessHandler,
+      onInitErrorHandler: _onInitErrorHandler,
     );
   }
 
