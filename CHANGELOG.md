@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.32] - 2025-04-15
+
+### Removed
+
+- Remove code support for `iOS` version lesser then `12`
+
+### Changed
+
+- Update `android` provider `OAID` moved to module `huawei`.
+- Update `android` provider `OAID_MD5` moved to module `huawei`.
+- Update `android` provider `OAID` to use `com.huawei.hms:ads-identifier`
+- Update `iOS` EventsManager scheduler
+- Update native iOS to [`1.6.49`](https://github.com/affise/sdk-ios/blob/1.6.49/CHANGELOG.md).
+- Update native Android to [`1.6.56`](https://github.com/affise/sdk-android/blob/v1.6.56/CHANGELOG.md).
+
 ## [1.6.31] - 2025-03-26
 
 ### Added
@@ -7,6 +22,7 @@
 - Api `Affise.settings.setOnInitSuccess`.
 - Api `Affise.settings.setOnInitError`.
 - Api `Affise.debug.version`.
+- Api `Affise.debug.versionNative`.
 
 ### Changed
 
@@ -259,6 +275,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.32]: https://github.com/affise/flutter-sdk/compare/1.6.31...1.6.32
 [1.6.31]: https://github.com/affise/flutter-sdk/compare/1.6.30...1.6.31
 [1.6.30]: https://github.com/affise/flutter-sdk/compare/1.6.29...1.6.30
 [1.6.29]: https://github.com/affise/flutter-sdk/compare/1.6.28...1.6.29

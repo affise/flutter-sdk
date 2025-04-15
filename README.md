@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.31`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.32`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -16,6 +16,7 @@
       - [Android](#android)
       - [iOS](#ios)
       - [Module Advertising](#module-advertising)
+      - [Module Huawei](#module-huawei)
       - [Module Link](#module-link)
       - [Module Status](#module-status)
       - [Module Subscription](#module-subscription)
@@ -30,6 +31,8 @@
   - [ProviderType identifiers collection](#providertype-identifiers-collection)
     - [Attribution](#attribution)
     - [Advertising](#advertising)
+    - [AndroidId](#androidid)
+    - [Huawei](#huawei)
     - [Network](#network)
     - [Phone](#phone)
   - [Event send control](#event-send-control)
@@ -142,7 +145,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.55'
+final affise_version = '1.6.56'
 
 dependencies {
     // Affise modules
@@ -164,11 +167,11 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `LINK`         | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `PERSISTENT`   | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.48`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.49`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `LINK`         | [`1.6.49`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.49`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.49`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.49`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -176,7 +179,7 @@ Example [example/ios/Podfile](example/ios/Podfile)
 target 'Runner' do
   # ...
   
-  affise_version = '1.6.48'
+  affise_version = '1.6.49'
   # Affise Modules
   pod 'AffiseModule/Advertising', affise_version
   pod 'AffiseModule/Link', affise_version
@@ -203,6 +206,22 @@ This module required to Use [`IDFA`](https://developer.apple.com/documentation/a
 > 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
 Open `info.plist` and add key `NSUserTrackingUsageDescription` with string value. For more information [read requirements](#requirements)
+
+#### Module Huawei
+
+> **Warning**
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+>
+> Use `Android` [Huawei Module](#modules) to get OAID (Open Advertising Identifier)
+>
+> 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+
+```dart
+Affise.getProviders().then((providers) {
+  var oaid = providers[ProviderType.OAID];
+});
+```
 
 #### Module Link
 
@@ -417,8 +436,6 @@ To match users with events and data library is sending, these `ProviderType` ide
 - `DEVICE_ATLAS_ID`
 - `AFFISE_DEVICE_ID`
 - `AFFISE_ALT_DEVICE_ID`
-- `ANDROID_ID`
-- `ANDROID_ID_MD5`
 - `REFTOKEN`
 - `REFTOKENS`
 - `REFERRER`
@@ -465,12 +482,20 @@ To match users with events and data library is sending, these `ProviderType` ide
 
 - `GAID_ADID`
 - `GAID_ADID_MD5`
-- `OAID`
-- `OAID_MD5`
 - `ADID`
 - `ALTSTR_ADID`
 - `FIREOS_ADID`
 - `COLOROS_ADID`
+
+### AndroidId
+
+- `ANDROID_ID`
+- `ANDROID_ID_MD5`
+
+### Huawei
+
+- `OAID`
+- `OAID_MD5`
 
 ### Network
 
@@ -786,9 +811,17 @@ but if there is no network connection or device is disabled, events are kept loc
 
 ## Advertising Identifier (google) tracking
 
+> **Note**
+>
+> Requires [Affise Advertising Module](#modules)
+
 Advertising Identifier (google) tracking is supported automatically, no actions needed
 
 ## Open Advertising Identifier (huawei) tracking
+
+> **Note**
+>
+> Requires [Affise Huawei Module](#modules)
 
 Open Advertising Identifier is supported automatically, no actions needed
 
