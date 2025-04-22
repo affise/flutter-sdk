@@ -45,6 +45,10 @@ class NativeBase extends NativeBasePlatform {
     apiCall(api.apiName, apiData);
   }
 
+  void nativeCallbackOnly(AffiseApiMethod api, dynamic callback) {
+    _callbacks[api] = callback;
+  }
+
   @override
   dynamic apiCallback(String apiName, dynamic arguments) {
     AffiseApiMethod? api = apiMethodFrom(apiName);

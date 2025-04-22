@@ -22,12 +22,12 @@ class AffiseNative extends NativeBase {
   EventToSerializedEventConverter converter = EventToSerializedEventConverter();
 
   void init(AffiseInitProperties initProperties) {
-    nativeCallback(
+    nativeCallbackOnly(
       AffiseApiMethod.ON_INIT_SUCCESS_HANDLER,
       initProperties.onInitSuccessHandler,
     );
 
-    nativeCallback(
+    nativeCallbackOnly(
       AffiseApiMethod.ON_INIT_ERROR_HANDLER,
       initProperties.onInitErrorHandler,
     );
