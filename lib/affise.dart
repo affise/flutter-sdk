@@ -444,7 +444,7 @@ class _AffiseDebug implements AffiseDebug {
   /// Debug get version of flutter library
   @override
   String version() {
-    return "1.6.33";
+    return "1.6.34";
   }
 
   /// Debug get version of native library Android/iOS

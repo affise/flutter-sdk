@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
           affiseAppId: "129", //Change to your app id
           secretKey: "93a40b54-6f12-443f-a250-ebf67c5ee4d2", //Change to your SDK key
         )
+        .setConfigValue(AffiseConfig.FB_APP_ID, "1111111111111111")
         .setProduction(false) //To enable debug methods set Production to false
         .start(); // Start Affise SDK
 

@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.33`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.34`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -18,6 +18,7 @@
       - [Module Advertising](#module-advertising)
       - [Module Huawei](#module-huawei)
       - [Module Link](#module-link)
+      - [Module Meta](#module-meta)
       - [Module Status](#module-status)
       - [Module Subscription](#module-subscription)
         - [AffiseProductType](#affiseproducttype)
@@ -33,6 +34,7 @@
     - [Advertising](#advertising)
     - [AndroidId](#androidid)
     - [Huawei](#huawei)
+    - [Meta](#meta)
     - [Network](#network)
     - [Phone](#phone)
   - [Event send control](#event-send-control)
@@ -141,11 +143,12 @@ Add modules to android project
 | `SUBSCRIPTION` | [![module-status](https://img.shields.io/maven-central/v/com.affise/module-subscription?label=latest)](https://mvnrepository.com/artifact/com.affise/module-subscription)    | `Auto` |
 | `RUSTORE`      | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-rustore?label=latest)](https://mvnrepository.com/artifact/com.affise/module-rustore)             | `Auto` |
 | `HUAWEI`       | [![module-rustore](https://img.shields.io/maven-central/v/com.affise/module-huawei?label=latest)](https://mvnrepository.com/artifact/com.affise/module-huawei)               | `Auto` |
+| `META`         | [![module-meta](https://img.shields.io/maven-central/v/com.affise/module-meta?label=latest)](https://mvnrepository.com/artifact/com.affise/module-meta)             | `Auto` |
 
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.56'
+final affise_version = '1.6.57'
 
 dependencies {
     // Affise modules
@@ -156,6 +159,7 @@ dependencies {
     implementation "com.affise:module-phone:$affise_version"
     implementation "com.affise:module-status:$affise_version"
     implementation "com.affise:module-subscription:$affise_version"
+    // implementation "com.affise:module-meta:$affise_version"
     // implementation "com.affise:module-rustore:$affise_version"
     // implementation "com.affise:module-huawei:$affise_version"
 }
@@ -233,6 +237,41 @@ Return last url in chan of redirection
 Affise.module.linkResolve("SITE_WITH_REDIRECTION", (redirectUrl) {  
     // handle redirect url
 });
+```
+
+
+#### Module Meta
+
+- [Meta Install Referrer Docs](https://developers.facebook.com/docs/app-ads/meta-install-referrer)
+- [Google's Install Referral Docs](https://developer.android.com/google/play/installreferrer)
+
+1. Add `queries` to your `AndroidManifest.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="com.facebook.katana" />
+        <package android:name="com.instagram.android" />
+        <package android:name="com.facebook.lite" />
+    </queries>
+
+    <application>
+      ...
+    </application>
+</manifest>
+```
+
+2. Add your `Facebook App Id` as config value `AffiseConfig.FB_APP_ID` in `Affise.settings`
+
+```dart
+Affise
+  .settings(
+    affiseAppId: "Your appId", //Change to your app id
+    secretKey: "Your SDK secretKey", //Change to your SDK secretKey
+  )
+  .setConfigValue(AffiseConfig.FB_APP_ID, "Your Facebook App Id")
+  .start(); // Start Affise SDK
 ```
 
 #### Module Status
@@ -496,6 +535,10 @@ To match users with events and data library is sending, these `ProviderType` ide
 
 - `OAID`
 - `OAID_MD5`
+
+### Meta
+
+- `META`
 
 ### Network
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.34] - 2025-05-06
+
+### Added
+
+- New module `meta` for `Facebook`.
+- Provider for `Facebook` install referrer
+
+### Changed
+
+- Update native Android to [`1.6.57`](https://github.com/affise/sdk-android/blob/v1.6.57/CHANGELOG.md).
+
 ## [1.6.33] - 2025-04-22
 
 ### Fixed
@@ -282,6 +293,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.34]: https://github.com/affise/flutter-sdk/compare/1.6.33...1.6.34
 [1.6.33]: https://github.com/affise/flutter-sdk/compare/1.6.32...1.6.33
 [1.6.32]: https://github.com/affise/flutter-sdk/compare/1.6.31...1.6.32
 [1.6.31]: https://github.com/affise/flutter-sdk/compare/1.6.30...1.6.31

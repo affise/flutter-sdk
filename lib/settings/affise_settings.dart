@@ -1,6 +1,7 @@
 import '../affise.dart';
 export 'on_init_success_handler.dart';
 export 'on_init_error_handler.dart';
+export 'affise_config.dart';
 
 class AffiseSettings {
   final String affiseAppId;
@@ -14,6 +15,7 @@ class AffiseSettings {
   // bool _enabledMetrics = false;
   OnInitSuccessHandler? _onInitSuccessHandler;
   OnInitErrorHandler? _onInitErrorHandler;
+  Map<String, dynamic> _configValues = {};
 
   /// Affise SDK settings
   /// [affiseAppId] - your app id
@@ -73,6 +75,20 @@ class AffiseSettings {
     _onInitErrorHandler = onInitErrorHandler;
     return this;
   }
+  
+  /// Set configValues
+  AffiseSettings setConfigValue(AffiseConfig key, dynamic value) {
+    _configValues[key.value] = value;
+    return this;
+  }
+  
+  /// Set configValue
+  AffiseSettings setConfigValues(Map<AffiseConfig, dynamic> values) {
+    values.forEach((key, value) {
+      _configValues[key.value] = value;
+    });
+    return this;
+  }
 
   AffiseInitProperties _getInitProperties() {
     return AffiseInitProperties(
@@ -87,6 +103,7 @@ class AffiseSettings {
       domain: _domain,
       onInitSuccessHandler: _onInitSuccessHandler,
       onInitErrorHandler: _onInitErrorHandler,
+      configValues: _configValues,
     );
   }
 

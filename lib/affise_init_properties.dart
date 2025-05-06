@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'events/auto_catching_type.dart';
+import 'settings/affise_config.dart';
 import 'settings/on_init_error_handler.dart';
 import 'settings/on_init_success_handler.dart';
 
@@ -16,6 +17,7 @@ class AffiseInitProperties {
   String? domain;
   OnInitSuccessHandler? onInitSuccessHandler;
   OnInitErrorHandler? onInitErrorHandler;
+  Map<String, dynamic> configValues = {};
 
   AffiseInitProperties({
     required this.affiseAppId,
@@ -29,6 +31,7 @@ class AffiseInitProperties {
     this.domain,
     this.onInitSuccessHandler,
     this.onInitErrorHandler,
+    this.configValues = const {},
   });
 
   Map<String, dynamic> get toMap {
@@ -42,6 +45,7 @@ class AffiseInitProperties {
       'autoCatchingClickEvents': autoCatchingClickEvents?.toStringList,
       'enabledMetrics': enabledMetrics,
       'domain': domain,
+      'configStrings': configValues,
     };
   }
 }
