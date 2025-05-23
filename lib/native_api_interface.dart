@@ -1,6 +1,10 @@
-import 'export.dart';
+import 'affise.dart';
 
 abstract class AffiseModulesApi {
+  AffiseModuleAppsFlyerApi get appsFlyer;
+  AffiseModuleLinkApi get link;
+  AffiseModuleSubscriptionApi get subscription;
+
   getStatus(AffiseModules module, OnKeyValueCallback callback);
 
   Future<bool> moduleStart(AffiseModules module);

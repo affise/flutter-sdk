@@ -274,6 +274,15 @@ class AffiseNative extends NativeBase {
       data,
     );
   }
+
+  // AppsFlyer
+  logEvent(String eventName, Map<String, dynamic> eventValues) {
+    final Map<String, dynamic> data = {
+      DataName.EVENT_NAME: eventName,
+      DataName.EVENT_VALUES: eventValues,
+    };
+    native(AffiseApiMethod.MODULE_APPSFLYER_LOG_EVENT, data);
+  }
   ////////////////////////////////////////
   // modules
   ////////////////////////////////////////

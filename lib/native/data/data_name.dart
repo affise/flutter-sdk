@@ -44,4 +44,7 @@ class DataName {
   static const String TIME_UNIT = "timeUnit";
   static const String NUMBER_OF_UNITS = "numberOfUnits";
   static const String PRODUCT_DETAILS = "productDetails";
+
+  static const String EVENT_NAME = "eventName";
+  static const String EVENT_VALUES = "eventValues";
 }

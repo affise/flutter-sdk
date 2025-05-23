@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/scheduler.dart';
 
+import 'module/appsflyer/affise_appsflyer.dart';
+import 'module/link/affise_link.dart';
+import 'module/subscription/affise_subscription.dart';
 import 'native_api_interface.dart';
 import 'native/affise_native.dart';
 import 'export.dart';
@@ -263,7 +266,7 @@ class Affise {
   static void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
     Affise.getDeferredDeeplinkValue(key, callback);
   }
-  
+
   /// Get deferred deeplink on server
   static void getDeferredDeeplink(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -286,15 +289,27 @@ class Affise {
 
 class _AffiseModules implements AffiseModulesApi {
 
-  final AffiseNative native;
+  final AffiseNative _native;
 
-  _AffiseModules(this.native);
+  @override
+  final AffiseModuleAppsFlyerApi appsFlyer;
+
+  @override
+  AffiseModuleLinkApi link;
+
+  @override
+  AffiseModuleSubscriptionApi subscription;
+
+  _AffiseModules(this._native) :
+        appsFlyer = _AffiseModuleAppsFlyer(_native),
+        link = _AffiseModuleLink(_native),
+        subscription = _AffiseModuleSubscription(_native);
 
   /// Get module status
   @override
   getStatus(AffiseModules module, OnKeyValueCallback callback)  {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.getStatus(module, callback);
+      _native.getStatus(module, callback);
     });
   }
 
@@ -303,7 +318,7 @@ class _AffiseModules implements AffiseModulesApi {
   Future<bool> moduleStart(AffiseModules module) async {
     var completer = Completer<bool>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.moduleStart(module).then((value) {
+      _native.moduleStart(module).then((value) {
         completer.complete(value);
       }).catchError((error) {
         completer.completeError(error);
@@ -317,7 +332,7 @@ class _AffiseModules implements AffiseModulesApi {
   Future<List<AffiseModules>> getModulesInstalled() async {
     var completer = Completer<List<AffiseModules>>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.getModulesInstalled().then((value) {
+      _native.getModulesInstalled().then((value) {
         completer.complete(value);
       }).catchError((error) {
         completer.completeError(error);
@@ -327,69 +342,66 @@ class _AffiseModules implements AffiseModulesApi {
   }
 
   /// Module Link url Resolve
+  @Deprecated('Use `Affise.module.link.resolve` instead')
   @override
   void linkResolve(String url, AffiseLinkCallback callback) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.linkResolve(url, callback);
-    });
+    link.resolve(url, callback);
   }
 
   /// Module subscription fetchProducts
+  @Deprecated('Use `Affise.module.subscription.fetchProducts` instead')
   @override
   void fetchProducts(
     List<String> ids,
     AffiseResultCallback<AffiseProductsResult> callback,
   ) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.fetchProducts(ids, callback);
-    });
+    subscription.fetchProducts(ids, callback);
   }
 
   /// Module subscription purchase
+  @Deprecated('Use `Affise.module.subscription.purchase` instead')
   @override
   void purchase(
     AffiseProduct product,
     AffiseProductType type,
     AffiseResultCallback<AffisePurchasedInfo> callback,
   ) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      native.purchase(product, type, callback);
-    });
+    subscription.purchase(product, type, callback);
   }
 }
 
 class _AffiseAndroid implements AffiseAndroidApi {
 
-  AffiseNative? native;
+  final AffiseNative? _native;
 
-  _AffiseAndroid(this.native);
+  _AffiseAndroid(this._native);
 
   /// Erases all user data from mobile and sends [GDPREvent]
   @override
   void forget(String userData) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.forget(userData);
+      _native?.forget(userData);
     });
   }
 
   @override
   void crashApplication() {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.crashApplication();
+      _native?.crashApplication();
     });
   }
 }
 
 class _AffiseIOS implements AffiseIOSApi {
-  AffiseNative? native;
+  final AffiseNative? _native;
 
-  _AffiseIOS(this.native);
+  _AffiseIOS(this._native);
 
   /// SKAd registerAppForAdNetworkAttribution
   @override
   void registerAppForAdNetworkAttribution(ErrorCallback completionHandler) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.registerAppForAdNetworkAttribution(completionHandler);
+      _native?.registerAppForAdNetworkAttribution(completionHandler);
     });
   }
 
@@ -397,7 +409,7 @@ class _AffiseIOS implements AffiseIOSApi {
   @override
   void updatePostbackConversionValue(int fineValue, CoarseValue coarseValue, ErrorCallback completionHandler) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.updatePostbackConversionValue(fineValue, coarseValue.value, completionHandler);
+      _native?.updatePostbackConversionValue(fineValue, coarseValue.value, completionHandler);
     });
   }
 
@@ -406,7 +418,7 @@ class _AffiseIOS implements AffiseIOSApi {
   @override
   void getReferrerOnServer(ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getDeferredDeeplink(callback);
+      _native?.getDeferredDeeplink(callback);
     });
   }
 
@@ -415,21 +427,21 @@ class _AffiseIOS implements AffiseIOSApi {
   @override
   void getReferrerOnServerValue(ReferrerKey key, ReferrerCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.getDeferredDeeplinkValue(key, callback);
+      _native?.getDeferredDeeplinkValue(key, callback);
     });
   }
 }
 
 class _AffiseDebug implements AffiseDebug {
-  AffiseNative? native;
+  final AffiseNative? _native;
 
-  _AffiseDebug(this.native);
+  _AffiseDebug(this._native);
 
   /// Debug validate
   @override
   void validate(DebugOnValidateCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.validate(callback);
+      _native?.validate(callback);
     });
   }
 
@@ -437,14 +449,14 @@ class _AffiseDebug implements AffiseDebug {
   @override
   void network(DebugOnNetworkCallback callback) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.network(callback);
+      _native?.network(callback);
     });
   }
 
   /// Debug get version of flutter library
   @override
   String version() {
-    return "1.6.34";
+    return "1.6.35";
   }
 
   /// Debug get version of native library Android/iOS
@@ -452,7 +464,7 @@ class _AffiseDebug implements AffiseDebug {
   Future<String> versionNative() {
     var completer = Completer<String>();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      native?.versionNative().then((value) {
+      _native?.versionNative().then((value) {
         completer.complete(value);
       }).catchError((error) {
         completer.completeError(error);
@@ -460,4 +472,16 @@ class _AffiseDebug implements AffiseDebug {
     });
     return completer.future;
   }
+}
+
+class _AffiseModuleAppsFlyer extends AffiseAppsFlyer {
+  _AffiseModuleAppsFlyer(super.native);
+}
+
+class _AffiseModuleLink extends AffiseLink {
+  _AffiseModuleLink(super.native);
+}
+
+class _AffiseModuleSubscription extends AffiseSubscription {
+  _AffiseModuleSubscription(super.native);
 }

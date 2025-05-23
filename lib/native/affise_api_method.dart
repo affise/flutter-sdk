@@ -44,6 +44,8 @@ enum AffiseApiMethod {
   MODULE_START,
   GET_MODULES_INSTALLED,
   GET_STATUS_CALLBACK,
+  // AppsFlyer Module
+  MODULE_APPSFLYER_LOG_EVENT,
   // Link Module
   MODULE_LINK_LINK_RESOLVE_CALLBACK,
   // Subscription Module
@@ -140,6 +142,9 @@ extension AffiseApiMethodExt on AffiseApiMethod {
         return "get_modules_installed";
       case AffiseApiMethod.GET_STATUS_CALLBACK:
         return "get_status_callback";
+      // AppsFlyer Module
+      case AffiseApiMethod.MODULE_APPSFLYER_LOG_EVENT:
+        return "module_appsflyer_log_event";
       // Link Module
       case AffiseApiMethod.MODULE_LINK_LINK_RESOLVE_CALLBACK:
         return "module_link_link_resolve_callback";

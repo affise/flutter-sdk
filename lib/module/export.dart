@@ -4,4 +4,6 @@ export 'on_key_value_callback.dart';
 export 'affise_result_callback.dart';
 export 'affise_result.dart';
 export 'link/affise_link_callback.dart';
+export 'link/affise_module_link_api.dart';
 export 'subscription/export.dart';
+export 'appsflyer/affise_module_appsflyer_api.dart';

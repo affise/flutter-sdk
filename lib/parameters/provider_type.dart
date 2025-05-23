@@ -93,6 +93,9 @@ enum ProviderType {
   FIREOS_ADID,
   COLOROS_ADID,
 
+  // meta
+  META,
+
   // network
   MAC_SHA1,
   MAC_MD5,
@@ -293,6 +296,10 @@ extension ProviderTypeExt on ProviderType {
         return "fireos_adid";
       case ProviderType.COLOROS_ADID:
         return "coloros_adid";
+
+      // meta
+      case ProviderType.META:
+        return "meta";
 
       // network
       case ProviderType.MAC_SHA1:

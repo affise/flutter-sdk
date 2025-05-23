@@ -3,7 +3,9 @@ import 'package:collection/collection.dart';
 enum AffiseModules {
   ADVERTISING,
   ANDROIDID,
+  APPSFLYER,
   LINK,
+  META,
   NETWORK,
   PERSISTENT,
   PHONE,
@@ -25,8 +27,12 @@ extension AffiseModulesExt on AffiseModules {
         return "Advertising";
       case AffiseModules.ANDROIDID:
         return "AndroidId";
+      case AffiseModules.APPSFLYER:
+        return "AppsFlyer";
       case AffiseModules.LINK:
         return "Link";
+      case AffiseModules.META:
+        return "Meta";
       case AffiseModules.NETWORK:
         return "Network";
       case AffiseModules.PERSISTENT:
