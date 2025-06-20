@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.35`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.36`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -150,7 +150,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.58'
+final affise_version = '1.6.59'
 
 dependencies {
     // Affise modules
@@ -174,12 +174,12 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `APPSFLYER`    | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto` |
-| `LINK`         | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `PERSISTENT`   | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.50`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `APPSFLYER`    | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto` |
+| `LINK`         | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -187,7 +187,7 @@ Example [example/ios/Podfile](example/ios/Podfile)
 target 'Runner' do
   # ...
   
-  affise_version = '1.6.50'
+  affise_version = '1.6.51'
   # All Affise Modules
   pod 'AffiseModule', affise_version
   # Or only specific Modules
@@ -237,6 +237,14 @@ appsflyerSdk.logEvent(eventName, eventValues).then((onValue) {});
 Affise.module.appsFlyer.logEvent(eventName, eventValues);
 ```
 
+Is Module present:
+
+```dart
+Affise.module.appsFlyer.hasModule().then((hasModule) => {
+  // Check is module present
+});
+```
+
 #### Module Huawei
 
 > **Warning**
@@ -265,6 +273,13 @@ Affise.module.link.resolve("SITE_WITH_REDIRECTION", (redirectUrl) {
 });
 ```
 
+Is Module present:
+
+```dart
+Affise.module.link.hasModule().then((hasModule) => {
+  // Check is module present
+});
+```
 
 #### Module Meta
 
@@ -336,6 +351,14 @@ Affise.module.subscription.purchase(product, AffiseProductType.CONSUMABLE, (resu
   } else {
     String error = result.asFailure;
   }
+});
+```
+
+Is Module present:
+
+```dart
+Affise.module.subscription.hasModule().then((hasModule) => {
+  // Check is module present
 });
 ```
 

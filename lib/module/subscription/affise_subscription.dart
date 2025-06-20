@@ -1,3 +1,5 @@
+import '../affise_has_module.dart';
+import '../affise_modules.dart';
 import '../affise_result_callback.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -8,7 +10,7 @@ import 'affise_products_result.dart';
 import 'affise_purchased_info.dart';
 import 'affise_module_subscription_api.dart';
 
-abstract class AffiseSubscription extends AffiseModuleSubscriptionApi {
+abstract class AffiseSubscription implements AffiseModuleSubscriptionApi {
   final AffiseNative _native;
 
   AffiseSubscription(this._native);
@@ -32,5 +34,10 @@ abstract class AffiseSubscription extends AffiseModuleSubscriptionApi {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _native.purchase(product, type, callback);
     });
+  }
+
+  @override
+  Future<bool> hasModule() {
+    return isModuleInit(_native, AffiseModules.SUBSCRIPTION);
   }
 }

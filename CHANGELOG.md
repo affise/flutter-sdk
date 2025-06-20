@@ -1,37 +1,50 @@
 # Changelog
 
+## [1.6.36] - 2025-06-20
+
+### Added
+
+- Api `Affise.module.appsFlyer.hasModule`
+- Api `Affise.module.link.hasModule`
+- Api `Affise.module.subscription.hasModule`
+
+### Changed
+
+- Update native iOS to [`1.6.51`](https://github.com/affise/sdk-ios/blob/1.6.51/CHANGELOG.md)
+- Update native Android to [`1.6.59`](https://github.com/affise/sdk-android/blob/v1.6.59/CHANGELOG.md)
+
 ## [1.6.35] - 2025-05-23
 
 ### Added
 
-- New module `AppsFlyer`.
-- Api `Affise.module.appsFlyer.logEvent`.
+- New module `AppsFlyer`
+- Api `Affise.module.appsFlyer.logEvent`
 
 ### Changed
 
-- Update api `Affise.module.linkResolve` moved to `Affise.module.link.resolve`.
-- Update api `Affise.module.fetchProducts` moved to `Affise.module.subscription.fetchProducts`.
-- Update api `Affise.module.purchase` moved to `Affise.module.subscription.purchase`.
-- Update native iOS to [`1.6.50`](https://github.com/affise/sdk-ios/blob/1.6.50/CHANGELOG.md).
-- Update native Android to [`1.6.58`](https://github.com/affise/sdk-android/blob/v1.6.58/CHANGELOG.md).
+- Api `Affise.module.linkResolve` moved to `Affise.module.link.resolve`
+- Api `Affise.module.fetchProducts` moved to `Affise.module.subscription.fetchProducts`
+- Api `Affise.module.purchase` moved to `Affise.module.subscription.purchase`
+- Update native iOS to [`1.6.50`](https://github.com/affise/sdk-ios/blob/1.6.50/CHANGELOG.md)
+- Update native Android to [`1.6.58`](https://github.com/affise/sdk-android/blob/v1.6.58/CHANGELOG.md)
 
 ## [1.6.34] - 2025-05-06
 
 ### Added
 
-- New module `meta` for `Facebook`.
+- New module `meta` for `Facebook`
 - Provider for `Facebook` install referrer
 
 ### Changed
 
-- Update native Android to [`1.6.57`](https://github.com/affise/sdk-android/blob/v1.6.57/CHANGELOG.md).
+- Update native Android to [`1.6.57`](https://github.com/affise/sdk-android/blob/v1.6.57/CHANGELOG.md)
 
 ## [1.6.33] - 2025-04-22
 
 ### Fixed
 
-- Fix `Affise.settings.setOnInitSuccess` false positive error.
-- Fix `Affise.settings.setOnInitError` false positive error.
+- Fix `Affise.settings.setOnInitSuccess` false positive error
+- Fix `Affise.settings.setOnInitError` false positive error
 
 ## [1.6.32] - 2025-04-15
 
@@ -41,55 +54,55 @@
 
 ### Changed
 
-- Update `android` provider `OAID` moved to module `huawei`.
-- Update `android` provider `OAID_MD5` moved to module `huawei`.
+- Update `android` provider `OAID` moved to module `huawei`
+- Update `android` provider `OAID_MD5` moved to module `huawei`
 - Update `android` provider `OAID` to use `com.huawei.hms:ads-identifier`
 - Update `iOS` EventsManager scheduler
-- Update native iOS to [`1.6.49`](https://github.com/affise/sdk-ios/blob/1.6.49/CHANGELOG.md).
-- Update native Android to [`1.6.56`](https://github.com/affise/sdk-android/blob/v1.6.56/CHANGELOG.md).
+- Update native iOS to [`1.6.49`](https://github.com/affise/sdk-ios/blob/1.6.49/CHANGELOG.md)
+- Update native Android to [`1.6.56`](https://github.com/affise/sdk-android/blob/v1.6.56/CHANGELOG.md)
 
 ## [1.6.31] - 2025-03-26
 
 ### Added
 
-- Api `Affise.settings.setOnInitSuccess`.
-- Api `Affise.settings.setOnInitError`.
-- Api `Affise.debug.version`.
-- Api `Affise.debug.versionNative`.
+- Api `Affise.settings.setOnInitSuccess`
+- Api `Affise.settings.setOnInitError`
+- Api `Affise.debug.version`
+- Api `Affise.debug.versionNative`
 
 ### Changed
 
-- Update native iOS to [`1.6.48`](https://github.com/affise/sdk-ios/blob/1.6.48/CHANGELOG.md).
-- Update native Android to [`1.6.55`](https://github.com/affise/sdk-android/blob/v1.6.55/CHANGELOG.md).
+- Update native iOS to [`1.6.48`](https://github.com/affise/sdk-ios/blob/1.6.48/CHANGELOG.md)
+- Update native Android to [`1.6.55`](https://github.com/affise/sdk-android/blob/v1.6.55/CHANGELOG.md)
   
 ## [1.6.30] - 2025-03-13
 
 ### Changed
 
-- Update api `Affise.getReferrerOnServer` moved to `Affise.getDeferredDeeplink`.
-- Update api `Affise.getReferrerOnServerValue` moved to `Affise.getDeferredDeeplinkValue`.
-- Update native iOS to [`1.6.47`](https://github.com/affise/sdk-ios/blob/1.6.47/CHANGELOG.md).
-- Update native Android to [`1.6.54`](https://github.com/affise/sdk-android/blob/v1.6.54/CHANGELOG.md).
+- Api `Affise.getReferrerOnServer` moved to `Affise.getDeferredDeeplink`
+- Api `Affise.getReferrerOnServerValue` moved to `Affise.getDeferredDeeplinkValue`
+- Update native iOS to [`1.6.47`](https://github.com/affise/sdk-ios/blob/1.6.47/CHANGELOG.md)
+- Update native Android to [`1.6.54`](https://github.com/affise/sdk-android/blob/v1.6.54/CHANGELOG.md)
   
 ## [1.6.29] - 2025-02-28
 
 ### Added
 
-- New module `Persistent` for `iOS`.
-- Persistent `AFFISE_DEVICE_ID`.
+- New module `Persistent` for `iOS`
+- Persistent `AFFISE_DEVICE_ID`
 - Added `namespace` in the module's `build.gradle`
 
 ### Changed
 
-- Update native iOS to [`1.6.45`](https://github.com/affise/sdk-ios/blob/1.6.45/CHANGELOG.md).
-- Update native Android to [`1.6.53`](https://github.com/affise/sdk-android/blob/v1.6.53/CHANGELOG.md).
+- Update native iOS to [`1.6.45`](https://github.com/affise/sdk-ios/blob/1.6.45/CHANGELOG.md)
+- Update native Android to [`1.6.53`](https://github.com/affise/sdk-android/blob/v1.6.53/CHANGELOG.md)
 
 ## [1.6.28] - 2025-02-11
 
 ### Added
 
-- New event index `affise_event_id_index`.
-- New postback index `uuid_index`.
+- New event index `affise_event_id_index`
+- New postback index `uuid_index`
 
 ### Fixed
 
@@ -97,35 +110,35 @@
 
 ### Changed
 
-- Update native iOS to [`1.6.43`](https://github.com/affise/sdk-ios/blob/1.6.43/CHANGELOG.md).
-- Update native Android to [`1.6.52`](https://github.com/affise/sdk-android/blob/v1.6.52/CHANGELOG.md).
+- Update native iOS to [`1.6.43`](https://github.com/affise/sdk-ios/blob/1.6.43/CHANGELOG.md)
+- Update native Android to [`1.6.52`](https://github.com/affise/sdk-android/blob/v1.6.52/CHANGELOG.md)
 
 ## [1.6.27] - 2025-01-22
 
 ### Added
 
-- Api `Affise.getReferrerOnServer`.
-- Api `Affise.getReferrerOnServerValue`.
+- Api `Affise.getReferrerOnServer`
+- Api `Affise.getReferrerOnServerValue`
 
 ### Changed
 
-- Update native Android to [`1.6.51`](https://github.com/affise/sdk-android/blob/v1.6.51/CHANGELOG.md).
+- Update native Android to [`1.6.51`](https://github.com/affise/sdk-android/blob/v1.6.51/CHANGELOG.md)
   
 ## [1.6.26] - 2024-12-13
 
 ### Added
 
-- New module `Huawei` for `AppGallery` install referrer.
+- New module `Huawei` for `AppGallery` install referrer
 
 ### Changed
 
-- Update native Android to [`1.6.50`](https://github.com/affise/sdk-android/blob/v1.6.50/CHANGELOG.md).
+- Update native Android to [`1.6.50`](https://github.com/affise/sdk-android/blob/v1.6.50/CHANGELOG.md)
 
 ## [1.6.25] - 2024-11-26
 
 ### Added
 
-- New module `RuStore`.
+- New module `RuStore`
 
 ### Fixed
 
@@ -133,85 +146,85 @@
 
 ### Changed
 
-- Update native Android to [`1.6.49`](https://github.com/affise/sdk-android/blob/v1.6.49/CHANGELOG.md).
+- Update native Android to [`1.6.49`](https://github.com/affise/sdk-android/blob/v1.6.49/CHANGELOG.md)
 
 ## [1.6.24] - 2024-10-22
 
 ### Changed
 
-- Update native Android to [`1.6.47`](https://github.com/affise/sdk-android/blob/v1.6.47/CHANGELOG.md).
+- Update native Android to [`1.6.47`](https://github.com/affise/sdk-android/blob/v1.6.47/CHANGELOG.md)
 
 ### Removed
 
-- Api `setEnabledMetrics`.
-- Api `setAutoCatchingTypes`.
+- Api `setEnabledMetrics`
+- Api `setAutoCatchingTypes`
 
 ## [1.6.23] - 2024-10-08
 
 ### Fixed
 
-- Fix `Affise.module.getStatus` timing retry.
+- Fix `Affise.module.getStatus` timing retry
 
 ### Changed
 
-- Update native iOS to [`1.6.42`](https://github.com/affise/sdk-ios/blob/1.6.42/CHANGELOG.md).
-- Update native Android to [`1.6.45`](https://github.com/affise/sdk-android/blob/v1.6.45/CHANGELOG.md).
+- Update native iOS to [`1.6.42`](https://github.com/affise/sdk-ios/blob/1.6.42/CHANGELOG.md)
+- Update native Android to [`1.6.45`](https://github.com/affise/sdk-android/blob/v1.6.45/CHANGELOG.md)
 
 ## [1.6.22] - 2024-10-02
 
 ### Added
 
-- Module `Subscription` StoreKit2 support.
+- Module `Subscription` StoreKit2 support
 
 ### Changed
 
-- Update native iOS to [`1.6.41`](https://github.com/affise/sdk-ios/blob/1.6.41/CHANGELOG.md).
+- Update native iOS to [`1.6.41`](https://github.com/affise/sdk-ios/blob/1.6.41/CHANGELOG.md)
 
 ## [1.6.21] - 2024-09-06
 
 ### Added
 
-- Module `Subscription` support.
+- Module `Subscription` support
 
 ### Changed
 
-- Update native iOS to [`1.6.40`](https://github.com/affise/sdk-ios/blob/1.6.40/CHANGELOG.md).
-- Update native Android to [`1.6.44`](https://github.com/affise/sdk-android/blob/v1.6.44/CHANGELOG.md).
+- Update native iOS to [`1.6.40`](https://github.com/affise/sdk-ios/blob/1.6.40/CHANGELOG.md)
+- Update native Android to [`1.6.44`](https://github.com/affise/sdk-android/blob/v1.6.44/CHANGELOG.md)
 
 ## [1.6.20] - 2024-08-19
 
 ### Added
 
-- iOS only api `Affise.ios.getReferrerOnServer`.
-- iOS only api `Affise.ios.getReferrerOnServerValue`.
+- iOS only api `Affise.ios.getReferrerOnServer`
+- iOS only api `Affise.ios.getReferrerOnServerValue`
 
 ### Changed
 
 - Api `Affise.getReferrer` to `Affise.getReferrerUrl`.
 - Api `Affise.getReferrerValue` to `Affise.getReferrerUrlValue`.
-- Update native iOS to [`1.6.39`](https://github.com/affise/sdk-ios/blob/1.6.39/CHANGELOG.md).
-- Update native Android to [`1.6.42`](https://github.com/affise/sdk-android/blob/v1.6.42/CHANGELOG.md).
+- Update native iOS to [`1.6.39`](https://github.com/affise/sdk-ios/blob/1.6.39/CHANGELOG.md)
+- Update native Android to [`1.6.42`](https://github.com/affise/sdk-android/blob/v1.6.42/CHANGELOG.md)
 
 ## [1.6.19] - 2024-08-01
 
 ### Fixed
 
-- Fix build ios.
+- Fix build ios
 
 ## [1.6.18] - 2024-07-31
 
 ### Added
 
-- Modules compatibility check.
+- Modules compatibility check
 
 ### Fixed
 
-- Api `Affise.Module.getStatus`.
+- Api `Affise.Module.getStatus`
 
 ### Changed
 
-- Update native iOS to [`1.6.36`](https://github.com/affise/sdk-ios/blob/1.6.36/CHANGELOG.md).
-- Update native Android to [`1.6.40`](https://github.com/affise/sdk-android/blob/v1.6.40/CHANGELOG.md).
+- Update native iOS to [`1.6.36`](https://github.com/affise/sdk-ios/blob/1.6.36/CHANGELOG.md)
+- Update native Android to [`1.6.40`](https://github.com/affise/sdk-android/blob/v1.6.40/CHANGELOG.md)
 
 ## [1.6.17] - 2024-07-09
 
@@ -223,17 +236,17 @@
 
 ### Added
 
-- New module `Link` support.
-- New module `AndroidId` support.
+- New module `Link` support
+- New module `AndroidId` support
 
 ### Changed
 
-- Update native iOS to [`1.6.33`](https://github.com/affise/sdk-ios/blob/1.6.33/CHANGELOG.md).
-- Update native Android to [`1.6.38`](https://github.com/affise/sdk-android/blob/v1.6.38/CHANGELOG.md).
-- Update `registerDeeplinkCallback` change uri to convenient values.
-- Update api `Affise.getStatus` moved to `Affise.module.getStatus`.
-- Update api `Affise.moduleStart` moved to `Affise.module.moduleStart`.
-- Update api `Affise.getModulesInstalled` moved to `Affise.module.getModulesInstalled`.
+- Update native iOS to [`1.6.33`](https://github.com/affise/sdk-ios/blob/1.6.33/CHANGELOG.md)
+- Update native Android to [`1.6.38`](https://github.com/affise/sdk-android/blob/v1.6.38/CHANGELOG.md)
+- Update `registerDeeplinkCallback` change uri to convenient values
+- Api `Affise.getStatus` moved to `Affise.module.getStatus`
+- Api `Affise.moduleStart` moved to `Affise.module.moduleStart`
+- Api `Affise.getModulesInstalled` moved to `Affise.module.getModulesInstalled`
 
 ## [1.6.16] - 2024-06-14
 
@@ -243,71 +256,72 @@
 
 ### Changed
 
-- Update native Android to [`1.6.35`](https://github.com/affise/sdk-android/blob/v1.6.35/CHANGELOG.md).
+- Update native Android to [`1.6.35`](https://github.com/affise/sdk-android/blob/v1.6.35/CHANGELOG.md)
 
 ## [1.6.15] - 2024-06-03
 
 ### Changed
 
-- Update native Android to [`1.6.34`](https://github.com/affise/sdk-android/blob/v1.6.34/CHANGELOG.md).
+- Update native Android to [`1.6.34`](https://github.com/affise/sdk-android/blob/v1.6.34/CHANGELOG.md)
 
 ## [1.6.14] - 2024-05-30
 
 ### Added
 
-- Event api `sendNow`.
-- Affise `internal` library group callback support.
+- Event api `sendNow`
+- Affise `internal` library group callback support
 
 ### Changed
 
-- Update native iOS to [`1.6.32`](https://github.com/affise/sdk-ios/blob/1.6.32/CHANGELOG.md).
-- Update native Android to [`1.6.33`](https://github.com/affise/sdk-android/blob/v1.6.33/CHANGELOG.md).
+- Update native iOS to [`1.6.32`](https://github.com/affise/sdk-ios/blob/1.6.32/CHANGELOG.md)
+- Update native Android to [`1.6.33`](https://github.com/affise/sdk-android/blob/v1.6.33/CHANGELOG.md)
 
 ## [1.6.13] - 2024-03-13
 
 ### Added
 
-- Api `isFirstRun`.
+- Api `isFirstRun`
 
 ### Changed
 
-- Update native iOS to `1.6.27`.
-- Update native Android to `1.6.32`.
+- Update native iOS to `1.6.27`
+- Update native Android to `1.6.32`
 
 ## [1.6.12] - 2024-02-06
 
 ### Changed
 
-- Update native iOS to `1.6.25`.
-- Update native Android to `1.6.23`.
+- Update native iOS to `1.6.25`
+- Update native Android to `1.6.23`
 
 ## [1.6.11] - 2024-01-10
 
 ### Added
 
-- Api `getModulesInstalled`.
-- New values in `ReferrerKey`.
+- Api `getModulesInstalled`
+- New values in `ReferrerKey`
 
 ### Removed
 
-- Event api `sendEvents`.
+- Event api `sendEvents`
 
 ### Changed
 
-- Update native iOS to `1.6.20`.
-- Update native Android to `1.6.22`.
+- Update native iOS to `1.6.20`
+- Update native Android to `1.6.22`
 
 ## [1.6.10] - 2023-12-19
 
 ### Removed
 
-- Api `init`.
+- Api `init`
 
 ### Changed
 
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.36]: https://github.com/affise/flutter-sdk/compare/1.6.35...1.6.36
 [1.6.35]: https://github.com/affise/flutter-sdk/compare/1.6.34...1.6.35
 [1.6.34]: https://github.com/affise/flutter-sdk/compare/1.6.33...1.6.34
 [1.6.33]: https://github.com/affise/flutter-sdk/compare/1.6.32...1.6.33
