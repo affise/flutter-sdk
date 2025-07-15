@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import '../affise_init_properties.dart';
 import '../callback/error_callback.dart';
 import '../debug/export.dart';
@@ -10,6 +8,7 @@ import '../module/export.dart';
 import '../parameters/provider_type.dart';
 import '../referrer/export.dart';
 import '../settings/affise_settings.dart';
+import '../settings/push_token_service.dart';
 import '../utils/try_cast.dart';
 import 'affise_api_method.dart';
 import 'data/data_name.dart';
@@ -58,8 +57,14 @@ class AffiseNative extends NativeBase {
     );
   }
 
-  void addPushToken(String pushToken) {
-    native(AffiseApiMethod.ADD_PUSH_TOKEN, pushToken);
+  void addPushToken(String pushToken, PushTokenService service) {
+    native(
+      AffiseApiMethod.ADD_PUSH_TOKEN,
+      {
+        DataName.PUSH_TOKEN: pushToken,
+        DataName.PUSH_TOKEN_SERVICE: service.service,
+      },
+    );
   }
 
   void registerDeeplinkCallback(OnDeeplinkCallback callback) {

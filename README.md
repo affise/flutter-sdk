@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.36`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.37`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -53,6 +53,10 @@
   - [Open Advertising Identifier (huawei) tracking](#open-advertising-identifier-huawei-tracking)
   - [Install referrer tracking](#install-referrer-tracking)
   - [Push token tracking](#push-token-tracking)
+    - [Native](#native)
+      - [iOS APNs](#ios-apns)
+    - [Firebase Flutter Plugin](#firebase-flutter-plugin)
+      - [iOS APNs](#ios-apns-1)
   - [Reinstall Uninstall tracking](#reinstall-uninstall-tracking)
   - [APK preinstall tracking](#apk-preinstall-tracking)
   - [Links](#links)
@@ -150,7 +154,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.59'
+final affise_version = '1.6.60'
 
 dependencies {
     // Affise modules
@@ -174,12 +178,12 @@ Add modules to iOS project
 
 | Module         |                                       Version                                        | Start    |
 |----------------|:------------------------------------------------------------------------------------:|----------|
-| `ADVERTISING`  | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
-| `APPSFLYER`    | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto` |
-| `LINK`         | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `PERSISTENT`   | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `STATUS`       | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
-| `SUBSCRIPTION` | [`1.6.51`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `ADVERTISING`  | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Manual` |
+| `APPSFLYER`    | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto` |
+| `LINK`         | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `PERSISTENT`   | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `STATUS`       | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
+| `SUBSCRIPTION` | [`1.6.52`](https://github.com/CocoaPods/Specs/tree/master/Specs/0/3/d/AffiseModule/) | `Auto`   |
 
 Example [example/ios/Podfile](example/ios/Podfile)
 
@@ -187,7 +191,7 @@ Example [example/ios/Podfile](example/ios/Podfile)
 target 'Runner' do
   # ...
   
-  affise_version = '1.6.51'
+  affise_version = '1.6.52'
   # All Affise Modules
   pod 'AffiseModule', affise_version
   # Or only specific Modules
@@ -559,6 +563,7 @@ To match users with events and data library is sending, these `ProviderType` ide
 - `UUID`
 - `AFFISE_APP_OPENED`
 - `PUSHTOKEN`
+- `PUSHTOKEN_SERVICE`
 - `AFFISE_EVENTS_COUNT`
 - `AFFISE_SDK_EVENTS_COUNT`
 - `AFFISE_METRICS_EVENTS_COUNT`
@@ -924,48 +929,119 @@ Install referrer tracking is supported automatically, no actions needed
 ## Push token tracking
 
 To let affise track push token you need to receive it from your push service provider, and pass to Affise library.
-First add firebase integration to your app completing these steps: Firebase [iOS](https://firebase.google.com/docs/cloud-messaging/ios/client) or [Android](https://firebase.google.com/docs/cloud-messaging/android/client) Docs
 
-After you have done with firebase integration, add to your cloud messaging service `onNewToken` method `Affise.addPushToken(token)`
+Supported service providers:
+
+- `APPLE` - **iOS only**
+- `FIREBASE`
+
+### Native
+
+#### iOS APNs
+
+Edit `[AppDelegate.swift](ios/Runner/AppDelegate.swift)`
+
+```swift
+import AffiseAttributionLib
+
+@UIApplicationMain
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    GeneratedPluginRegistrant.register(with: self)
+    let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+    application.registerForRemoteNotifications()
+
+    return result
+  }
+
+  override func application(
+    _ application: UIApplication,
+    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+  ) {
+    let pushToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+
+    // Pass APNs token to Affise
+    Affise.addPushToken(pushToken, .APPLE)
+  }
+}
+```
+
+### Firebase Flutter Plugin
+
+[Firebase Flutter Plugin](https://pub.dev/packages/firebase_messaging)
+
+Add Firebase integration by completing steps in [Firebase Flutter Docs](https://firebase.google.com/docs/cloud-messaging/flutter/client)
+
+After you have done with firebase integration, add to your cloud messaging service 
+`FirebaseMessaging.instance.onTokenRefresh` method `Affise.addPushToken(pushToken)`
 
 ```dart
 import 'package:affise_attribution_lib/affise.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void saveToken(String token) {
-  Affise.addPushToken(token);
-}
 
 class _Application extends State<Application> {
-  String _token;
-
-  Future<void> setupToken() async {
-    // Get the token each time the application loads
-    String? token = await FirebaseMessaging.instance.getToken();
-
-    // Any time the token refreshes, store this in the database too.
-    FirebaseMessaging.instance.onTokenRefresh.listen(saveToken);
-  }
 
   @override
   void initState() {
     super.initState();
 
-    setupToken();
+    // Any time the token refreshes, pass this to Affise.
+    FirebaseMessaging.instance.onTokenRefresh.listen((pushToken) {
+      Affise.addPushToken(pushToken, PushTokenService.FIREBASE);
+    })
+    .onError((err) {
+      // Error getting token.
+    });
   }
 
+  ...
+}
+```
+
+#### iOS APNs
+
+After you have done with firebase integration, pass APNs token from
+`FirebaseMessaging.instance.getAPNSToken()` to `Affise.addPushToken(pushToken)`
+
+```dart
+import 'dart:io';
+import 'package:affise_attribution_lib/affise.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+
+class _Application extends State<Application> {
+
   @override
-  Widget build(BuildContext context) {
-    return Text("...");
+  void initState() {
+    super.initState();
+
+    // Works only on iOS
+    if (Platform.isIOS) {
+      // Get Apple Push Notification Service token
+      FirebaseMessaging.instance.getAPNSToken().then((pushToken) {
+        if (pushToken != null) {
+          Affise.addPushToken(pushToken, PushTokenService.APPLE);
+        }
+      });
+    }
   }
+
+  ...
 }
 ```
 
 ## Reinstall Uninstall tracking
 
-Affise automatically track reinstall events by using silent-push technology, to make this feature work, pass push token when it is recreated by user and on you application starts up
+Affise automatically track reinstall events by using silent-push technology, to make this feature work, 
+pass push token when it is recreated by user and on you application starts up
 
 ```dart
-Affise.addPushToken("token");
+Affise.addPushToken("token", PushTokenService.FIREBASE);
 ```
 
 ## APK preinstall tracking

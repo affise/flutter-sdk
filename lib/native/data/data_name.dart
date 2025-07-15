@@ -47,4 +47,6 @@ class DataName {
 
   static const String EVENT_NAME = "eventName";
   static const String EVENT_VALUES = "eventValues";
+  static const String PUSH_TOKEN = "push_token";
+  static const String PUSH_TOKEN_SERVICE = "push_token_service";
 }

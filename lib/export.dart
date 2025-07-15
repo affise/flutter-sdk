@@ -7,6 +7,7 @@ export 'events/export.dart';
 export 'module/export.dart';
 export 'referrer/export.dart';
 export 'settings/affise_settings.dart';
+export 'settings/push_token_service.dart';
 export 'skad/export.dart';
 
 export 'callback/error_callback.dart';

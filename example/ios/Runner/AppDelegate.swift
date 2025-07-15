@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import AffiseAttributionLib
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,6 +9,18 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+//     application.registerForRemoteNotifications()
+
+    return result
   }
+
+//   override func application(
+//     _ application: UIApplication,
+//     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+//   ) {
+//     let pushToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+//     Affise.addPushToken(pushToken, .APPLE)
+//   }
 }

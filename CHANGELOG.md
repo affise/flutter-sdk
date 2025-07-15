@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.37] - 2025-07-15
+
+### Added
+
+- Provider `PUSHTOKEN_SERVICE`
+
+### Changed
+
+- Update native iOS to [`1.6.52`](https://github.com/affise/sdk-ios/blob/1.6.51/CHANGELOG.md)
+- Update native Android to [`1.6.60`](https://github.com/affise/sdk-android/blob/v1.6.59/CHANGELOG.md)
+
 ## [1.6.36] - 2025-06-20
 
 ### Added
@@ -321,6 +332,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.37]: https://github.com/affise/flutter-sdk/compare/1.6.36...1.6.37
 [1.6.36]: https://github.com/affise/flutter-sdk/compare/1.6.35...1.6.36
 [1.6.35]: https://github.com/affise/flutter-sdk/compare/1.6.34...1.6.35
 [1.6.34]: https://github.com/affise/flutter-sdk/compare/1.6.33...1.6.34

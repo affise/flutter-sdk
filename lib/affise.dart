@@ -52,9 +52,9 @@ class Affise {
   }
 
   /// Add [pushToken]
-  static void addPushToken(String pushToken) {
+  static void addPushToken(String pushToken, PushTokenService service) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _native.addPushToken(pushToken);
+      _native.addPushToken(pushToken, service);
     });
   }
 
