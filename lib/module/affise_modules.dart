@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
 enum AffiseModules {
+  ADSERVICE,
   ADVERTISING,
   ANDROIDID,
   APPSFLYER,
@@ -23,6 +24,8 @@ enum AffiseModules {
 extension AffiseModulesExt on AffiseModules {
   String get value {
     switch (this) {
+      case AffiseModules.ADSERVICE:
+        return "AdService";
       case AffiseModules.ADVERTISING:
         return "Advertising";
       case AffiseModules.ANDROIDID:

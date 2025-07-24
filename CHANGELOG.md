@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.6.38] - 2025-07-24
+
+### Added
+
+- New module `AdServices` for `iOS`
+- Provider `AD_SERVICE_ATTRIBUTION`
+
+### Changed
+
+- Update native iOS to [`1.6.53`](https://github.com/affise/sdk-ios/blob/1.6.51/CHANGELOG.md)
+
 ## [1.6.37] - 2025-07-15
 
 ### Added
@@ -332,6 +343,7 @@
 - Api `Affise.android.getReferrer` to `Affise.getReferrer`
 - Api `Affise.android.getReferrerValue` to  `Affise.getReferrerValue`
   
+[1.6.38]: https://github.com/affise/flutter-sdk/compare/1.6.37...1.6.38
 [1.6.37]: https://github.com/affise/flutter-sdk/compare/1.6.36...1.6.37
 [1.6.36]: https://github.com/affise/flutter-sdk/compare/1.6.35...1.6.36
 [1.6.35]: https://github.com/affise/flutter-sdk/compare/1.6.34...1.6.35
