@@ -102,7 +102,7 @@ referrer.
 
 - `Xcode`   `14.2+`  
 - `iOS`     `12+`
-- `Android` `21+`
+- `Android` `24+`
 
 ## Integration
 
