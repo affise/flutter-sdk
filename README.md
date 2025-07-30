@@ -4,7 +4,7 @@
 
 | Package                  |                         Version                          |
 |--------------------------|:--------------------------------------------------------:|
-| `affise_attribution_lib` | [`1.6.38`](https://github.com/affise/sdk-react/releases) |
+| `affise_attribution_lib` | [`1.6.39`](https://github.com/affise/sdk-react/releases) |
 
 - [Affise Attribution Flutter Library](#affise-attribution-flutter-library)
 - [Description](#description)
@@ -155,7 +155,7 @@ Add modules to android project
 Example [`example/android/app/build.gradle`](example/android/app/build.gradle)
 
 ```gradle
-final affise_version = '1.6.60'
+final affise_version = '1.6.61'
 
 dependencies {
     // Affise modules
